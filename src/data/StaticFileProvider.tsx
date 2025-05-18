@@ -28,11 +28,11 @@ export interface StaticFileProviderProps {
  * 1. Hidden `<input type="file" multiple>` stores the FileList.
  * 2. Drop area or keyboard activation triggers the input.
  * 3. For each chosen file:
- *    - Generate an id and emit `data.snapshot.loading`.
- *    - Validate using {@link validateFile}. Invalid files emit `data.error`.
+ *    - Generate an id and emit `data.snapshot.load.start`.
+ *    - Validate using {@link validateFile}. Invalid files emit `data.snapshot.error`.
  *    - Read text with {@link readFileContent}.
  *    - Dispatch to parser worker via {@link dispatchToParserWorker}.
- *    - Emit `data.snapshot.loaded` on success; otherwise emit `data.error`.
+ *    - Emit `data.snapshot.parsed` on success; otherwise emit `data.snapshot.error`.
  *
  * ### Dependencies
  * - {@link validateFile}
