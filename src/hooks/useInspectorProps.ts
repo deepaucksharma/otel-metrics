@@ -3,8 +3,9 @@
  *
  * UI state from {@link useUiSlice}, parsed snapshot data from {@link useSnapshot},
  * and cardinality context from {@link getProcessedMetricInfo} are merged into a
- * single object. The hook returns `null` until every piece of the context is
- * available.
+ * single object. The hook reads the currently inspected snapshot and metric
+ * from the global UI slice rather than requiring them as parameters. The hook
+ * returns `null` until every piece of the context is available.
  *
  * @param simulateDropKey - optional attribute key to simulate dropping for
  * cardinality reduction demonstration.
