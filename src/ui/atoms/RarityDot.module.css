@@ -1,0 +1,17 @@
+.dot {
+  border-radius: 50%;
+  display: inline-block;
+  cursor: pointer;
+}
+.rarityLo {
+  background: var(--rarityGreen);
+}
+.rarityMid {
+  background: var(--rarityAmber);
+}
+.rarityHi {
+  background: var(--rarityRed);
+}
+.dot:hover {
+  filter: brightness(1.1);
+}
