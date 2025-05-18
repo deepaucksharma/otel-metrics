@@ -89,10 +89,7 @@ return {
   exemplars : point.exemplars,
   onClose   : () => uiActions.closeInspector(),
   onAddGlobalFilter: (k,v)=> uiActions.addFilter(k,v), // future
-  onSimulateDrop  : (key,drop) => {
-    // Call the uiSlice action which updates global state
-    uiActions.toggleSimDrop(key, drop);
-  },
+  // onSimulateDrop is provided by MetricInstanceWidget, not implemented here
   metricLatestNValues: undefined  // Caller may pass later
 }
 ```
