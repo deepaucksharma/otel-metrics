@@ -6,8 +6,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
-
-// import { registerGlobalEventListeners } from '@/services/eventListeners';
+import { registerEventListeners } from '@/services/eventListeners';
 import App from './App';
 import './global.css';
 
@@ -23,7 +22,6 @@ root.render(
   </React.StrictMode>
 );
 
-// Commented out to avoid errors during build
-// registerGlobalEventListeners();
+registerEventListeners();
 
 
