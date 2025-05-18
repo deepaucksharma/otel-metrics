@@ -14,7 +14,7 @@
     "test:perf": "node scripts/perf-budget.js",
     "test:e2e": "playwright test",
     "build:storybook": "storybook build",
-    "docs:mkdocs": "mkdocs build",
+    "docs:mkdocs": "mkdocs build --config-file mkdocs.yml",
     "release": "semantic-release"
   },
   "dependencies": {

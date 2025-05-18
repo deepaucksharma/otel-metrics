@@ -1,0 +1,9 @@
+site_name: IntelliMetric Explorer
+site_description: OTLP snapshot inspector
+site_url: https://deepaucksharma.github.io/otel-metrics/
+repo_url: https://github.com/deepaucksharma/otel-metrics
+docs_dir: src
+site_dir: site
+nav:
+  - Overview: 00-Overview.md
+  - Architecture Principles: 01-Architecture-Principles.md
