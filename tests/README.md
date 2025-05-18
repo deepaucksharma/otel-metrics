@@ -14,6 +14,16 @@ application.
 - **ValueZone.test.tsx** – covers rendering logic for values and histograms in
   the `ValueZone` component.
 - **uiSlice.test.ts** – exercises the UI state slice helpers and selectors.
+- **validateFile.test.ts** – checks extension and size validation logic.
+- **decompressGzip.test.ts** – ensures gzipped buffers inflate correctly and errors propagate.
+- **readFile.test.ts** – reads plain and gzipped files via mocked `FileReader`.
+- **jsonSafeParse.test.ts** – handles valid and malformed JSON safely.
+- **exemplarExtractor.test.ts** – maps raw OTLP exemplars to internal form.
+- **attributeStats.test.ts** – computes unique attribute counts and ranking.
+- **jaccardEstimator.test.ts** – branch coverage for similarity maths.
+- **seriesCardinalityCalc.test.ts** – projects series counts when attributes drop.
+- **uniqueValueCounter.test.ts** – tracks unique primitive values.
+- **seriesKeyEncoder.test.ts** – encodes and decodes stable series identifiers.
 
 ## Running Tests
 

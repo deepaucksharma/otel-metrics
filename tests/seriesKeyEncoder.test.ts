@@ -19,4 +19,9 @@ describe('seriesKeyEncoder', () => {
       count: 5,
     });
   });
+
+  it('decode returns null on malformed key', () => {
+    expect(decodeSeriesKey('')).toBeNull();
+    expect(decodeSeriesKey('metric|a')).toBeNull();
+  });
 });
