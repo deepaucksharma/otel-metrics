@@ -1,5 +1,5 @@
 import mitt from 'mitt';
-import type { ParsedSnapshot } from '@intellimetric/contracts/types';
+import type { ParsedSnapshot, SeriesKey } from '@intellimetric/contracts/types';
 
 /**
  * Map of all events that can be emitted on the global {@link bus} instance.
@@ -39,7 +39,12 @@ export type EventMap = {
   'ui.metric.inspect': { metricName: string; snapshotId: string };
 
   /** Open the data point inspector drawer. */
-  'ui.inspector.open': void;
+  'ui.inspector.open': {
+    snapshotId: string;
+    metricName: string;
+    seriesKey: SeriesKey;
+    pointId: number;
+  };
 
   /** Close the data point inspector drawer. */
   'ui.inspector.close': void;

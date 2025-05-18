@@ -2,7 +2,7 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { describe, it, expect } from 'vitest';
 import { ValueZone } from '../src/ui/organisms/ValueZone';
-import type { MetricDefinition, ParsedPoint } from '../src/contracts/types';
+import type { MetricDefinition, ParsedPoint } from '@intellimetric/contracts/types';
 
 describe('ValueZone', () => {
   it('renders GaugeCard for Gauge metric', () => {

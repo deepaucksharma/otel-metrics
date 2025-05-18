@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { ExemplarData } from '@/contracts/types';
+import { ExemplarData } from '@intellimetric/contracts/types';
 import { formatters, formatTimestamp } from '@/utils/formatters';
 import { CopyButton } from '@/ui/atoms/CopyButton';
 import styles from './ExemplarsZone.module.css';
@@ -172,5 +172,3 @@ export const ExemplarsZone: React.FC<ExemplarsZoneProps> = ({
     </div>
   );
 };
-
-

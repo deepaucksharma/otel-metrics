@@ -1,4 +1,3 @@
-
 /**
  * Create and manage a micro‑pool of Web Workers running `parser.worker.ts` and expose a promise-based API.
  *
@@ -10,10 +9,10 @@
  * Future work: queue length metrics and dynamic pool sizing.
  */
 
-import type { ParsedSnapshot } from '@/contracts/types';
+import type { ParsedSnapshot } from '@intellimetric/contracts/types';
 import { jsonSafeParse } from '@/logic/workers/utils/jsonSafeParse';
 import { mapToParsedSnapshot } from '@/logic/workers/mapping/otlpMapper';
-import type { RawOtlpExportMetricsServiceRequest } from '@/contracts/rawOtlpTypes';
+import type { RawOtlpExportMetricsServiceRequest } from '@intellimetric/contracts/rawOtlpTypes';
 import { randomId } from '@/utils/randomId';
 
 export interface ParseTask {
@@ -159,4 +158,3 @@ export function terminateAllParserWorkers(): void {
   workers.length = 0;
   inFlight.clear();
 }
-

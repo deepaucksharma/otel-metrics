@@ -1,4 +1,4 @@
-import type { ParsedMetricData, UniqueCount, AttrValue } from '@/contracts/types';
+import type { ParsedMetricData, UniqueCount, AttrValue } from '@intellimetric/contracts/types';
 import { getUniqueValues } from './utils/uniqueValueCounter';
 
 export interface AttributeStatistics {
@@ -34,7 +34,7 @@ export interface AttributeStatistics {
  *
  * ### Dependencies
  * - `getUniqueValues` from `utils/uniqueValueCounter`.
- * - Type imports from `@/contracts/types`.
+ * - Type imports from `@intellimetric/contracts/types`.
  *
  * ### Tests
  * - 3 series sharing `host.name` ⇒ `attrUniq['host.name']` equals `1`.

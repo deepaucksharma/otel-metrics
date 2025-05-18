@@ -4,10 +4,17 @@
     "module": "ESNext",
     "jsx": "react-jsx",
     "strict": true,
+    "noEmit": false,
+    "skipLibCheck": true,
     "moduleResolution": "Node",
     "esModuleInterop": true,
-    "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
+    "baseUrl": "./src",
+    "paths": {
+      "@/*": ["./*"],
+      "@intellimetric/contracts": ["../packages/contracts"],
+      "@intellimetric/contracts/*": ["../packages/contracts/*"]
+    },
     "types": ["node"]
   },
   "include": ["src", "tests", "vite.config.js"]
