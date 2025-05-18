@@ -10,6 +10,9 @@ microscopically analysing a single OTLP snapshot.
 
 ## Quick start
 
+Requires **Node.js >=18.17**. We recommend using
+[nvm](https://github.com/nvm-sh/nvm) to manage Node versions.
+
 ```bash
 pnpm i          # install deps
 pnpm dev        # Vite + HMR
