@@ -17,17 +17,38 @@ IntelliMetric Explorer / Data-Point Inspector Drawer is a specialized UI compone
 ## Development Commands
 
 ```bash
+# Install dependencies
+pnpm i
+
 # Start development server
-npm start
+pnpm dev
 
 # Build for production
-npm build 
+pnpm build 
 
-# Run tests
-npm test
+# Run unit tests
+pnpm test:unit
 
-# Eject from Create React App
-npm eject
+# Run end-to-end tests
+pnpm test:e2e
+
+# Run specific test patterns
+pnpm test:unit -- --testPathPattern=fileProvider
+
+# Generate test coverage report
+pnpm test:unit -- --coverage
+
+# Lint code
+pnpm lint
+
+# Type check
+pnpm typecheck
+
+# Build Storybook
+pnpm build:storybook
+
+# Build documentation
+pnpm docs:mkdocs
 ```
 
 ## Project Architecture
@@ -48,6 +69,9 @@ This project follows a strict nano-module architecture where:
 5. **Global State** (`src/state/`) - Zustand state slices (metrics and UI)
 6. **Hooks** (`src/hooks/`) - React hooks for data access
 7. **UI Components** (`src/ui/`) - React components (atoms → organisms → layouts)
+8. **Services** (`src/services/`) - Event bus and listeners
+
+The architecture enforces strict import rules between layers to maintain boundaries and prevent circular dependencies.
 
 ### Data Flow
 
@@ -57,13 +81,13 @@ StaticFileProvider → Worker Dispatch → Parser Worker → Event Bus → Metri
 
 ### Key Technologies
 
-- React 18 with TypeScript
+- React with TypeScript
 - Zustand + immer for state management
 - Vite for build system (HMR and worker bundling)
 - mitt for event handling (micro-event bus)
 - pako for gzip decompression in-browser
-- uPlot for sparklines
 - CSS Modules + tokens.css for styling
+- react-window for virtualized lists
 
 ## Performance Targets
 
@@ -73,17 +97,35 @@ The project has strict performance budgets:
 - < 500ms for Gzip → JSON parsing (worker) for 20MB
 - < 40ms for attribute drop simulation calculation (100k series)
 
+Performance tests will fail the build if these budgets are not met.
+
 ## Type System
 
 - All cross-layer payloads derive from base types in `src/contracts/types.ts`
 - Branded primitives are used for critical numbers to prevent mix-ups
 - Strict typing with no optional nulls
 
+## Testing Strategy
+
+The project uses different testing approaches for each layer:
+
+| Layer | Testing Approach | Tools | Coverage Goals |
+|-------|-----------------|-------|----------------|
+| Data Provider | Unit tests | Jest + file mocks | 95% line, 90% branch |
+| Parser Worker | Worker environment tests | Vitest | 95% line, 95% branch |
+| Processing Logic | Pure function tests | Jest | 100% branch coverage |
+| Hooks | React hooks testing | React Testing Library | 80% line, 70% branch |
+| UI Components | Visual regression | Storybook + screenshots | 70% line, 60% branch |
+| E2E | End-to-end flows | Playwright | Core user journeys |
+
+The testing harnesses in `tests/harnesses/` provide utilities for each layer's specific testing needs.
+
 ## Reading Order for New Developers
 
 1. `src/00-Overview.md` - Project overview
 2. `src/01-Architecture-Principles.md` - Contracts and boundaries
 3. `src/contracts/README.md` - TypeScript interfaces summary
+4. `src/02-Code-Comment-Guide.md` - Code documentation standards
 
 Backend focus path:
 - `src/data/*.md` → `src/logic/workers/*.md` → `src/logic/processing/*.md`
@@ -91,13 +133,55 @@ Backend focus path:
 Frontend focus path:
 - Start with `src/ui/atoms/*.md` and work up to `DataPointInspectorDrawer.md`
 
-## Testing Requirements
+## Coding Standards
 
-| Layer | Tooling | Minimum coverage |
-|-------|---------|------------------|
-| Data Provider | Jest + fake File | happy + error paths |
-| Parser Worker | Vitest in worker env | JSON edge cases |
-| Processing | Jest | 100% branch on maths |
-| Hooks | React Testing Library | basic reactivity |
-| UI Atoms | Storybook screenshot | per variant |
-| Layout (E2E) | Playwright | load snapshot → open Inspector |
+1. Strict adherence to the nano-module pattern (50-150 lines per file)
+2. Export only functions, types, or React components; no side-effect code at import-time
+3. Co-locate related files (component, spec, tests, CSS modules)
+4. Pure logic modules never reach into global state
+5. UI modules receive all data via props; never call Zustand directly
+
+## Documentation
+
+- Markdown specs live directly alongside code in `src/**/*.md`
+- Documentation is published to GitHub Pages on pushes to main
+- All documentation changes should be reviewed in PRs
+
+## CI/CD Pipeline
+
+The GitHub Actions workflows handle:
+- CI checks (lint, unit tests, typecheck, build)
+- E2E tests with Playwright
+- Documentation publishing
+- Security scanning with CodeQL
+- Semantic release versioning
+
+## Versioning
+
+- SemVer at workspace root
+- Breaking changes to contracts trigger a major version bump
+- Changes are documented in CHANGELOG.md
+
+## Project Scope and Objectives
+
+### Objectives
+- Enhance metric debugging by providing immediate context and detailed metadata
+- Improve cardinality awareness through visual cues and interactive simulations
+- Simplify exploration of metric points, attributes, and exemplars
+- Enable optimization by helping engineers reduce unnecessary cardinality
+- Maintain performance while delivering rich data visualizations
+
+### In Scope
+- Static snapshot analysis (single point-in-time)
+- Visual representation adapting to metric type (gauge, counter, histogram)
+- Attribute exploration with cardinality indicators
+- Interactive cardinality simulation (what-if analysis)
+- Exemplar visualization when available
+
+### Out of Scope
+- Cross-snapshot comparisons
+- Real-time updates
+- Full metric series analysis
+- Advanced filtering capabilities
+- Complete accessibility conformance
+- Full filter management UI (drawer only triggers `onAddGlobalFilter`)
