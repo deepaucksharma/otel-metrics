@@ -1,4 +1,20 @@
 /**
+ * @layer Parser Worker
+ * @summary TODO
+ *
+ * ## Purpose
+ *
+ * TODO
+ *
+ * ## Algorithm/Visual
+ *
+ * TODO
+ *
+ * @perfBudget TODO
+ * @loc_estimate TODO
+ */
+
+/**
  * Convert raw OTLP JSON payload into the internal ParsedSnapshot graph.
  *
  * {@markdown

@@ -1,3 +1,19 @@
+/**
+ * @layer UI Components
+ * @summary TODO
+ *
+ * ## Purpose
+ *
+ * TODO
+ *
+ * ## Algorithm/Visual
+ *
+ * TODO
+ *
+ * @perfBudget TODO
+ * @loc_estimate TODO
+ */
+
 import React, { useState, useCallback, useMemo, useEffect, useRef } from 'react';
 import type { InspectorProps } from '@/contracts/types';
 import { InspectorHeader } from './InspectorHeader';

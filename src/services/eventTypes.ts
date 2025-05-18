@@ -1,3 +1,19 @@
+/**
+ * @layer Services
+ * @summary TODO
+ *
+ * ## Purpose
+ *
+ * TODO
+ *
+ * ## Algorithm/Visual
+ *
+ * TODO
+ *
+ * @perfBudget TODO
+ * @loc_estimate TODO
+ */
+
 import type { ParsedSnapshot, SeriesKey } from '@/contracts/types';
 
 /**

@@ -1,3 +1,19 @@
+/**
+ * @layer Hooks
+ * @summary TODO
+ *
+ * ## Purpose
+ *
+ * TODO
+ *
+ * ## Algorithm/Visual
+ *
+ * TODO
+ *
+ * @perfBudget TODO
+ * @loc_estimate TODO
+ */
+
 import { useState, useCallback } from 'react';
 
 /**

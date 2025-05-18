@@ -1,4 +1,20 @@
 /**
+ * @layer App
+ * @summary TODO
+ *
+ * ## Purpose
+ *
+ * TODO
+ *
+ * ## Algorithm/Visual
+ *
+ * TODO
+ *
+ * @perfBudget TODO
+ * @loc_estimate TODO
+ */
+
+/**
  * Bootstraps the React application.
  *
  * This file attaches the {@link App} component to the DOM.

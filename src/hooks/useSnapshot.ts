@@ -1,3 +1,19 @@
+/**
+ * @layer Hooks
+ * @summary TODO
+ *
+ * ## Purpose
+ *
+ * TODO
+ *
+ * ## Algorithm/Visual
+ *
+ * TODO
+ *
+ * @perfBudget TODO
+ * @loc_estimate TODO
+ */
+
 import { useStore } from 'zustand';
 import { useMetricsSlice } from '@/state/metricsSlice';
 import type { ParsedSnapshot } from '@/contracts/types';

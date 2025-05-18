@@ -1,4 +1,20 @@
 /**
+ * @layer UI Components
+ * @summary TODO
+ *
+ * ## Purpose
+ *
+ * TODO
+ *
+ * ## Algorithm/Visual
+ *
+ * TODO
+ *
+ * @perfBudget TODO
+ * @loc_estimate TODO
+ */
+
+/**
  * Visual control center for cardinality understanding and simulation.
  *
  * This organism renders the metric series count, contributor bars and a

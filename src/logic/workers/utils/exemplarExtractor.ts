@@ -1,3 +1,19 @@
+/**
+ * @layer Parser Worker
+ * @summary TODO
+ *
+ * ## Purpose
+ *
+ * TODO
+ *
+ * ## Algorithm/Visual
+ *
+ * TODO
+ *
+ * @perfBudget TODO
+ * @loc_estimate TODO
+ */
+
 // Transform raw OTLP exemplar objects into lightweight `ExemplarData`.
 
 import type { ExemplarData, AttrMap } from '@/contracts/types';

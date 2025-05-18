@@ -1,4 +1,20 @@
 /**
+ * @layer Parser Worker
+ * @summary TODO
+ *
+ * ## Purpose
+ *
+ * TODO
+ *
+ * ## Algorithm/Visual
+ *
+ * TODO
+ *
+ * @perfBudget TODO
+ * @loc_estimate TODO
+ */
+
+/**
  * Zero-dependency helper converting raw JSON text to objects without throwing.
  *
  * ### Either return type

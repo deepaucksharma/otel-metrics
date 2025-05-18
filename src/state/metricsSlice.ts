@@ -1,4 +1,20 @@
 /**
+ * @layer Global State
+ * @summary TODO
+ *
+ * ## Purpose
+ *
+ * TODO
+ *
+ * ## Algorithm/Visual
+ *
+ * TODO
+ *
+ * @perfBudget TODO
+ * @loc_estimate TODO
+ */
+
+/**
  * Store all loaded snapshots and expose CRUD actions plus memoised selectors.
  *
  * This slice holds parsed OTLP snapshots keyed by `snapshot.id` and keeps an

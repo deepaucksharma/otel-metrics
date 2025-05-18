@@ -1,4 +1,20 @@
 /**
+ * @layer Parser Worker
+ * @summary TODO
+ *
+ * ## Purpose
+ *
+ * TODO
+ *
+ * ## Algorithm/Visual
+ *
+ * TODO
+ *
+ * @perfBudget TODO
+ * @loc_estimate TODO
+ */
+
+/**
  * Generate canonical, collision-free series keys for OTLP data.
  *
  * This module merges resource and metric attributes, sorts them

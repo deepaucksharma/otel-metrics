@@ -1,4 +1,20 @@
 /**
+ * @layer Hooks
+ * @summary TODO
+ *
+ * ## Purpose
+ *
+ * TODO
+ *
+ * ## Algorithm/Visual
+ *
+ * TODO
+ *
+ * @perfBudget TODO
+ * @loc_estimate TODO
+ */
+
+/**
  * Combine three sources into a memoised `InspectorProps` object for the DataPointInspectorDrawer.
  *
  * UI state from {@link useUiSlice}, parsed snapshot data from {@link useSnapshot},

@@ -1,3 +1,19 @@
+/**
+ * @layer Contracts
+ * @summary TODO
+ *
+ * ## Purpose
+ *
+ * TODO
+ *
+ * ## Algorithm/Visual
+ *
+ * TODO
+ *
+ * @perfBudget TODO
+ * @loc_estimate TODO
+ */
+
 // Worker-only schema mirror of the protobuf JSON representation.
 
 /**

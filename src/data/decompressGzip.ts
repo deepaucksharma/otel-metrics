@@ -1,4 +1,20 @@
 /**
+ * @layer Data Provider
+ * @summary TODO
+ *
+ * ## Purpose
+ *
+ * TODO
+ *
+ * ## Algorithm/Visual
+ *
+ * TODO
+ *
+ * @perfBudget TODO
+ * @loc_estimate TODO
+ */
+
+/**
  * Convert a gzipped ArrayBuffer from `.gz/.json.gz/.otel.gz` into a UTF-8 string in the browser using pako.
  */
 import { inflate } from 'pako';
