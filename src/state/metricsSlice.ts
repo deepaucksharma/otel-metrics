@@ -63,6 +63,11 @@ export const useMetricsSlice = create<MetricsSliceState & MetricsSliceActions>()
 
     removeSnapshot: (id) =>
       set((state) => {
+        const snap = state.snapshots[id];
+        if (snap) {
+          delete state.loading[snap.fileName];
+          delete state.errors[snap.fileName];
+        }
         delete state.snapshots[id];
         state.snapshotOrder = state.snapshotOrder.filter((i) => i !== id);
       }),
@@ -133,3 +138,8 @@ export const selectSnapshotSummaries = (state: MetricsSliceState) =>
     };
   });
 
+/** Selector for current loading state keyed by file name. */
+export const selectLoading = (state: MetricsSliceState) => state.loading;
+
+/** Selector for recorded errors keyed by file name. */
+export const selectErrors = (state: MetricsSliceState) => state.errors;
