@@ -17,6 +17,16 @@ pnpm test:unit  # Jest/Vitest
 pnpm lint
 ```
 
+After installing dependencies the project can be verified locally:
+
+```bash
+pnpm lint  # runs ESLint using eslint.config.js
+pnpm dev   # starts the Vite dev server
+```
+
+Ensure `eslint.config.js` and `tsconfig.json` exist in the repository root
+before running these commands.
+
 ## Documentation
 
 The Markdown specs inside `src/` are automatically published to
