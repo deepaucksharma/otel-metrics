@@ -88,7 +88,7 @@ RarityDot.module.css:
 ## 5. Dependencies
 clsx (utility)
 
-Design tokens in tokens.css
+Design tokens in [tokens.css](../tokens.css.md)
 
 ## 6. Accessibility
 Keyboard focusable when onClick provided.

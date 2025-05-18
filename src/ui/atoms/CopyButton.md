@@ -96,7 +96,7 @@ CopyButton.module.css:
 .btn:active  { transform: scale(0.95); }
 ```
 
-Design tokens:
+Design tokens ([tokens.css](../tokens.css.md)):
 
 ```css
 :root {
