@@ -1,6 +1,12 @@
 /**
  * Connect the event bus to global state slices.
  *
+ * @purpose Route events from various sources to appropriate state handlers.
+ * @algorithm
+ * 1. Register handlers on the event bus for each supported event type
+ * 2. For each event, route it to the correct action in the appropriate state slice
+ * 3. Return a cleanup function that detaches all listeners when invoked
+ *
  * This module registers handlers on the {@link eventBus} which
  * forward events to actions on the zustand slices returned by
  * {@link useMetricsSlice} and {@link useUiSlice}. It allows the
@@ -35,11 +41,20 @@ export function registerEventListeners(): () => void {
   });
 
   eventBus.on('data.snapshot.error', (payload: EventTypes['data.snapshot.error']) => {
-    metricsActions.registerError(payload.fileName, payload.error);
+    metricsActions.registerError(payload.fileName, payload.error, payload.detail);
   });
 
   eventBus.on('data.snapshot.load.start', (payload: EventTypes['data.snapshot.load.start']) => {
-    metricsActions.markLoading(payload.fileName);
+    const taskId = crypto.randomUUID();
+    metricsActions.markLoading(payload.fileName, payload.fileSize, taskId);
+  });
+  
+  eventBus.on('data.snapshot.load.progress', (payload: EventTypes['data.snapshot.load.progress']) => {
+    metricsActions.updateProgress(payload.taskId, payload.progress, payload.stage);
+  });
+  
+  eventBus.on('data.snapshot.load.cancel', (payload: EventTypes['data.snapshot.load.cancel']) => {
+    metricsActions.cancelTask(payload.taskId);
   });
 
   // UI events
@@ -62,6 +77,13 @@ export function registerEventListeners(): () => void {
 
   // Return cleanup function to detach all listeners
   return () => {
-    eventBus.off('*');
+    eventBus.off('data.snapshot.parsed');
+    eventBus.off('data.snapshot.error');
+    eventBus.off('data.snapshot.load.start');
+    eventBus.off('data.snapshot.load.progress');
+    eventBus.off('data.snapshot.load.cancel');
+    eventBus.off('ui.inspector.open');
+    eventBus.off('ui.inspector.close');
+    eventBus.off('ui.metric.inspect');
   };
 }

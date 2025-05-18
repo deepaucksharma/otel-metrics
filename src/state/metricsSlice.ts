@@ -17,6 +17,22 @@ import { create } from 'zustand';
 import { immer } from 'zustand/middleware/immer';
 import type { ParsedSnapshot } from '@/contracts/types';
 
+/** Progress information for a loading file */
+export interface LoadingProgress {
+  /** File name being processed */
+  fileName: string;
+  /** Task ID for tracking/cancellation */
+  taskId: string;
+  /** Progress percentage (0-100) */
+  progress: number;
+  /** Current processing stage */
+  stage: 'parsing' | 'mapping' | 'processing';
+  /** File size in bytes */
+  fileSize: number;
+  /** Timestamp when loading started */
+  startTime: number;
+}
+
 /** State for {@link useMetricsSlice}. */
 export interface MetricsSliceState {
   /** All snapshots keyed by `snapshot.id`. */
@@ -25,8 +41,12 @@ export interface MetricsSliceState {
   snapshotOrder: string[];
   /** Files currently being loaded keyed by file name. */
   loading: Record<string, boolean>;
+  /** Detailed progress for files being loaded */
+  progress: Record<string, LoadingProgress>;
   /** Errors encountered while loading keyed by file name. */
-  errors: Record<string, string>;
+  errors: Record<string, { message: string; detail?: string }>;
+  /** Map of task IDs to file names for quick lookup */
+  taskMap: Record<string, string>;
 }
 
 /** Actions mutating {@link MetricsSliceState}. */
@@ -38,9 +58,13 @@ export interface MetricsSliceActions {
   /** Clear all snapshots. */
   clearSnapshots(): void;
   /** Record an error for a given file. */
-  registerError(fileName: string, error: string): void;
+  registerError(fileName: string, error: string, detail?: string): void;
   /** Mark a file as currently loading. */
-  markLoading(fileName: string): void;
+  markLoading(fileName: string, fileSize: number, taskId: string): void;
+  /** Update progress for a loading file. */
+  updateProgress(taskId: string, progress: number, stage: LoadingProgress['stage']): void;
+  /** Cancel a running task. */
+  cancelTask(taskId: string): void;
 }
 
 /** Zustand store containing metrics data and actions. */
@@ -49,7 +73,9 @@ export const useMetricsSlice = create<MetricsSliceState & MetricsSliceActions>()
     snapshots: {},
     snapshotOrder: [],
     loading: {},
+    progress: {},
     errors: {},
+    taskMap: {},
 
     addSnapshot: (snap) =>
       set((state) => {
@@ -57,17 +83,43 @@ export const useMetricsSlice = create<MetricsSliceState & MetricsSliceActions>()
         if (!state.snapshotOrder.includes(snap.id)) {
           state.snapshotOrder.push(snap.id);
         }
-        delete state.loading[snap.fileName];
-        delete state.errors[snap.fileName];
+        
+        // Clean up loading state and progress
+        const fileName = snap.fileName;
+        delete state.loading[fileName];
+        delete state.errors[fileName];
+        
+        // Find and remove any task IDs associated with this file
+        const taskIds = Object.entries(state.taskMap)
+          .filter(([_, fn]) => fn === fileName)
+          .map(([taskId]) => taskId);
+          
+        for (const taskId of taskIds) {
+          delete state.taskMap[taskId];
+        }
+        
+        delete state.progress[fileName];
       }),
 
     removeSnapshot: (id) =>
       set((state) => {
         const snap = state.snapshots[id];
         if (snap) {
-          delete state.loading[snap.fileName];
-          delete state.errors[snap.fileName];
+          const fileName = snap.fileName;
+          delete state.loading[fileName];
+          delete state.errors[fileName];
+          delete state.progress[fileName];
+          
+          // Clean up any associated tasks
+          const taskIds = Object.entries(state.taskMap)
+            .filter(([_, fn]) => fn === fileName)
+            .map(([taskId]) => taskId);
+            
+          for (const taskId of taskIds) {
+            delete state.taskMap[taskId];
+          }
         }
+        
         delete state.snapshots[id];
         state.snapshotOrder = state.snapshotOrder.filter((i) => i !== id);
       }),
@@ -77,19 +129,59 @@ export const useMetricsSlice = create<MetricsSliceState & MetricsSliceActions>()
         state.snapshots = {};
         state.snapshotOrder = [];
         state.loading = {};
+        state.progress = {};
         state.errors = {};
+        state.taskMap = {};
       }),
 
-    registerError: (fileName, error) =>
+    registerError: (fileName, error, detail) =>
       set((state) => {
-        state.errors[fileName] = error;
+        state.errors[fileName] = { message: error, detail };
         delete state.loading[fileName];
+        delete state.progress[fileName];
+        
+        // Clean up any associated tasks
+        const taskIds = Object.entries(state.taskMap)
+          .filter(([_, fn]) => fn === fileName)
+          .map(([taskId]) => taskId);
+          
+        for (const taskId of taskIds) {
+          delete state.taskMap[taskId];
+        }
       }),
 
-    markLoading: (fileName) =>
+    markLoading: (fileName, fileSize, taskId) =>
       set((state) => {
         state.loading[fileName] = true;
+        state.taskMap[taskId] = fileName;
+        state.progress[fileName] = {
+          fileName,
+          taskId,
+          progress: 0,
+          stage: 'parsing',
+          fileSize,
+          startTime: Date.now()
+        };
         delete state.errors[fileName];
+      }),
+      
+    updateProgress: (taskId, progress, stage) => 
+      set((state) => {
+        const fileName = state.taskMap[taskId];
+        if (fileName && state.progress[fileName]) {
+          state.progress[fileName].progress = progress;
+          state.progress[fileName].stage = stage;
+        }
+      }),
+      
+    cancelTask: (taskId) =>
+      set((state) => {
+        const fileName = state.taskMap[taskId];
+        if (fileName) {
+          delete state.loading[fileName];
+          delete state.progress[fileName];
+          delete state.taskMap[taskId];
+        }
       }),
   }))
 );
@@ -143,3 +235,17 @@ export const selectLoading = (state: MetricsSliceState) => state.loading;
 
 /** Selector for recorded errors keyed by file name. */
 export const selectErrors = (state: MetricsSliceState) => state.errors;
+
+/** Selector for progress information keyed by file name. */
+export const selectProgress = (state: MetricsSliceState) => state.progress;
+
+/** Selector for a specific file's progress. */
+export const selectFileProgress = (fileName: string) => 
+  (state: MetricsSliceState) => state.progress[fileName];
+
+/** Selector for task cancellation status. */
+export const selectTaskInfo = (taskId: string) => 
+  (state: MetricsSliceState) => {
+    const fileName = state.taskMap[taskId];
+    return fileName ? state.progress[fileName] : undefined;
+  };

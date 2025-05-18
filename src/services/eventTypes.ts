@@ -6,8 +6,15 @@ import type { ParsedSnapshot, SeriesKey } from '@/contracts/types';
  */
 export interface EventTypes {
   'data.snapshot.parsed': { snapshot: ParsedSnapshot };
-  'data.snapshot.error': { fileName: string; error: string };
-  'data.snapshot.load.start': { fileName: string };
+  'data.snapshot.error': { fileName: string; error: string; detail?: string };
+  'data.snapshot.load.start': { fileName: string; fileSize: number };
+  'data.snapshot.load.progress': { 
+    fileName: string; 
+    taskId: string;
+    progress: number; // 0-100 percentage
+    stage: 'parsing' | 'mapping' | 'processing' 
+  };
+  'data.snapshot.load.cancel': { fileName: string; taskId: string };
   
   'ui.inspector.open': { 
     snapshotId: string; 

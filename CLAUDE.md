@@ -23,6 +23,9 @@ pnpm i
 # Start development server
 pnpm dev
 
+# Run Storybook for component development
+pnpm storybook
+
 # Build for production
 pnpm build 
 
@@ -79,6 +82,24 @@ The architecture enforces strict import rules between layers to maintain boundar
 StaticFileProvider → Worker Dispatch → Parser Worker → Event Bus → Metrics Slice → UI Components
 ```
 
+### Core Functional Flows
+
+#### Data Ingestion Flow
+1. User drops/selects OTLP file via `StaticFileProvider.tsx`
+2. File is validated, read, and decompressed if needed
+3. `dispatchToWorker.ts` sends data to a Web Worker pool (or process synchronously if workers unavailable)
+4. Parser worker deserializes JSON and maps to internal structures
+5. Worker emits `data.snapshot.parsed` event via event bus
+6. Event listeners update metrics slice Zustand state
+7. UI components react to state changes
+
+#### UI Rendering Flow
+1. `DataPointInspectorDrawer` serves as main container for metric inspection
+2. `useInspectorProps` hook assembles props from various sources (UI state, snapshot data, cardinality context)
+3. Child components render specific aspects (value visualization, attributes, cardinality, etc.)
+4. Interaction events (attribute focus, drop simulation) are handled locally with state lifting when needed
+5. Focus trap ensures keyboard accessibility within the drawer
+
 ### Key Technologies
 
 - React with TypeScript
@@ -88,6 +109,7 @@ StaticFileProvider → Worker Dispatch → Parser Worker → Event Bus → Metri
 - pako for gzip decompression in-browser
 - CSS Modules + tokens.css for styling
 - react-window for virtualized lists
+- lucide-react for icons
 
 ## Performance Targets
 
@@ -125,7 +147,7 @@ The testing harnesses in `tests/harnesses/` provide utilities for each layer's s
 1. `src/00-Overview.md` - Project overview
 2. `src/01-Architecture-Principles.md` - Contracts and boundaries
 3. `src/contracts/README.md` - TypeScript interfaces summary
-4. `src/02-Code-Comment-Guide.md` - Code documentation standards
+4. `src/02-Code-Comment-Guide.md` - Code documentation standards with TSDoc tags
 
 Backend focus path:
 - `src/data/*.md` → `src/logic/workers/*.md` → `src/logic/processing/*.md`
@@ -140,6 +162,14 @@ Frontend focus path:
 3. Co-locate related files (component, spec, tests, CSS modules)
 4. Pure logic modules never reach into global state
 5. UI modules receive all data via props; never call Zustand directly
+6. Code comments must include `@purpose` and `@algorithm` TSDoc tags (see `src/02-Code-Comment-Guide.md`)
+
+## Error Handling
+
+1. Worker errors are caught and propagated through the event bus
+2. UI components should implement appropriate error states
+3. State updates include error tracking via `registerError` action
+4. Missing data paths (null/undefined values) should be explicitly handled in components
 
 ## Documentation
 
@@ -185,3 +215,16 @@ The GitHub Actions workflows handle:
 - Advanced filtering capabilities
 - Complete accessibility conformance
 - Full filter management UI (drawer only triggers `onAddGlobalFilter`)
+
+## UI Theme
+
+The current UI is optimized for dark mode. Contributions for a light theme or automatic `prefers-color-scheme` support would be welcome additions to the project.
+
+## Known Limitations
+
+1. Limited handling for very large snapshots (>1M series)
+2. Synchronous fallback for environments without Web Worker support may cause UI freezing
+3. No progress indicators for long-running operations
+4. No cancellation mechanism for in-flight parsing tasks
+5. No persistence or state recovery between sessions
+6. Limited keyboard accessibility for complex interactions
