@@ -32,7 +32,8 @@ flowchart LR
         UI[StaticFileProvider.tsx] --> |raw string| WorkerDispatch
         WorkerDispatch --> |postMessage| ParserWorker
         ParserWorker --> |ParsedSnapshot| EventBus
-        EventBus --> metricsSlice
+        EventBus --> eventListeners
+        eventListeners --> metricsSlice
         uiSlice --> MetricInstanceWidget
         MetricInstanceWidget --> |InspectorProps| InspectorDrawer
     end
