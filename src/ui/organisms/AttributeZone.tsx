@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import type { AttrMap, AttrValue } from '@/contracts/types';
 import { FixedSizeList } from 'react-window';
 import { AttributeRow } from '../molecules/AttributeRow';
@@ -42,9 +42,22 @@ export const AttributeZone: React.FC<AttributeZoneProps> = ({
   focusedAttrKey,
   onFocusAttr
 }) => {
+  const rowRef = useRef<HTMLDivElement>(null);
+  const [itemSize, setItemSize] = useState<number>(36);
+
+  useEffect(() => {
+    if (rowRef.current) {
+      setItemSize(rowRef.current.getBoundingClientRect().height);
+    }
+  }, []);
 
   const renderRow = useCallback(
-    (key: string, value: AttrValue, style?: React.CSSProperties) => {
+    (
+      key: string,
+      value: AttrValue,
+      style?: React.CSSProperties,
+      ref?: React.Ref<HTMLDivElement>
+    ) => {
       const rarityPercent = attrUniq[key]
         ? Math.round((1 / attrUniq[key]) * 100)
         : 0;
@@ -52,7 +65,7 @@ export const AttributeZone: React.FC<AttributeZoneProps> = ({
         onFocusAttr(focusedAttrKey === key ? null : key);
       };
       return (
-        <div key={key} style={style} onClick={handleClick}>
+        <div ref={ref} key={key} style={style} onClick={handleClick}>
           <AttributeRow
             attrKey={key}
             attrValue={value}
@@ -80,10 +93,10 @@ export const AttributeZone: React.FC<AttributeZoneProps> = ({
           </>
         )}
         <h4>Metric ({metricKeys.length})</h4>
-        <FixedSizeList height={300} width="100%" itemCount={metricKeys.length} itemSize={36}>
+        <FixedSizeList height={300} width="100%" itemCount={metricKeys.length} itemSize={itemSize}>
           {({ index, style }) => {
             const key = metricKeys[index];
-            return renderRow(key, metricAttrs[key], style);
+            return renderRow(key, metricAttrs[key], style, index === 0 ? rowRef : undefined);
           }}
         </FixedSizeList>
       </div>
