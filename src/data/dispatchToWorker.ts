@@ -1,3 +1,19 @@
+/**
+ * @layer Data Provider
+ * @summary TODO
+ *
+ * ## Purpose
+ *
+ * TODO
+ *
+ * ## Algorithm/Visual
+ *
+ * TODO
+ *
+ * @perfBudget TODO
+ * @loc_estimate TODO
+ */
+
 
 /**
  * Create and manage a micro‑pool of Web Workers running `parser.worker.ts` and expose a promise-based API.

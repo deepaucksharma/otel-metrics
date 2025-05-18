@@ -1,3 +1,19 @@
+/**
+ * @layer UI Components
+ * @summary TODO
+ *
+ * ## Purpose
+ *
+ * TODO
+ *
+ * ## Algorithm/Visual
+ *
+ * TODO
+ *
+ * @perfBudget TODO
+ * @loc_estimate TODO
+ */
+
 import React from 'react';
 import styles from './InspectorHeader.module.css';
 import { CRingSvg } from '@/ui/atoms/CRingSvg';

@@ -1,4 +1,20 @@
 /**
+ * @layer Services
+ * @summary TODO
+ *
+ * ## Purpose
+ *
+ * TODO
+ *
+ * ## Algorithm/Visual
+ *
+ * TODO
+ *
+ * @perfBudget TODO
+ * @loc_estimate TODO
+ */
+
+/**
  * Connect the event bus to global state slices.
  *
  * This module registers handlers on the {@link eventBus} which

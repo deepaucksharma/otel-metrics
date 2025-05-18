@@ -1,4 +1,20 @@
 /**
+ * @layer Contracts
+ * @summary TODO
+ *
+ * ## Purpose
+ *
+ * TODO
+ *
+ * ## Algorithm/Visual
+ *
+ * TODO
+ *
+ * @perfBudget TODO
+ * @loc_estimate TODO
+ */
+
+/**
  * Single source of truth for all data structures exchanged between nano-modules.
  *
  * ## Conventions

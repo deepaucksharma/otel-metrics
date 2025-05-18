@@ -1,3 +1,19 @@
+/**
+ * @layer UI Components
+ * @summary TODO
+ *
+ * ## Purpose
+ *
+ * TODO
+ *
+ * ## Algorithm/Visual
+ *
+ * TODO
+ *
+ * @perfBudget TODO
+ * @loc_estimate TODO
+ */
+
 import React, { useState, useMemo } from 'react';
 import { ExemplarData } from '@/contracts/types';
 import { formatTimestamp, formatDuration } from '@/utils/formatters';

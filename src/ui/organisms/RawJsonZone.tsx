@@ -1,3 +1,19 @@
+/**
+ * @layer UI Components
+ * @summary TODO
+ *
+ * ## Purpose
+ *
+ * TODO
+ *
+ * ## Algorithm/Visual
+ *
+ * TODO
+ *
+ * @perfBudget TODO
+ * @loc_estimate TODO
+ */
+
 import React, { useState, useCallback, useMemo } from 'react';
 import { CopyButton } from '@/ui/atoms/CopyButton';
 import type { ParsedPoint, AttrMap } from '@/contracts/types';

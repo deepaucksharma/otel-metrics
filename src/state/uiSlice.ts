@@ -1,4 +1,20 @@
 /**
+ * @layer Global State
+ * @summary TODO
+ *
+ * ## Purpose
+ *
+ * TODO
+ *
+ * ## Algorithm/Visual
+ *
+ * TODO
+ *
+ * @perfBudget TODO
+ * @loc_estimate TODO
+ */
+
+/**
  * Global state slice tracking what the user is looking at (active snapshot, drawer state, etc.).
  *
  * @remarks

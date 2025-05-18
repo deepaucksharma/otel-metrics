@@ -1,4 +1,20 @@
 /**
+ * @layer Metric Processing
+ * @summary TODO
+ *
+ * ## Purpose
+ *
+ * TODO
+ *
+ * ## Algorithm/Visual
+ *
+ * TODO
+ *
+ * @perfBudget TODO
+ * @loc_estimate TODO
+ */
+
+/**
  * Estimate Jaccard similarity between sets of attributes.
  *
  * This module exposes a single function {@link estimateJaccard} used by

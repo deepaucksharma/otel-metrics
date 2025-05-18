@@ -1,3 +1,19 @@
+/**
+ * @layer UI Components
+ * @summary TODO
+ *
+ * ## Purpose
+ *
+ * TODO
+ *
+ * ## Algorithm/Visual
+ *
+ * TODO
+ *
+ * @perfBudget TODO
+ * @loc_estimate TODO
+ */
+
 import React, { useState, useCallback } from 'react';
 import type { AttrMap, AttrValue } from '@/contracts/types';
 import { FixedSizeList } from 'react-window';

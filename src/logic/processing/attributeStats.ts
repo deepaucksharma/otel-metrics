@@ -1,3 +1,19 @@
+/**
+ * @layer Metric Processing
+ * @summary TODO
+ *
+ * ## Purpose
+ *
+ * TODO
+ *
+ * ## Algorithm/Visual
+ *
+ * TODO
+ *
+ * @perfBudget TODO
+ * @loc_estimate TODO
+ */
+
 import type { ParsedMetricData, UniqueCount, AttrValue } from '@/contracts/types';
 import { getUniqueValues } from './utils/uniqueValueCounter';
 

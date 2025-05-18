@@ -1,3 +1,19 @@
+/**
+ * @layer Metric Processing
+ * @summary TODO
+ *
+ * ## Purpose
+ *
+ * TODO
+ *
+ * ## Algorithm/Visual
+ *
+ * TODO
+ *
+ * @perfBudget TODO
+ * @loc_estimate TODO
+ */
+
 import { encodeSeriesKey } from '@/logic/workers/utils/seriesKeyEncoder';
 import type { ParsedMetricData, AttrMap, SeriesKey, SeriesCount } from '@/contracts/types';
 

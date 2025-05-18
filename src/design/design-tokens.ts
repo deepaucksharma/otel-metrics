@@ -1,4 +1,20 @@
 /**
+ * @layer Design
+ * @summary TODO
+ *
+ * ## Purpose
+ *
+ * TODO
+ *
+ * ## Algorithm/Visual
+ *
+ * TODO
+ *
+ * @perfBudget TODO
+ * @loc_estimate TODO
+ */
+
+/**
  * IntelliMetric Explorer – Design Tokens
  *
  * Centralized constants mirroring the CSS variables in `tokens.css`.

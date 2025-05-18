@@ -1,4 +1,20 @@
 /**
+ * @layer Config
+ * @summary TODO
+ *
+ * ## Purpose
+ *
+ * TODO
+ *
+ * ## Algorithm/Visual
+ *
+ * TODO
+ *
+ * @perfBudget TODO
+ * @loc_estimate TODO
+ */
+
+/**
  * Central location for numeric defaults and feature switches.
  */
 

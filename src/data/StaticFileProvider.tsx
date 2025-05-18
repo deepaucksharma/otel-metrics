@@ -1,3 +1,19 @@
+/**
+ * @layer Data Provider
+ * @summary TODO
+ *
+ * ## Purpose
+ *
+ * TODO
+ *
+ * ## Algorithm/Visual
+ *
+ * TODO
+ *
+ * @perfBudget TODO
+ * @loc_estimate TODO
+ */
+
 // Browser-side file loader UI that funnels snapshot files into validation → read → worker pipeline.
 
 import React, { useCallback, useRef, useState } from 'react';
