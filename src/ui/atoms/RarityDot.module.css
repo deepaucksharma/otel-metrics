@@ -4,13 +4,13 @@
   cursor: pointer;
 }
 .rarityLo {
-  background: var(--rarityGreen);
+  background: var(--rarityLow);
 }
 .rarityMid {
-  background: var(--rarityAmber);
+  background: var(--rarityMed);
 }
 .rarityHi {
-  background: var(--rarityRed);
+  background: var(--rarityHigh);
 }
 .dot:hover {
   filter: brightness(1.1);
