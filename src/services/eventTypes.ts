@@ -1,4 +1,4 @@
-import type { ParsedSnapshot, SeriesKey } from '@/contracts/types';
+import type { ParsedSnapshot, SeriesKey } from '@intellimetric/contracts/types';
 
 /**
  * Event type definitions for the event bus.

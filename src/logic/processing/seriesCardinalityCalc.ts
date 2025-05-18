@@ -1,5 +1,5 @@
 import { encodeSeriesKey } from '@/logic/workers/utils/seriesKeyEncoder';
-import type { ParsedMetricData, AttrMap, SeriesKey, SeriesCount } from '@/contracts/types';
+import type { ParsedMetricData, AttrMap, SeriesKey, SeriesCount } from '@intellimetric/contracts/types';
 
 /**
  * Functions to calculate actual and simulated series counts for metrics.

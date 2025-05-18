@@ -7,7 +7,9 @@
     "skipLibCheck": false,
     "baseUrl": "./src",
     "paths": {
-      "@/*": ["./*"]
+      "@/*": ["./*"],
+      "@intellimetric/contracts": ["../packages/contracts"],
+      "@intellimetric/contracts/*": ["../packages/contracts/*"]
     }
   },
   "include": ["src", "tests"],

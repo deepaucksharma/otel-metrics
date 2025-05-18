@@ -1,5 +1,5 @@
 import mitt from 'mitt';
-import type { ParsedSnapshot, SeriesKey } from '@/contracts/types';
+import type { ParsedSnapshot, SeriesKey } from '@intellimetric/contracts/types';
 
 /**
  * Map of all events that can be emitted on the global {@link bus} instance.

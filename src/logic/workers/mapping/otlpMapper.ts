@@ -49,8 +49,8 @@
  * }
  */
 
-import type { RawOtlpExportMetricsServiceRequest, RawOtlpMetric, RawOtlpNumberDataPoint, RawOtlpHistogramDataPoint, RawOtlpKeyValue } from '@/contracts/rawOtlpTypes';
-import type { ParsedSnapshot, ParsedResourceData, ParsedScopeData, ParsedMetricData, ParsedSeriesData, ParsedPoint, MetricDefinition, AttrMap } from '@/contracts/types';
+import type { RawOtlpExportMetricsServiceRequest, RawOtlpMetric, RawOtlpNumberDataPoint, RawOtlpHistogramDataPoint, RawOtlpKeyValue } from '@intellimetric/contracts/rawOtlpTypes';
+import type { ParsedSnapshot, ParsedResourceData, ParsedScopeData, ParsedMetricData, ParsedSeriesData, ParsedPoint, MetricDefinition, AttrMap } from '@intellimetric/contracts/types';
 import { encodeSeriesKey } from '../utils/seriesKeyEncoder';
 import { extractExemplars } from '../utils/exemplarExtractor';
 

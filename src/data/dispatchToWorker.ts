@@ -10,7 +10,7 @@
  * Future work: queue length metrics and dynamic pool sizing.
  */
 
-import type { ParsedSnapshot } from '@/contracts/types';
+import type { ParsedSnapshot } from '@intellimetric/contracts/types';
 
 export interface ParseTask {
   snapshotId: string;

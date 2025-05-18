@@ -2,7 +2,7 @@ import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { describe, it, expect, vi } from 'vitest';
 import { RawJsonZone } from '../src/ui/organisms/RawJsonZone';
-import type { ParsedPoint } from '../src/contracts/types';
+import type { ParsedPoint } from '@intellimetric/contracts/types';
 
 describe('RawJsonZone', () => {
   it('copies JSON when copy button clicked', async () => {

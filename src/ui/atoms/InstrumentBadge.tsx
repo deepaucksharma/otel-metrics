@@ -1,7 +1,7 @@
 import React from 'react';
 import clsx from 'clsx';
 import styles from './InstrumentBadge.module.css';
-import type { MetricDefinition } from '@/contracts/types';
+import type { MetricDefinition } from '@intellimetric/contracts/types';
 
 export interface InstrumentBadgeProps {
   type: MetricDefinition['instrumentType'];

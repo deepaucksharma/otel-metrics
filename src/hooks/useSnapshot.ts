@@ -1,6 +1,6 @@
 import { useStore } from 'zustand';
 import { useMetricsSlice } from '@/state/metricsSlice';
-import type { ParsedSnapshot } from '@/contracts/types';
+import type { ParsedSnapshot } from '@intellimetric/contracts/types';
 
 /**
  * Get a `ParsedSnapshot` by id from {@link useMetricsSlice}.

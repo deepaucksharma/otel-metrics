@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './InspectorHeader.module.css';
 import { CRingSvg } from '@/ui/atoms/CRingSvg';
 import { InstrumentBadge } from '@/ui/atoms/InstrumentBadge';
-import type { MetricDefinition, SeriesCount } from '@/contracts/types';
+import type { MetricDefinition, SeriesCount } from '@intellimetric/contracts/types';
 
 /**
  * Fixed header for the DataPointInspectorDrawer displaying metric info.

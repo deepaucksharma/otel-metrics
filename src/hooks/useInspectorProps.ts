@@ -25,7 +25,7 @@ import { useSnapshot } from './useSnapshot';
 import { findSeriesData } from '@/utils/findSeriesData';
 import { getProcessedMetricInfo } from '@/logic/metricProcessor';
 import { DEFAULT_THRESHOLD_HIGH } from '@/config';
-import type { InspectorProps } from '@/contracts/types';
+import type { InspectorProps } from '@intellimetric/contracts/types';
 
 export function useInspectorProps(simulateDropKey?: string | null): InspectorProps | null {
   const {

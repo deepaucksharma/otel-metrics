@@ -47,8 +47,8 @@
  */
 import { jsonSafeParse } from './utils/jsonSafeParse';
 import { mapToParsedSnapshot } from './mapping/otlpMapper';
-import type { RawOtlpExportMetricsServiceRequest } from '@/contracts/rawOtlpTypes';
-import type { ParsedSnapshot } from '@/contracts/types';
+import type { RawOtlpExportMetricsServiceRequest } from '@intellimetric/contracts/rawOtlpTypes';
+import type { ParsedSnapshot } from '@intellimetric/contracts/types';
 
 /** Inbound message handled by this worker. */
 interface WorkerInbound {

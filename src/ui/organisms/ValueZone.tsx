@@ -1,5 +1,5 @@
 import React from 'react';
-import type { ParsedPoint, MetricDefinition } from '@/contracts/types';
+import type { ParsedPoint, MetricDefinition } from '@intellimetric/contracts/types';
 import { GaugeCard } from '@/ui/atoms/GaugeCard';
 import { CounterCard } from '@/ui/atoms/CounterCard';
 import { HistogramMiniChart } from '@/ui/atoms/HistogramMiniChart';

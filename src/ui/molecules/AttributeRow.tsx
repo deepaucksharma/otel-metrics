@@ -2,7 +2,7 @@ import React from 'react';
 import { CopyButton } from '../atoms/CopyButton';
 import { RarityDot } from '../atoms/RarityDot';
 import styles from './AttributeRow.module.css';
-import type { AttrValue } from '@/contracts/types';
+import type { AttrValue } from '@intellimetric/contracts/types';
 
 export interface AttributeRowProps {
   attrKey: string;
