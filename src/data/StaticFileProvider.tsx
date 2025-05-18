@@ -5,6 +5,7 @@ import { bus } from '../services/eventBus';
 import { validateFile, ValidFile } from './fileValidator';
 import { readFileContent } from './readFile';
 import { dispatchToParserWorker } from './dispatchToWorker';
+import { randomId } from '@/utils/randomId';
 
 /**
  * Props for {@link StaticFileProvider}.
@@ -53,7 +54,7 @@ export function StaticFileProvider({
   const handleFiles = useCallback(
     async (files: FileList) => {
       for (const file of Array.from(files)) {
-        const id = crypto.randomUUID();
+        const id = randomId();
         const snapshotId = `snap-${id}`;
         setStatus((s) => ({ ...s, [id]: `\u{1F680} reading … ${file.name}` }));
         bus.emit('data.snapshot.load.start', { fileName: file.name });
