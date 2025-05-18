@@ -7,12 +7,14 @@ microscopically analysing a single OTLP snapshot.
 * **Nano-module architecture** → every file ≈ 50-150 LoC, single
   responsibility.
 * **Inspector 1.1** is the current MVP target.
+* **Dark theme focus.** The current UI is optimized for dark mode. Contributions for a light theme or automatic `prefers-color-scheme` support are welcome.
 
 ## Quick start
 
 ```bash
 pnpm i          # install deps
 pnpm dev        # Vite + HMR
+pnpm storybook  # component catalog
 pnpm test:unit  # Jest/Vitest
 pnpm lint
 ```
