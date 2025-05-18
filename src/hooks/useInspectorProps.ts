@@ -34,7 +34,7 @@ export function useInspectorProps(simulateDropKey?: string | null): InspectorPro
     inspectedPointId,
     isInspectorOpen,
     closeInspector,
-    addFilter,
+    setDashboardFilter,
   } = useUiSlice(state => ({
     activeSnapshotId : state.activeSnapshotId,
     inspectedMetricName: state.inspectedMetricName,
@@ -42,7 +42,7 @@ export function useInspectorProps(simulateDropKey?: string | null): InspectorPro
     inspectedPointId   : state.inspectedPointId,
     isInspectorOpen    : state.isInspectorOpen,
     closeInspector     : state.closeInspector,
-    addFilter          : state.addFilter,
+    setDashboardFilter : state.setDashboardFilter,
   }));
 
   const snapshot = useSnapshot(activeSnapshotId);
@@ -83,7 +83,7 @@ export function useInspectorProps(simulateDropKey?: string | null): InspectorPro
       },
       exemplars: point.exemplars,
       onClose: closeInspector,
-      onAddGlobalFilter: addFilter,
+      onAddGlobalFilter: setDashboardFilter,
       metricLatestNValues: undefined,
     };
 
@@ -96,6 +96,6 @@ export function useInspectorProps(simulateDropKey?: string | null): InspectorPro
     inspectedPointId,
     simulateDropKey,
     closeInspector,
-    addFilter,
+    setDashboardFilter,
   ]);
 }
