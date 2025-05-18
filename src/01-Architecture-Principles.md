@@ -25,6 +25,22 @@
 
 ESLint "no-restricted-paths" enforces these arrows.
 
+### 1.1. Layer Import Exceptions
+
+The following specific exceptions to the import rules are permitted:
+
+1. **Processing → Workers Utils**: `src/logic/processing/*` may import from `src/logic/workers/utils/*` specifically for pure utility functions like `seriesKeyEncoder`.  
+   Rationale: Avoids code duplication for core utilities that must be shared.
+
+2. **Services → State**: `src/services/eventListeners.ts` may import from state slices to access action creators.  
+   Rationale: Needed to translate events to state changes.
+
+All exceptions must be documented in the importing module with an explicit comment:
+```ts
+// LAYER EXCEPTION: Import permitted per Architecture-Principles.md § 1.1
+import { seriesKeyEncoder } from '@/logic/workers/utils/seriesKeyEncoder';
+```
+
 ---
 
 ## 2. Nano-module Ground Rules
