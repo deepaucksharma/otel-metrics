@@ -30,7 +30,10 @@ export interface AttributeZoneProps {
   /** Callback when attribute focus changes */
   onFocusAttr: (key: string | null) => void;
 
-  /** Optional callback to add global filter for attribute */
+  /**
+   * Optional callback to set global filter text from the selected
+   * attribute using `key=value` format.
+   */
   onAddGlobalFilter?: (key: string, value: AttrValue) => void;
 }
 
