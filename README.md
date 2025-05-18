@@ -17,6 +17,7 @@ Requires **Node.js >=18.17**. We recommend using
 ```bash
 pnpm i          # install deps
 pnpm dev        # Vite + HMR
+pnpm storybook  # component catalog
 pnpm test:unit  # Jest/Vitest
 pnpm lint
 ```
