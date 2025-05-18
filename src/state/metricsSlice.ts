@@ -15,7 +15,7 @@
 
 import { create } from 'zustand';
 import { immer } from 'zustand/middleware/immer';
-import type { ParsedSnapshot } from '@/contracts/types';
+import type { ParsedSnapshot } from '@intellimetric/contracts/types';
 
 /** State for {@link useMetricsSlice}. */
 export interface MetricsSliceState {
@@ -23,10 +23,10 @@ export interface MetricsSliceState {
   snapshots: Record<string, ParsedSnapshot>;
   /** Ordered list of snapshot ids in insertion order. */
   snapshotOrder: string[];
-  /** Files currently being loaded keyed by file name. */
-  loading: Record<string, boolean>;
-  /** Errors encountered while loading keyed by file name. */
-  errors: Record<string, string>;
+  /** File names currently being loaded. */
+  loading: string[];
+  /** Error messages from snapshot processing. */
+  errors: string[];
 }
 
 /** Actions mutating {@link MetricsSliceState}. */
@@ -37,10 +37,10 @@ export interface MetricsSliceActions {
   removeSnapshot(id: string): void;
   /** Clear all snapshots. */
   clearSnapshots(): void;
-  /** Record an error for a given file. */
-  registerError(fileName: string, error: string): void;
-  /** Mark a file as currently loading. */
+  /** Track a file as loading. */
   markLoading(fileName: string): void;
+  /** Record an error message. */
+  registerError(message: string): void;
 }
 
 /** Zustand store containing metrics data and actions. */
@@ -48,8 +48,8 @@ export const useMetricsSlice = create<MetricsSliceState & MetricsSliceActions>()
   immer((set) => ({
     snapshots: {},
     snapshotOrder: [],
-    loading: {},
-    errors: {},
+    loading: [],
+    errors: [],
 
     addSnapshot: (snap) =>
       set((state) => {
@@ -57,17 +57,10 @@ export const useMetricsSlice = create<MetricsSliceState & MetricsSliceActions>()
         if (!state.snapshotOrder.includes(snap.id)) {
           state.snapshotOrder.push(snap.id);
         }
-        delete state.loading[snap.fileName];
-        delete state.errors[snap.fileName];
       }),
 
     removeSnapshot: (id) =>
       set((state) => {
-        const snap = state.snapshots[id];
-        if (snap) {
-          delete state.loading[snap.fileName];
-          delete state.errors[snap.fileName];
-        }
         delete state.snapshots[id];
         state.snapshotOrder = state.snapshotOrder.filter((i) => i !== id);
       }),
@@ -76,20 +69,16 @@ export const useMetricsSlice = create<MetricsSliceState & MetricsSliceActions>()
       set((state) => {
         state.snapshots = {};
         state.snapshotOrder = [];
-        state.loading = {};
-        state.errors = {};
-      }),
-
-    registerError: (fileName, error) =>
-      set((state) => {
-        state.errors[fileName] = error;
-        delete state.loading[fileName];
       }),
 
     markLoading: (fileName) =>
       set((state) => {
-        state.loading[fileName] = true;
-        delete state.errors[fileName];
+        state.loading.push(fileName);
+      }),
+
+    registerError: (message) =>
+      set((state) => {
+        state.errors.push(message);
       }),
   }))
 );
@@ -137,9 +126,3 @@ export const selectSnapshotSummaries = (state: MetricsSliceState) =>
       seriesCount: computeSeriesCount(snap),
     };
   });
-
-/** Selector for current loading state keyed by file name. */
-export const selectLoading = (state: MetricsSliceState) => state.loading;
-
-/** Selector for recorded errors keyed by file name. */
-export const selectErrors = (state: MetricsSliceState) => state.errors;
