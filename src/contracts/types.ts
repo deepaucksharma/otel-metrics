@@ -196,8 +196,9 @@ export interface InspectorProps {
   /** Close the inspector UI. */
   onClose: () => void;
   /**
-   * Request the host UI to add a corresponding filter chip. Optional in
-   * Inspector v1.1 and subject to later adoption.
+   * Request the host UI to add a corresponding filter chip using
+   * `key=value` text. Returns nothing. Optional in Inspector v1.1
+   * and subject to later adoption.
    */
   onAddGlobalFilter?: (key: string, value: AttrValue) => void;
   /** Simulate dropping or restoring an attribute. */
