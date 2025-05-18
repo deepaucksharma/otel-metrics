@@ -56,8 +56,20 @@ export const AttributeZone: React.FC<AttributeZoneProps> = ({
       const rarityPercent = seriesCount ? (uniqueCount / seriesCount) * 100 : 0;
       const handleClick = () =>
         focusedAttrKey === key ? onFocusAttr(null) : onFocusAttr(key);
+      const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          handleClick();
+        }
+      };
       return (
-        <div style={style} onClick={handleClick}>
+        <div
+          style={style}
+          onClick={handleClick}
+          role="button"
+          tabIndex={0}
+          onKeyDown={handleKeyDown}
+        >
           <AttributeRow
             attrKey={key}
             attrValue={value}

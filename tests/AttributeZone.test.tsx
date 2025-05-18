@@ -35,4 +35,24 @@ describe('AttributeZone', () => {
     fireEvent.click(screen.getByText('method'));
     expect(onFocusAttr).toHaveBeenCalledWith('method');
   });
+
+  it('calls onFocusAttr when row activated via keyboard', () => {
+    const onFocusAttr = vi.fn();
+    const props = {
+      resourceAttrs: {},
+      metricAttrs: { method: 'GET' },
+      attrUniq: { method: 1 },
+      seriesCount: 10,
+      focusedAttrKey: null,
+      onAddGlobalFilter: undefined as any,
+      onFocusAttr,
+    };
+    render(<AttributeZone {...props} />);
+    const row = screen.getByText('method').parentElement as HTMLElement;
+    fireEvent.keyDown(row, { key: 'Enter' });
+    expect(onFocusAttr).toHaveBeenCalledWith('method');
+    onFocusAttr.mockClear();
+    fireEvent.keyDown(row, { key: ' ' });
+    expect(onFocusAttr).toHaveBeenCalledWith('method');
+  });
 });

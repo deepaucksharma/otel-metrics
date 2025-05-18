@@ -117,6 +117,14 @@ export const CardinalityCapsule: React.FC<CardinalityCapsuleProps> = ({
                 focusedAttrKey === attr ? styles.focused : ''
               }`}
               onClick={() => onFocusAttr(focusedAttrKey === attr ? null : attr)}
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault();
+                  onFocusAttr(focusedAttrKey === attr ? null : attr);
+                }
+              }}
             >
               <div className={styles.attrName}>{attr}</div>
               <div className={styles.barContainer}>
