@@ -1,9 +1,0 @@
-    <AttributeZone
-      resourceAttrs={resourceAttrs}
-      metricAttrs={metricAttrs}
-      attrUniq={cardinality.attrUniq}
-      seriesCount={cardinality.seriesCount}
-      focusedAttrKey={focusedAttrKey}
-      onFocusAttr={setFocusedAttrKey}
-      onAddGlobalFilter={onAddGlobalFilter}
-    />
