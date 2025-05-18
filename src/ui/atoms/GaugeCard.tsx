@@ -53,7 +53,7 @@ export const GaugeCard: React.FC<GaugeCardProps> = ({
   const formattedValue = unit ? formatters.duration(value, unit) : value.toString();
 
   return (
-    <div className={`${styles.container} ${className ?? ''}`.trim()}>
+    <div data-testid="gauge-card" className={`${styles.container} ${className ?? ''}`.trim()}>
       <div className={styles.gauge}>
         <svg viewBox="0 0 100 50" className={styles.gaugeSvg}>
           <path
