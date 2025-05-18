@@ -31,7 +31,7 @@ The Data-Point Inspector Drawer is a specialized UI component designed for obser
 - Full metric series analysis
 - Advanced filtering capabilities
 - Complete accessibility conformance
-- Global filter management UI
+ - Full filter management UI (drawer only triggers `onAddGlobalFilter`)
 
 ## Key Features
 
@@ -50,7 +50,7 @@ The Data-Point Inspector Drawer is a specialized UI component designed for obser
 3. **Attribute Exploration**
    - Two-column grid with key-value pairs
    - Visual cues for attribute significance
-   - Copy and filter actions
+    - Copy and filter actions (calls `onAddGlobalFilter`; optional in v1.1)
    - Focus mode for highlighting related properties
 
 4. **Exemplars Timeline**
@@ -128,6 +128,8 @@ The Data-Point Inspector Drawer is a specialized UI component designed for obser
 ## Integration Context
 
 The Data-Point Inspector Drawer is designed to integrate with metric visualization dashboards, tables, and charts. It serves as a drill-down component triggered by user interaction with these higher-level components, providing detailed context for a selected data point.
+
+Filter actions may invoke the host's `onAddGlobalFilter` callback to append a filter chip elsewhere in the interface. This callback is optional in version 1.1 and may be implemented in a later release.
 
 ---
 
