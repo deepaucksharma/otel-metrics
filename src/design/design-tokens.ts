@@ -81,6 +81,15 @@ export const visualizationSpecificColorsTokens = {
   simulationBg: "rgba(0, 120, 212, 0.1)",
 } as const;
 
+/** Background colours for instrument badges. */
+export const instrumentBadgeTokens = {
+  instrumentGaugeBg: "#3498db",
+  instrumentSumBg: "#2ecc71",
+  instrumentHistogramBg: "#f39c12",
+  instrumentSummaryBg: "#9b59b6",
+  instrumentUnknownBg: "#666666",
+} as const;
+
 /** Spacing scale and component padding values. */
 export const spacingTokens = {
   spaceXS: "4px",
