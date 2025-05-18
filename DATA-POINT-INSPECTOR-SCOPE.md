@@ -53,7 +53,7 @@ The Data-Point Inspector Drawer is a specialized UI component designed for obser
     - Copy and filter actions (calls `onAddGlobalFilter`; optional in v1.1)
    - Focus mode for highlighting related properties
 
-4. **Exemplars Timeline**
+4. **Exemplars Timeline** (within the `ExemplarsZone` component)
    - Temporal visualization of related traces
    - Value-based dot sizing
    - Direct access to trace exploration
@@ -109,7 +109,7 @@ The Data-Point Inspector Drawer is a specialized UI component designed for obser
 - Copy functionality
 
 ### Phase 4: Refinement
-- Exemplars timeline
+- Exemplars timeline integrated in `ExemplarsZone`
 - Performance optimization
 - Visual polish
 
