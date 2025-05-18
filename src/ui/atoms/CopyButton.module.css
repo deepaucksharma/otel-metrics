@@ -1,0 +1,13 @@
+.btn {
+  background: transparent;
+  border: none;
+  padding: 2px;
+  color: var(--iconGrey);
+  cursor: pointer;
+}
+.btn:hover {
+  color: var(--iconHover);
+}
+.btn:active {
+  transform: scale(0.95);
+}
