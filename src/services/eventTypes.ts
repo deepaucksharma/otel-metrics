@@ -1,3 +1,10 @@
+/**
+ * @file src/services/eventTypes.ts
+ * @summary eventTypes module
+ * @layer Services
+ * @remarks
+ * Layer derived from Architecture-Principles.md.
+ */
 import type { ParsedSnapshot, SeriesKey } from '@/contracts/types';
 
 /**

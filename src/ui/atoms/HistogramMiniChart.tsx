@@ -1,3 +1,10 @@
+/**
+ * @file src/ui/atoms/HistogramMiniChart.tsx
+ * @summary HistogramMiniChart module
+ * @layer UI Components
+ * @remarks
+ * Layer derived from Architecture-Principles.md.
+ */
 import React, { useMemo } from 'react';
 
 /**

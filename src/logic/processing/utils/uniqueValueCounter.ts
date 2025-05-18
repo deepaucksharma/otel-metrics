@@ -1,4 +1,11 @@
 /**
+ * @file src/logic/processing/utils/uniqueValueCounter.ts
+ * @summary uniqueValueCounter module
+ * @layer Metric Processing
+ * @remarks
+ * Layer derived from Architecture-Principles.md.
+ */
+/**
  * Helpers used by attribute-level cardinality calculations.
  *
  * @remarks

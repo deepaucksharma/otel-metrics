@@ -1,3 +1,10 @@
+/**
+ * @file tests/ValueZone.test.tsx
+ * @summary ValueZone.test module
+ * @layer Tests
+ * @remarks
+ * Layer derived from Architecture-Principles.md.
+ */
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { describe, it, expect } from 'vitest';

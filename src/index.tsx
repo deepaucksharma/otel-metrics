@@ -1,4 +1,11 @@
 /**
+ * @file src/index.tsx
+ * @summary index module
+ * @layer App
+ * @remarks
+ * Layer derived from Architecture-Principles.md.
+ */
+/**
  * Bootstraps the React application.
  *
  * This file attaches the {@link App} component to the DOM.

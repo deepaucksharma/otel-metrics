@@ -1,3 +1,10 @@
+/**
+ * @file src/logic/processing/seriesCardinalityCalc.ts
+ * @summary seriesCardinalityCalc module
+ * @layer Metric Processing
+ * @remarks
+ * Layer derived from Architecture-Principles.md.
+ */
 import { encodeSeriesKey } from '@/logic/workers/utils/seriesKeyEncoder';
 import type { ParsedMetricData, AttrMap, SeriesKey, SeriesCount } from '@/contracts/types';
 

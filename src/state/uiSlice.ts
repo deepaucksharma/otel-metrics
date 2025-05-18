@@ -1,4 +1,11 @@
 /**
+ * @file src/state/uiSlice.ts
+ * @summary uiSlice module
+ * @layer Global State
+ * @remarks
+ * Layer derived from Architecture-Principles.md.
+ */
+/**
  * Global state slice tracking what the user is looking at (active snapshot, drawer state, etc.).
  *
  * @remarks

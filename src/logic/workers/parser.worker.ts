@@ -1,4 +1,11 @@
 /**
+ * @file src/logic/workers/parser.worker.ts
+ * @summary parser.worker module
+ * @layer Parser Worker
+ * @remarks
+ * Layer derived from Architecture-Principles.md.
+ */
+/**
  * Web Worker entry orchestrating `jsonSafeParse` and `otlpMapper`.
  *
  * @remarks

@@ -1,3 +1,10 @@
+/**
+ * @file tests/AttributeZone.test.tsx
+ * @summary AttributeZone.test module
+ * @layer Tests
+ * @remarks
+ * Layer derived from Architecture-Principles.md.
+ */
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { describe, it, expect, vi } from 'vitest';

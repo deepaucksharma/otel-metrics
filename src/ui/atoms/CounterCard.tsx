@@ -1,4 +1,11 @@
 /**
+ * @file src/ui/atoms/CounterCard.tsx
+ * @summary CounterCard module
+ * @layer UI Components
+ * @remarks
+ * Layer derived from Architecture-Principles.md.
+ */
+/**
  * Numeric counter display for monotonic sum metrics.
  *
  * Renders a formatted counter value with optional unit and delta.

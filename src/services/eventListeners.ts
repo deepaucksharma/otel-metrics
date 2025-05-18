@@ -1,4 +1,11 @@
 /**
+ * @file src/services/eventListeners.ts
+ * @summary eventListeners module
+ * @layer Services
+ * @remarks
+ * Layer derived from Architecture-Principles.md.
+ */
+/**
  * Connect the event bus to global state slices.
  *
  * This module registers handlers on the {@link eventBus} which

@@ -1,4 +1,11 @@
 /**
+ * @file src/hooks/useInspectorProps.ts
+ * @summary useInspectorProps module
+ * @layer Hooks
+ * @remarks
+ * Layer derived from Architecture-Principles.md.
+ */
+/**
  * Combine three sources into a memoised `InspectorProps` object for the DataPointInspectorDrawer.
  *
  * UI state from {@link useUiSlice}, parsed snapshot data from {@link useSnapshot},

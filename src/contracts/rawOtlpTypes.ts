@@ -1,3 +1,10 @@
+/**
+ * @file src/contracts/rawOtlpTypes.ts
+ * @summary rawOtlpTypes module
+ * @layer Contracts
+ * @remarks
+ * Layer derived from Architecture-Principles.md.
+ */
 // Worker-only schema mirror of the protobuf JSON representation.
 
 /**

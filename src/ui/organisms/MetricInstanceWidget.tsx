@@ -1,3 +1,10 @@
+/**
+ * @file src/ui/organisms/MetricInstanceWidget.tsx
+ * @summary MetricInstanceWidget module
+ * @layer UI Components
+ * @remarks
+ * Layer derived from Architecture-Principles.md.
+ */
 import React, { useCallback } from 'react';
 import { useDropSimulation } from '@/hooks/useDropSimulation';
 import { useInspectorProps } from '@/hooks/useInspectorProps';

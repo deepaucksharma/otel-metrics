@@ -1,3 +1,10 @@
+/**
+ * @file tests/uiSlice.test.ts
+ * @summary uiSlice.test module
+ * @layer Tests
+ * @remarks
+ * Layer derived from Architecture-Principles.md.
+ */
 import { describe, beforeEach, it, expect } from 'vitest';
 import useUiSlice, {
   selectIsInspectorOpen,

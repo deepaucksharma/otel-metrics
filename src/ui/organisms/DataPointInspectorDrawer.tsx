@@ -1,3 +1,10 @@
+/**
+ * @file src/ui/organisms/DataPointInspectorDrawer.tsx
+ * @summary DataPointInspectorDrawer module
+ * @layer UI Components
+ * @remarks
+ * Layer derived from Architecture-Principles.md.
+ */
 import React, { useState, useCallback, useMemo, useEffect, useRef } from 'react';
 import type { InspectorProps } from '@/contracts/types';
 import { InspectorHeader } from './InspectorHeader';

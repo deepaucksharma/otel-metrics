@@ -1,3 +1,10 @@
+/**
+ * @file src/ui/atoms/RarityDot.tsx
+ * @summary RarityDot module
+ * @layer UI Components
+ * @remarks
+ * Layer derived from Architecture-Principles.md.
+ */
 import React from 'react';
 import clsx from 'clsx';
 import styles from './RarityDot.module.css';

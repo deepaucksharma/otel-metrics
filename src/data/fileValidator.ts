@@ -1,4 +1,11 @@
 /**
+ * @file src/data/fileValidator.ts
+ * @summary fileValidator module
+ * @layer Data Provider
+ * @remarks
+ * Layer derived from Architecture-Principles.md.
+ */
+/**
  * Validate a user-selected File object before any expensive I/O,
  * checking extension and size.
  */

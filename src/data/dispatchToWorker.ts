@@ -1,3 +1,10 @@
+/**
+ * @file src/data/dispatchToWorker.ts
+ * @summary dispatchToWorker module
+ * @layer Data Provider
+ * @remarks
+ * Layer derived from Architecture-Principles.md.
+ */
 
 /**
  * Create and manage a micro‑pool of Web Workers running `parser.worker.ts` and expose a promise-based API.

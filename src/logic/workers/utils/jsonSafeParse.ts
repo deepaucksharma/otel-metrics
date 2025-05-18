@@ -1,4 +1,11 @@
 /**
+ * @file src/logic/workers/utils/jsonSafeParse.ts
+ * @summary jsonSafeParse module
+ * @layer Parser Worker
+ * @remarks
+ * Layer derived from Architecture-Principles.md.
+ */
+/**
  * Zero-dependency helper converting raw JSON text to objects without throwing.
  *
  * ### Either return type

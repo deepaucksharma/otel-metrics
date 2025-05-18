@@ -1,3 +1,10 @@
+/**
+ * @file src/data/StaticFileProvider.tsx
+ * @summary StaticFileProvider module
+ * @layer Data Provider
+ * @remarks
+ * Layer derived from Architecture-Principles.md.
+ */
 // Browser-side file loader UI that funnels snapshot files into validation → read → worker pipeline.
 
 import React, { useCallback, useRef, useState } from 'react';

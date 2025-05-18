@@ -1,3 +1,10 @@
+/**
+ * @file src/ui/atoms/CRingSvg.tsx
+ * @summary CRingSvg module
+ * @layer UI Components
+ * @remarks
+ * Layer derived from Architecture-Principles.md.
+ */
 import React from 'react';
 import styles from './CRingSvg.module.css';
 

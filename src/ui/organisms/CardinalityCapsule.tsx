@@ -1,4 +1,11 @@
 /**
+ * @file src/ui/organisms/CardinalityCapsule.tsx
+ * @summary CardinalityCapsule module
+ * @layer UI Components
+ * @remarks
+ * Layer derived from Architecture-Principles.md.
+ */
+/**
  * Visual control center for cardinality understanding and simulation.
  *
  * This organism renders the metric series count, contributor bars and a

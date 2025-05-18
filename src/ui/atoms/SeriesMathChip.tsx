@@ -1,3 +1,10 @@
+/**
+ * @file src/ui/atoms/SeriesMathChip.tsx
+ * @summary SeriesMathChip module
+ * @layer UI Components
+ * @remarks
+ * Layer derived from Architecture-Principles.md.
+ */
 import React, { useMemo } from 'react';
 import styles from './SeriesMathChip.module.css';
 

@@ -1,3 +1,10 @@
+/**
+ * @file src/App.tsx
+ * @summary App module
+ * @layer App
+ * @remarks
+ * Layer derived from Architecture-Principles.md.
+ */
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 

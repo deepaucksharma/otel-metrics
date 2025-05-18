@@ -1,3 +1,10 @@
+/**
+ * @file src/ui/organisms/InspectorHeader.tsx
+ * @summary InspectorHeader module
+ * @layer UI Components
+ * @remarks
+ * Layer derived from Architecture-Principles.md.
+ */
 import React from 'react';
 import styles from './InspectorHeader.module.css';
 import { CRingSvg } from '@/ui/atoms/CRingSvg';

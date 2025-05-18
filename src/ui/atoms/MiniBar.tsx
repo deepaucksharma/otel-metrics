@@ -1,3 +1,10 @@
+/**
+ * @file src/ui/atoms/MiniBar.tsx
+ * @summary MiniBar module
+ * @layer UI Components
+ * @remarks
+ * Layer derived from Architecture-Principles.md.
+ */
 import React from 'react';
 import styles from './MiniBar.module.css';
 

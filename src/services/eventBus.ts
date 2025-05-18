@@ -1,3 +1,10 @@
+/**
+ * @file src/services/eventBus.ts
+ * @summary eventBus module
+ * @layer Services
+ * @remarks
+ * Layer derived from Architecture-Principles.md.
+ */
 import mitt from 'mitt';
 import type { ParsedSnapshot, SeriesKey } from '@/contracts/types';
 

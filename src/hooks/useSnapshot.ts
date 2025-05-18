@@ -1,3 +1,10 @@
+/**
+ * @file src/hooks/useSnapshot.ts
+ * @summary useSnapshot module
+ * @layer Hooks
+ * @remarks
+ * Layer derived from Architecture-Principles.md.
+ */
 import { useStore } from 'zustand';
 import { useMetricsSlice } from '@/state/metricsSlice';
 import type { ParsedSnapshot } from '@/contracts/types';

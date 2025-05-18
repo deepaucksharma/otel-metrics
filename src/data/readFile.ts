@@ -1,3 +1,10 @@
+/**
+ * @file src/data/readFile.ts
+ * @summary readFile module
+ * @layer Data Provider
+ * @remarks
+ * Layer derived from Architecture-Principles.md.
+ */
 import { ValidFile } from './fileValidator';
 import { decompressGzipToString } from './decompressGzip';
 

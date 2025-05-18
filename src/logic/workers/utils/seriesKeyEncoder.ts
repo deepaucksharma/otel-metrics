@@ -1,4 +1,11 @@
 /**
+ * @file src/logic/workers/utils/seriesKeyEncoder.ts
+ * @summary seriesKeyEncoder module
+ * @layer Parser Worker
+ * @remarks
+ * Layer derived from Architecture-Principles.md.
+ */
+/**
  * Generate canonical, collision-free series keys for OTLP data.
  *
  * This module merges resource and metric attributes, sorts them

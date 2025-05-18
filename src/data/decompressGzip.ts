@@ -1,4 +1,11 @@
 /**
+ * @file src/data/decompressGzip.ts
+ * @summary decompressGzip module
+ * @layer Data Provider
+ * @remarks
+ * Layer derived from Architecture-Principles.md.
+ */
+/**
  * Convert a gzipped ArrayBuffer from `.gz/.json.gz/.otel.gz` into a UTF-8 string in the browser using pako.
  */
 import { inflate } from 'pako';

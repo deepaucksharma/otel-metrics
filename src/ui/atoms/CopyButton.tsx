@@ -1,3 +1,10 @@
+/**
+ * @file src/ui/atoms/CopyButton.tsx
+ * @summary CopyButton module
+ * @layer UI Components
+ * @remarks
+ * Layer derived from Architecture-Principles.md.
+ */
 import React, { useState } from 'react';
 import clsx from 'clsx';
 import { Clipboard, Check, X } from 'lucide-react';

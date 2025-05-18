@@ -1,3 +1,10 @@
+/**
+ * @file src/ui/organisms/RawJsonZone.tsx
+ * @summary RawJsonZone module
+ * @layer UI Components
+ * @remarks
+ * Layer derived from Architecture-Principles.md.
+ */
 import React, { useState, useCallback, useMemo } from 'react';
 import { CopyButton } from '@/ui/atoms/CopyButton';
 import type { ParsedPoint, AttrMap } from '@/contracts/types';

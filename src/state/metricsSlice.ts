@@ -1,4 +1,11 @@
 /**
+ * @file src/state/metricsSlice.ts
+ * @summary metricsSlice module
+ * @layer Global State
+ * @remarks
+ * Layer derived from Architecture-Principles.md.
+ */
+/**
  * Store all loaded snapshots and expose CRUD actions plus memoised selectors.
  *
  * This slice holds parsed OTLP snapshots keyed by `snapshot.id` and keeps an

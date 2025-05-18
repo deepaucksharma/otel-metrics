@@ -1,4 +1,11 @@
 /**
+ * @file src/utils/findSeriesData.ts
+ * @summary findSeriesData module
+ * @layer 
+ * @remarks
+ * Layer derived from Architecture-Principles.md.
+ */
+/**
  * Locate `ParsedSeriesData` by metric name and seriesKey within a snapshot.
  *
  * Public API:

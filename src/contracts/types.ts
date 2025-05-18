@@ -1,4 +1,11 @@
 /**
+ * @file src/contracts/types.ts
+ * @summary types module
+ * @layer Contracts
+ * @remarks
+ * Layer derived from Architecture-Principles.md.
+ */
+/**
  * Single source of truth for all data structures exchanged between nano-modules.
  *
  * ## Conventions

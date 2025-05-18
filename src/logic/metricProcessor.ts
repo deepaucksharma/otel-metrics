@@ -1,4 +1,11 @@
 /**
+ * @file src/logic/metricProcessor.ts
+ * @summary metricProcessor module
+ * @layer Metric Processing
+ * @remarks
+ * Layer derived from Architecture-Principles.md.
+ */
+/**
  * Fa\u00e7ade providing `getProcessedMetricInfo` and related helpers.
  *
  * ### Options

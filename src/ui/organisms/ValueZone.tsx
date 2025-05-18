@@ -1,3 +1,10 @@
+/**
+ * @file src/ui/organisms/ValueZone.tsx
+ * @summary ValueZone module
+ * @layer UI Components
+ * @remarks
+ * Layer derived from Architecture-Principles.md.
+ */
 import React from 'react';
 import type { ParsedPoint, MetricDefinition } from '@/contracts/types';
 import { GaugeCard } from '@/ui/atoms/GaugeCard';

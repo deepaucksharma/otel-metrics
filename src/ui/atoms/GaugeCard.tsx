@@ -1,3 +1,10 @@
+/**
+ * @file src/ui/atoms/GaugeCard.tsx
+ * @summary GaugeCard module
+ * @layer UI Components
+ * @remarks
+ * Layer derived from Architecture-Principles.md.
+ */
 import React from 'react';
 import styles from './GaugeCard.module.css';
 import { formatDuration } from '@/utils/formatters';

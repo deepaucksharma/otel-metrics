@@ -1,3 +1,10 @@
+/**
+ * @file src/ui/molecules/AttributeRow.tsx
+ * @summary AttributeRow module
+ * @layer UI Components
+ * @remarks
+ * Layer derived from Architecture-Principles.md.
+ */
 import React from 'react';
 import { CopyButton } from '../atoms/CopyButton';
 import { RarityDot } from '../atoms/RarityDot';

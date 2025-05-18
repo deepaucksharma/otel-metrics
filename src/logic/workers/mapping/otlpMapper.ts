@@ -1,4 +1,11 @@
 /**
+ * @file src/logic/workers/mapping/otlpMapper.ts
+ * @summary otlpMapper module
+ * @layer Parser Worker
+ * @remarks
+ * Layer derived from Architecture-Principles.md.
+ */
+/**
  * Convert raw OTLP JSON payload into the internal ParsedSnapshot graph.
  *
  * {@markdown

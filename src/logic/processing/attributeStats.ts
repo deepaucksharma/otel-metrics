@@ -1,3 +1,10 @@
+/**
+ * @file src/logic/processing/attributeStats.ts
+ * @summary attributeStats module
+ * @layer Metric Processing
+ * @remarks
+ * Layer derived from Architecture-Principles.md.
+ */
 import type { ParsedMetricData, UniqueCount, AttrValue } from '@/contracts/types';
 import { getUniqueValues } from './utils/uniqueValueCounter';
 

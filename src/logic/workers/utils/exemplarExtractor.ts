@@ -1,3 +1,10 @@
+/**
+ * @file src/logic/workers/utils/exemplarExtractor.ts
+ * @summary exemplarExtractor module
+ * @layer Parser Worker
+ * @remarks
+ * Layer derived from Architecture-Principles.md.
+ */
 // Transform raw OTLP exemplar objects into lightweight `ExemplarData`.
 
 import type { ExemplarData, AttrMap } from '@/contracts/types';

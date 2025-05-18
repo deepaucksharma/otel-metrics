@@ -1,4 +1,11 @@
 /**
+ * @file src/logic/processing/jaccardEstimator.ts
+ * @summary jaccardEstimator module
+ * @layer Metric Processing
+ * @remarks
+ * Layer derived from Architecture-Principles.md.
+ */
+/**
  * Estimate Jaccard similarity between sets of attributes.
  *
  * This module exposes a single function {@link estimateJaccard} used by

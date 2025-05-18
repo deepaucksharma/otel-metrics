@@ -1,3 +1,10 @@
+/**
+ * @file src/hooks/useDropSimulation.ts
+ * @summary useDropSimulation module
+ * @layer Hooks
+ * @remarks
+ * Layer derived from Architecture-Principles.md.
+ */
 import { useState, useCallback } from 'react';
 
 /**

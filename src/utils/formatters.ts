@@ -1,4 +1,11 @@
 /**
+ * @file src/utils/formatters.ts
+ * @summary formatters module
+ * @layer 
+ * @remarks
+ * Layer derived from Architecture-Principles.md.
+ */
+/**
  * Format a number with thousand separators.
  */
 export function fmtInt(value: number): string {

@@ -1,3 +1,10 @@
+/**
+ * @file src/ui/organisms/ExemplarsZone.tsx
+ * @summary ExemplarsZone module
+ * @layer UI Components
+ * @remarks
+ * Layer derived from Architecture-Principles.md.
+ */
 import React, { useState, useMemo } from 'react';
 import { ExemplarData } from '@/contracts/types';
 import { formatTimestamp, formatDuration } from '@/utils/formatters';

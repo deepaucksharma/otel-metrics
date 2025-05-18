@@ -1,3 +1,10 @@
+/**
+ * @file src/ui/organisms/AttributeZone.tsx
+ * @summary AttributeZone module
+ * @layer UI Components
+ * @remarks
+ * Layer derived from Architecture-Principles.md.
+ */
 import React, { useCallback } from 'react';
 import type { AttrMap, AttrValue } from '@/contracts/types';
 import { FixedSizeList } from 'react-window';
