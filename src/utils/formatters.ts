@@ -1,5 +1,10 @@
 /**
- * Collection of formatting helpers used across UI components.
+ * Helper functions for formatting numbers, durations and timestamps.
+ *
+ * The module exports {@link formatTimestamp} and a {@link formatters} object
+ * with convenience methods consumed by UI components.
+ *
+ * @packageDocumentation
  */
 /**
  * Format a Unix nanosecond timestamp into a locale string.
