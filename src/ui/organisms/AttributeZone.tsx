@@ -1,6 +1,7 @@
-import React, { useState, useCallback } from 'react';
+import React, { useCallback } from 'react';
 import type { AttrMap, AttrValue } from '@/contracts/types';
 import { FixedSizeList } from 'react-window';
+import { AttributeRow } from '@/ui/molecules/AttributeRow';
 import styles from './AttributeZone.module.css';
 
 /**
@@ -24,6 +25,9 @@ export interface AttributeZoneProps {
   /** Map of attribute keys to unique-value counts */
   attrUniq: Record<string, number>;
 
+  /** Keys ranked by unique count */
+  attrRank: string[];
+
   /** Total series count for calculating percentages */
   seriesCount: number;
 
@@ -37,50 +41,6 @@ export interface AttributeZoneProps {
   onAddGlobalFilter?: (key: string, value: AttrValue) => void;
 }
 
-interface AttributeRowProps {
-  attrKey: string;
-  attrValue: AttrValue;
-  uniqueCount: number;
-  isFocused: boolean;
-  onFocus: () => void;
-  onClear: () => void;
-  onCopy: () => void;
-  onAddFilter?: () => void;
-  style?: React.CSSProperties;
-}
-
-const AttributeRow: React.FC<AttributeRowProps> = ({
-  attrKey,
-  attrValue,
-  uniqueCount,
-  isFocused,
-  onFocus,
-  onClear,
-  onCopy,
-  onAddFilter,
-  style
-}) => {
-  const handleClick = () => {
-    isFocused ? onClear() : onFocus();
-  };
-  return (
-    <div
-      className={isFocused ? styles.rowFocused : undefined}
-      style={style}
-      onClick={handleClick}
-    >
-      <div className={styles.key}>{attrKey}</div>
-      <div className={styles.value}>{String(attrValue)}</div>
-      <div className={styles.actions}>
-        <span className={styles.rarityDot} aria-label={`unique values: ${uniqueCount}`}>
-          {uniqueCount}
-        </span>
-        <button onClick={onCopy}>Copy</button>
-        {onAddFilter && <button onClick={onAddFilter}>Filter</button>}
-      </div>
-    </div>
-  );
-};
 
 /**
  * Display resource and metric attributes in a grid with rarity indicators.
@@ -92,31 +52,46 @@ export const AttributeZone: React.FC<AttributeZoneProps> = ({
   seriesCount,
   focusedAttrKey,
   onFocusAttr,
-  onAddGlobalFilter
+  onAddGlobalFilter,
+  attrRank,
 }) => {
-  const [copiedKey, setCopiedKey] = useState<string | null>(null);
 
-  const handleCopy = useCallback((key: string, value: AttrValue) => {
-    navigator.clipboard.writeText(String(value));
-    setCopiedKey(key);
-    setTimeout(() => setCopiedKey(null), 1500);
-  }, []);
+  const handleRowClick = useCallback(
+    (key: string) => {
+      onFocusAttr(focusedAttrKey === key ? null : key);
+    },
+    [focusedAttrKey, onFocusAttr]
+  );
 
   const renderRow = useCallback(
-    (key: string, value: AttrValue) => (
+    (
+      key: string,
+      value: AttrValue,
+      style?: React.CSSProperties,
+    ) => (
       <AttributeRow
         key={key}
+        style={style}
         attrKey={key}
         attrValue={value}
+        rarityPercent={seriesCount > 0 ? ((attrUniq[key] ?? 0) / seriesCount) * 100 : 0}
         uniqueCount={attrUniq[key] ?? 0}
+        rank={attrRank.indexOf(key) + 1}
         isFocused={focusedAttrKey === key}
-        onFocus={() => onFocusAttr(key)}
-        onClear={() => onFocusAttr(null)}
-        onCopy={() => handleCopy(key, value)}
-        onAddFilter={onAddGlobalFilter ? () => onAddGlobalFilter(key, value) : undefined}
+        onClick={() => handleRowClick(key)}
+        onAddGlobalFilter={
+          onAddGlobalFilter ? () => onAddGlobalFilter(key, value) : undefined
+        }
       />
     ),
-    [attrUniq, focusedAttrKey, handleCopy, onAddGlobalFilter, onFocusAttr]
+    [
+      attrUniq,
+      attrRank,
+      seriesCount,
+      focusedAttrKey,
+      handleRowClick,
+      onAddGlobalFilter,
+    ]
   );
 
   const metricKeys = Object.keys(metricAttrs);
@@ -137,19 +112,7 @@ export const AttributeZone: React.FC<AttributeZoneProps> = ({
         <FixedSizeList height={300} width="100%" itemCount={metricKeys.length} itemSize={36}>
           {({ index, style }) => {
             const key = metricKeys[index];
-            return (
-              <AttributeRow
-                style={style}
-                attrKey={key}
-                attrValue={metricAttrs[key]}
-                uniqueCount={attrUniq[key] ?? 0}
-                isFocused={focusedAttrKey === key}
-                onFocus={() => onFocusAttr(key)}
-                onClear={() => onFocusAttr(null)}
-                onCopy={() => handleCopy(key, metricAttrs[key])}
-                onAddFilter={onAddGlobalFilter ? () => onAddGlobalFilter(key, metricAttrs[key]) : undefined}
-              />
-            );
+            return renderRow(key, metricAttrs[key], style);
           }}
         </FixedSizeList>
       </div>

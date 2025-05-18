@@ -92,12 +92,22 @@ export const DataPointInspectorDrawer: React.FC<DataPointInspectorDrawerProps> =
         resourceAttrs={resourceAttrs}
         metricAttrs={metricAttrs}
         attrUniq={cardinality.attrUniq}
+        attrRank={cardinality.attrRank}
+        seriesCount={cardinality.seriesCount}
         focusedAttrKey={focusedAttrKey}
         onFocusAttr={setFocusedAttrKey}
         onAddGlobalFilter={onAddGlobalFilter}
       />
     ),
-    [resourceAttrs, metricAttrs, cardinality.attrUniq, focusedAttrKey, onAddGlobalFilter]
+    [
+      resourceAttrs,
+      metricAttrs,
+      cardinality.attrUniq,
+      cardinality.attrRank,
+      cardinality.seriesCount,
+      focusedAttrKey,
+      onAddGlobalFilter,
+    ]
   );
 
   const containerClasses = [

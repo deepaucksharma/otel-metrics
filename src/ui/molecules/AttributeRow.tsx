@@ -28,10 +28,18 @@ export interface AttributeRowProps {
   rarityPercent: number;
   /** Whether the row is currently focused/highlighted */
   isFocused?: boolean;
+  /** Rank position in overall attribute list */
+  rank?: number;
+  /** Absolute unique value count for this attribute */
+  uniqueCount?: number;
+  /** Click handler used by parent components to control focus */
+  onClick?: () => void;
   /** Callback to toggle drop simulation */
   onSimulateDrop?: (key: string, drop: boolean) => void;
   /** Add key=value as a global filter */
   onAddGlobalFilter?: (key: string, value: string | number | boolean) => void;
+  /** Optional style when used inside virtualization lists */
+  style?: React.CSSProperties;
 }
 
 /**
@@ -41,19 +49,15 @@ export const AttributeRow: React.FC<AttributeRowProps> = ({
   attrKey,
   attrValue,
   rarityPercent,
-  isFocused: focusedProp,
+  isFocused = false,
+  rank,
+  uniqueCount,
+  onClick,
   onSimulateDrop,
   onAddGlobalFilter,
+  style,
 }) => {
-  const [internalFocus, setInternalFocus] = useState(false);
   const [dropChecked, setDropChecked] = useState(false);
-  const focused = focusedProp ?? internalFocus;
-
-  const handleRowClick = () => {
-    if (focusedProp === undefined) {
-      setInternalFocus(!internalFocus);
-    }
-  };
 
   const handleDropChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const checked = e.target.checked;
@@ -68,14 +72,16 @@ export const AttributeRow: React.FC<AttributeRowProps> = ({
 
   return (
     <div
-      className={clsx(styles.row, focused && styles.focused)}
+      className={clsx(styles.row, isFocused && styles.focused)}
       tabIndex={0}
-      onClick={handleRowClick}
+      style={style}
+      onClick={onClick}
     >
-      <RarityDot rarityPercent={rarityPercent} />
+      <RarityDot rarityPercent={rarityPercent} ariaLabel={`unique values: ${uniqueCount ?? 'N/A'}`} />
+      {rank !== undefined && <span className={styles.rank}>{rank}</span>}
       <span className={styles.key}>{attrKey}</span>
       <span className={styles.value}>{String(attrValue)}</span>
-      {focused && onSimulateDrop && (
+      {isFocused && onSimulateDrop && (
         <label className={styles.drop} onClick={(e) => e.stopPropagation()}>
           <input
             type="checkbox"
@@ -86,6 +92,9 @@ export const AttributeRow: React.FC<AttributeRowProps> = ({
         </label>
       )}
       <div className={styles.actions} onClick={(e) => e.stopPropagation()}>
+        {uniqueCount !== undefined && (
+          <span className={styles.count} aria-label={`unique values: ${uniqueCount}`}>{uniqueCount}</span>
+        )}
         {onAddGlobalFilter && (
           <button
             type="button"

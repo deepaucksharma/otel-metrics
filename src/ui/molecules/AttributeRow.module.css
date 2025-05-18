@@ -56,3 +56,9 @@
   font-size: var(--fontS);
   color: var(--textPrimary);
 }
+
+.rank,
+.count {
+  font-size: var(--fontS);
+  color: var(--textSecondary);
+}
