@@ -1,4 +1,11 @@
 /**
+ * @file design-tokens.ts
+ * @summary Typed mirror of `tokens.css` design tokens.
+ * @remarks Styling code should reference `tokens.css` variables via `var(--name)`.
+ * @layer design
+ * @perfBudget N/A
+ * @loc_estimate 202
+ *
  * IntelliMetric Explorer – Design Tokens
  *
  * Centralized constants mirroring the CSS variables in `tokens.css`.
