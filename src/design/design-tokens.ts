@@ -1,11 +1,9 @@
 /**
- * IntelliMetric Explorer – Design Tokens
- *
- * Centralized constants mirroring the CSS variables in `tokens.css`.
- * Use these values for consistent theming across the UI.
+ * Auto-generated from tokens.css
+ * Run `pnpm generate:tokens` to regenerate.
  */
-/** Background color tokens used for surfaces, cards and overlays. */
-export const backgroundColorsTokens = {
+
+export const designTokens = {
   surfaceBg: "#1e1e1e",
   surfaceBgHover: "#252525",
   surfaceBgActive: "#2d2d2d",
@@ -20,10 +18,6 @@ export const backgroundColorsTokens = {
   tooltipBg: "#1a1a1a",
   codeBg: "#1a1a1a",
   jsonBg: "#161616",
-} as const;
-
-/** Text color tokens for body text, headings and status messages. */
-export const textColorsTokens = {
   textPrimary: "#e0e0e0",
   textSecondary: "#b0b0b0",
   textTertiary: "#888888",
@@ -36,19 +30,11 @@ export const textColorsTokens = {
   headingText: "#ffffff",
   attrKeyColor: "#9cdcfe",
   attrValueColor: "#e0e0e0",
-} as const;
-
-/** Border color tokens for dividers and focus rings. */
-export const borderColorsTokens = {
   borderColor: "#333333",
   borderColorLight: "#444444",
   borderColorFocus: "#0078d4",
   dividerColor: "#333333",
   sectionDivider: "#3a3a3a",
-} as const;
-
-/** Status and interaction indicator colors. */
-export const indicatorColorsTokens = {
   statusSuccess: "#2ecc71",
   statusWarning: "#f39c12",
   statusError: "#e74c3c",
@@ -61,15 +47,12 @@ export const indicatorColorsTokens = {
   buttonHover: "#106ebe",
   buttonActive: "#005a9e",
   buttonDisabled: "#333333",
-} as const;
-
-/** Visualization tokens for charts and data displays. */
-export const visualizationSpecificColorsTokens = {
   chipBgColor: "rgba(30, 30, 30, 0.7)",
   chipHoverBgColor: "rgba(40, 40, 40, 0.8)",
   chipOperatorColor: "#888888",
   chipCountColor: "#aaaaaa",
   chipEqualsColor: "#e0e0e0",
+  gaugeDefaultColor: "#0066CC",
   exemplarDotDefault: "#666666",
   exemplarDotSelected: "#f39c12",
   exemplarAxisColor: "#444444",
@@ -79,10 +62,11 @@ export const visualizationSpecificColorsTokens = {
   rarityMed: "#f39c12",
   rarityHigh: "#e74c3c",
   simulationBg: "rgba(0, 120, 212, 0.1)",
-} as const;
-
-/** Spacing scale and component padding values. */
-export const spacingTokens = {
+  instrumentGaugeBg: "#3498db",
+  instrumentSumBg: "#2ecc71",
+  instrumentHistogramBg: "#f39c12",
+  instrumentSummaryBg: "#9b59b6",
+  instrumentUnknownBg: "#666666",
   spaceXS: "4px",
   spaceS: "8px",
   spaceM: "16px",
@@ -94,10 +78,6 @@ export const spacingTokens = {
   sectionGap: "var(--spaceL)",
   gridGap: "var(--spaceXS)",
   inputPadding: "var(--spaceS)",
-} as const;
-
-/** Font families, sizes and weights. */
-export const typographyTokens = {
   systemFont: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif",
   monoFont: "'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace",
   fontXS: "11px",
@@ -113,10 +93,6 @@ export const typographyTokens = {
   fontWeightMedium: "500",
   fontWeightSemibold: "600",
   fontWeightBold: "700",
-} as const;
-
-/** Border radii, shadows and component sizing. */
-export const layoutTokens = {
   radiusXS: "2px",
   radiusS: "4px",
   radiusM: "6px",
@@ -138,10 +114,6 @@ export const layoutTokens = {
   inputHeight: "32px",
   buttonHeight: "32px",
   iconSize: "18px",
-} as const;
-
-/** Timing and easing values for motion. */
-export const animationTokens = {
   durationXS: "100ms",
   durationS: "150ms",
   durationM: "250ms",
@@ -153,10 +125,6 @@ export const animationTokens = {
   transitionDefault: "all var(--durationS) var(--easingStandard)",
   transitionExpand: "all var(--durationM) var(--easingDecelerate)",
   transitionFade: "opacity var(--durationS) var(--easingStandard)",
-} as const;
-
-/** Styling for the inspector drawer header. */
-export const inspectorHeaderTokens = {
   inspectorHeaderBg: "var(--headerBg)",
   inspectorHeaderHeight: "var(--headerHeight)",
   inspectorHeaderTitleColor: "var(--headingText)",
@@ -164,10 +132,6 @@ export const inspectorHeaderTokens = {
   closeButtonColor: "var(--textTertiary)",
   closeButtonHoverColor: "var(--textPrimary)",
   closeButtonHoverBg: "rgba(255, 255, 255, 0.1)",
-} as const;
-
-/** Tokens for attribute list styling. */
-export const attributeZoneTokens = {
   attrZoneBg: "var(--cardBg)",
   attrZoneTitleColor: "var(--textPrimary)",
   attrZoneSectionTitleColor: "var(--textSecondary)",
@@ -175,10 +139,6 @@ export const attributeZoneTokens = {
   attrRowHoverBg: "var(--surfaceBgHover)",
   attrRowFocusBg: "var(--highlightBg)",
   attrRowBorderFocus: "rgba(255, 200, 0, 0.5)",
-} as const;
-
-/** Capsule component and mini bar tokens. */
-export const cardinalityCapsuleTokens = {
   cardinalityCapsuleBg: "var(--cardBg)",
   cardinalityHeaderColor: "var(--textPrimary)",
   miniBarRowHoverBg: "var(--surfaceBgHover)",
@@ -186,10 +146,6 @@ export const cardinalityCapsuleTokens = {
   simulationSectionBg: "var(--simulationBg)",
   checkboxLabelColor: "var(--textPrimary)",
   focusedAttrColor: "var(--statusSuccess)",
-} as const;
-
-/** Formatting tokens for the raw JSON viewer. */
-export const rawJSONZoneTokens = {
   rawJsonHeaderBg: "var(--headerBg)",
   rawJsonContentBg: "var(--codeBg)",
   rawJsonSyntaxKeyColor: "#9cdcfe",
@@ -200,3 +156,6 @@ export const rawJSONZoneTokens = {
   jsonExpandButtonColor: "var(--textSecondary)",
   jsonExpandButtonHoverColor: "var(--textPrimary)",
 } as const;
+
+export type DesignTokens = typeof designTokens;
+export type DesignTokenName = keyof DesignTokens;

@@ -14,19 +14,19 @@ export type EventMap = {
    *
    * Emitted by the StaticFileProvider when it begins reading a file.
    */
-  'data.snapshot.load.start': { fileName: string };
+  'data.snapshot.loading': { fileId: string; fileName: string };
 
   /**
    * A snapshot has been parsed and is ready for use.
    *
    * Typically emitted by the parser worker once parsing succeeds.
    */
-  'data.snapshot.parsed': { snapshot: ParsedSnapshot };
+  'data.snapshot.loaded': { snapshot: ParsedSnapshot };
 
   /**
    * Reports any recoverable error that occurred during loading or parsing.
    */
-  'data.snapshot.error': { fileName: string; error: string };
+  'data.error': { message: string; error?: unknown };
 
   /**
    * Progress update while loading a snapshot.
@@ -38,9 +38,7 @@ export type EventMap = {
    */
   'ui.metric.inspect': { metricName: string; snapshotId: string };
 
-  /**
-   * Open the data point inspector drawer.
-   */
+  /** Open the data point inspector drawer. */
   'ui.inspector.open': {
     snapshotId: string;
     metricName: string;
@@ -48,14 +46,10 @@ export type EventMap = {
     pointId: number;
   };
 
-  /**
-   * Close the data point inspector drawer.
-   */
+  /** Close the data point inspector drawer. */
   'ui.inspector.close': void;
 
-  /**
-   * Toggle cardinality drop simulation for a metric.
-   */
+  /** Toggle attribute drop simulation for cardinality analysis. */
   'ui.cardinality.simulateDrop': { key: string; drop: boolean };
 
   /**
@@ -77,4 +71,3 @@ export const bus = mitt<EventMap>();
  * The type of the exported {@link bus} instance.
  */
 export type EventBus = typeof bus;
-

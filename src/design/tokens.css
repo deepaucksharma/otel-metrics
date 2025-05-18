@@ -51,6 +51,7 @@
   --chipOperatorColor: #888888;
   --chipCountColor: #aaaaaa;
   --chipEqualsColor: #e0e0e0;
+  --gaugeDefaultColor: #0066CC;
   --exemplarDotDefault: #666666;
   --exemplarDotSelected: #f39c12;
   --exemplarAxisColor: #444444;
@@ -60,6 +61,12 @@
   --rarityMed: #f39c12;
   --rarityHigh: #e74c3c;
   --simulationBg: rgba(0, 120, 212, 0.1);
+
+  --instrumentGaugeBg: #3498db;
+  --instrumentSumBg: #2ecc71;
+  --instrumentHistogramBg: #f39c12;
+  --instrumentSummaryBg: #9b59b6;
+  --instrumentUnknownBg: #666666;
 
   --spaceXS: 4px;
   --spaceS: 8px;

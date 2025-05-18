@@ -9,7 +9,6 @@ export interface AttributeRowProps {
   attrValue: AttrValue;
   rarityPercent: number;
   isFocused?: boolean;
-  onAddGlobalFilter?: () => void;
   className?: string;
 }
 
@@ -18,7 +17,6 @@ export const AttributeRow: React.FC<AttributeRowProps> = ({
   attrValue,
   rarityPercent,
   isFocused = false,
-  onAddGlobalFilter,
   className,
 }) => {
   return (
@@ -36,11 +34,6 @@ export const AttributeRow: React.FC<AttributeRowProps> = ({
           copyValue={String(attrValue)}
           ariaLabel={`Copy value: ${String(attrValue)}`}
         />
-        {onAddGlobalFilter && (
-          <button onClick={onAddGlobalFilter} data-testid="filter-button">
-            Filter
-          </button>
-        )}
       </div>
     </div>
   );

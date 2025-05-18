@@ -10,7 +10,7 @@
  */
 import React from 'react';
 import styles from './CounterCard.module.css';
-import { fmtInt, fmtSI, fmtDeltaAbs } from '@/utils/formatters';
+import { formatters } from '@/utils/formatters';
 
 /**
  * Props for {@link CounterCard}.
@@ -42,7 +42,7 @@ export const CounterCard: React.FC<CounterCardProps> = ({
   className,
 }) => {
   // Format value based on options
-  const formattedValue = useSINotation ? fmtSI(value) : fmtInt(value);
+  const formattedValue = useSINotation ? formatters.SI(value) : formatters.int(value);
 
   return (
     <div className={`${styles.container} ${className || ''}`.trim()}>
@@ -54,7 +54,7 @@ export const CounterCard: React.FC<CounterCardProps> = ({
             delta >= 0 ? styles.positive : styles.negative
           }`}
         >
-          {fmtDeltaAbs(delta)} {delta >= 0 ? '↑' : '↓'}
+          {formatters.deltaAbs(delta)} {delta >= 0 ? '↑' : '↓'}
         </div>
       )}
     </div>

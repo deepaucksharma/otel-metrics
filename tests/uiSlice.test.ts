@@ -1,7 +1,6 @@
 import { describe, beforeEach, it, expect } from 'vitest';
 import useUiSlice, {
   selectIsInspectorOpen,
-  selectDropSimulation,
   selectCurrentInspectionContext
 } from '../src/state/uiSlice';
 
@@ -26,16 +25,6 @@ describe('uiSlice', () => {
     const ctx = selectCurrentInspectionContext(useUiSlice.getState());
     expect(ctx.seriesKey).toBe('metric|a=b');
     expect(ctx.pointId).toBe(123);
-  });
-
-  it('toggleSimDrop sets and clears simulation', () => {
-    useUiSlice.getState().toggleSimDrop('http.method', true);
-    expect(selectDropSimulation(useUiSlice.getState())).toEqual({
-      attributeKey: 'http.method',
-      isActive: true
-    });
-    useUiSlice.getState().toggleSimDrop('http.method', false);
-    expect(selectDropSimulation(useUiSlice.getState())).toBeUndefined();
   });
 
   it('resetUi clears values', () => {

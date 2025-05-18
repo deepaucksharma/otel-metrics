@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import type { AttrMap, AttrValue } from '@intellimetric/contracts/types';
 import { FixedSizeList } from 'react-window';
 import { AttributeRow } from '../molecules/AttributeRow';
@@ -24,19 +24,13 @@ export interface AttributeZoneProps {
 
   /** Map of attribute keys to unique-value counts */
   attrUniq: Record<string, number>;
-
-  /** Total series count for calculating percentages */
-  seriesCount: number;
-
   /** Currently focused attribute key (or null) */
   focusedAttrKey: string | null;
 
   /** Callback when attribute focus changes */
   onFocusAttr: (key: string | null) => void;
-
-  /** Optional callback to add global filter for attribute */
-  onAddGlobalFilter?: (key: string, value: AttrValue) => void;
 }
+
 
 /**
  * Display resource and metric attributes in a grid with rarity indicators.
@@ -45,32 +39,57 @@ export const AttributeZone: React.FC<AttributeZoneProps> = ({
   resourceAttrs,
   metricAttrs,
   attrUniq,
-  seriesCount,
   focusedAttrKey,
-  onFocusAttr,
-  onAddGlobalFilter
+  onFocusAttr
 }) => {
+  const rowRef = useRef<HTMLDivElement>(null);
+  const [itemSize, setItemSize] = useState<number>(36);
+
+  useEffect(() => {
+    if (rowRef.current) {
+      setItemSize(rowRef.current.getBoundingClientRect().height);
+    }
+  }, []);
+
   const renderRow = useCallback(
-    (key: string, value: AttrValue, style?: React.CSSProperties) => {
-      const uniqueCount = attrUniq[key] ?? 0;
-      const rarityPercent = seriesCount ? (uniqueCount / seriesCount) * 100 : 0;
-      const handleClick = () =>
-        focusedAttrKey === key ? onFocusAttr(null) : onFocusAttr(key);
+    (
+      key: string,
+      value: AttrValue,
+      style?: React.CSSProperties,
+      ref?: React.Ref<HTMLDivElement>
+    ) => {
+      const rarityPercent = attrUniq[key]
+        ? Math.round((1 / attrUniq[key]) * 100)
+        : 0;
+      const handleClick = () => {
+        onFocusAttr(focusedAttrKey === key ? null : key);
+      };
+      const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          handleClick();
+        }
+      };
       return (
-        <div style={style} onClick={handleClick}>
+        <div
+          ref={ref}
+          key={key}
+          style={style}
+          onClick={handleClick}
+          role="button"
+          tabIndex={0}
+          onKeyDown={handleKeyDown}
+        >
           <AttributeRow
             attrKey={key}
             attrValue={value}
             rarityPercent={rarityPercent}
             isFocused={focusedAttrKey === key}
-            onAddGlobalFilter={
-              onAddGlobalFilter ? () => onAddGlobalFilter(key, value) : undefined
-            }
           />
         </div>
       );
     },
-    [attrUniq, seriesCount, focusedAttrKey, onAddGlobalFilter, onFocusAttr]
+    [attrUniq, focusedAttrKey, onFocusAttr]
   );
 
   const metricKeys = Object.keys(metricAttrs);
@@ -84,14 +103,14 @@ export const AttributeZone: React.FC<AttributeZoneProps> = ({
         {resourceKeys.length > 0 && (
           <>
             <h4>Resource ({resourceKeys.length})</h4>
-            <div className={styles.grid}>{resourceKeys.map(k => renderRow(k, resourceAttrs[k]))}</div>
+            <div className={styles.list}>{resourceKeys.map(k => renderRow(k, resourceAttrs[k]))}</div>
           </>
         )}
         <h4>Metric ({metricKeys.length})</h4>
-        <FixedSizeList height={300} width="100%" itemCount={metricKeys.length} itemSize={36}>
+        <FixedSizeList height={300} width="100%" itemCount={metricKeys.length} itemSize={itemSize}>
           {({ index, style }) => {
             const key = metricKeys[index];
-            return renderRow(key, metricAttrs[key], style);
+            return renderRow(key, metricAttrs[key], style, index === 0 ? rowRef : undefined);
           }}
         </FixedSizeList>
       </div>
@@ -104,16 +123,15 @@ export const AttributeZone: React.FC<AttributeZoneProps> = ({
       {resourceKeys.length > 0 && (
         <>
           <h4>Resource ({resourceKeys.length})</h4>
-          <div className={styles.grid}>{resourceKeys.map(k => renderRow(k, resourceAttrs[k]))}</div>
+          <div className={styles.list}>{resourceKeys.map(k => renderRow(k, resourceAttrs[k]))}</div>
         </>
       )}
       {metricKeys.length > 0 && (
         <>
           <h4>Metric ({metricKeys.length})</h4>
-          <div className={styles.grid}>{metricKeys.map(k => renderRow(k, metricAttrs[k]))}</div>
+          <div className={styles.list}>{metricKeys.map(k => renderRow(k, metricAttrs[k]))}</div>
         </>
       )}
     </div>
   );
 };
-

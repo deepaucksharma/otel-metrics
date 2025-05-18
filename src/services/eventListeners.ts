@@ -17,7 +17,7 @@
 import { bus as eventBus } from './eventBus';
 import { useMetricsSlice } from '@/state/metricsSlice';
 import { useUiSlice } from '@/state/uiSlice';
-import type { EventTypes } from './eventTypes';
+import type { EventMap } from './eventBus';
 
 /**
  * Register all event listeners on the global {@link eventBus}.
@@ -30,20 +30,20 @@ export function registerEventListeners(): () => void {
   const uiActions = useUiSlice.getState();
 
   // Data events
-  eventBus.on('data.snapshot.parsed', (payload: EventTypes['data.snapshot.parsed']) => {
+  eventBus.on('data.snapshot.loaded', (payload: EventMap['data.snapshot.loaded']) => {
     metricsActions.addSnapshot(payload.snapshot);
   });
 
-  eventBus.on('data.snapshot.error', (payload: EventTypes['data.snapshot.error']) => {
-    metricsActions.registerError(payload.fileName, payload.error);
+  eventBus.on('data.error', (payload: EventMap['data.error']) => {
+    metricsActions.registerError(payload.message);
   });
 
-  eventBus.on('data.snapshot.load.start', (payload: EventTypes['data.snapshot.load.start']) => {
+  eventBus.on('data.snapshot.loading', (payload: EventMap['data.snapshot.loading']) => {
     metricsActions.markLoading(payload.fileName);
   });
 
   // UI events
-  eventBus.on('ui.inspector.open', (payload: EventTypes['ui.inspector.open']) => {
+  eventBus.on('ui.inspector.open', (payload: EventMap['ui.inspector.open']) => {
     // Update context before opening the inspector
     uiActions.setActiveSnapshot(payload.snapshotId);
     uiActions.inspectMetric(payload.metricName);
@@ -55,7 +55,7 @@ export function registerEventListeners(): () => void {
     uiActions.closeInspector();
   });
 
-  eventBus.on('ui.metric.inspect', (payload: EventTypes['ui.metric.inspect']) => {
+  eventBus.on('ui.metric.inspect', (payload: EventMap['ui.metric.inspect']) => {
     uiActions.setActiveSnapshot(payload.snapshotId);
     uiActions.inspectMetric(payload.metricName);
   });
@@ -63,7 +63,7 @@ export function registerEventListeners(): () => void {
   // Cardinality simulation toggle
   eventBus.on(
     'ui.cardinality.simulateDrop',
-    (payload: EventTypes['ui.cardinality.simulateDrop']) => {
+    (payload: EventMap['ui.cardinality.simulateDrop']) => {
       uiActions.toggleSimDrop(payload.key, payload.drop);
     }
   );

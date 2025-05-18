@@ -23,6 +23,10 @@ export interface MetricsSliceState {
   snapshots: Record<string, ParsedSnapshot>;
   /** Ordered list of snapshot ids in insertion order. */
   snapshotOrder: string[];
+  /** File names currently being loaded. */
+  loading: string[];
+  /** Error messages from snapshot processing. */
+  errors: string[];
 }
 
 /** Actions mutating {@link MetricsSliceState}. */
@@ -33,6 +37,10 @@ export interface MetricsSliceActions {
   removeSnapshot(id: string): void;
   /** Clear all snapshots. */
   clearSnapshots(): void;
+  /** Track a file as loading. */
+  markLoading(fileName: string): void;
+  /** Record an error message. */
+  registerError(message: string): void;
 }
 
 /** Zustand store containing metrics data and actions. */
@@ -40,6 +48,8 @@ export const useMetricsSlice = create<MetricsSliceState & MetricsSliceActions>()
   immer((set) => ({
     snapshots: {},
     snapshotOrder: [],
+    loading: [],
+    errors: [],
 
     addSnapshot: (snap) =>
       set((state) => {
@@ -59,6 +69,16 @@ export const useMetricsSlice = create<MetricsSliceState & MetricsSliceActions>()
       set((state) => {
         state.snapshots = {};
         state.snapshotOrder = [];
+      }),
+
+    markLoading: (fileName) =>
+      set((state) => {
+        state.loading.push(fileName);
+      }),
+
+    registerError: (message) =>
+      set((state) => {
+        state.errors.push(message);
       }),
   }))
 );
@@ -106,4 +126,3 @@ export const selectSnapshotSummaries = (state: MetricsSliceState) =>
       seriesCount: computeSeriesCount(snap),
     };
   });
-

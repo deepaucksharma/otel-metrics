@@ -5,7 +5,8 @@ import styles from './MiniBar.module.css';
  * Horizontal bar that visualizes a numerical proportion.
  *
  * Wrapper merges `styles.wrapper` with `className`.
- * If `percent` is `0`, a 1&nbsp;px bar is rendered so count text still aligns.
+ * If the percentage is `0`, a 1&nbsp;px bar is rendered so count text still
+ * aligns.
  *
  * CSS reference:
  * ```css
@@ -16,12 +17,14 @@ import styles from './MiniBar.module.css';
  *
  * @example
  * ```tsx
- * <MiniBar percent={50} label="500" />
+ * <MiniBar value={50} max={100} label="500" />
  * ```
  */
 export interface MiniBarProps {
-  /** Width as percentage of parent (0–100). */
-  percent: number;
+  /** Current value represented by the bar. */
+  value: number;
+  /** Maximum possible value used to calculate the percentage. */
+  max: number;
   /** Bar height in px – default 8. */
   height?: number;
   /** Colour token name – default `--metricBlue`. */
@@ -33,12 +36,14 @@ export interface MiniBarProps {
 }
 
 export const MiniBar: React.FC<MiniBarProps> = ({
-  percent,
+  value,
+  max,
   height = 8,
   colorToken = '--metricBlue',
   label,
   className,
 }) => {
+  const percent = max > 0 ? (value / max) * 100 : 0;
   const widthStyle = percent === 0 ? '1px' : `${percent}%`;
   const showLabel = !!label && percent >= 15;
   const wrapperClass = [styles.wrapper, className].filter(Boolean).join(' ');

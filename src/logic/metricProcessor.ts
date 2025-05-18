@@ -103,6 +103,7 @@ export function getProcessedMetricInfo(
     definition: metric.definition,
     cardinality: {
       seriesCount,
+      baseSeriesCount: baseCount,
       attrUniq: stats.attrUniq,
       attrRank: stats.attrRank,
     },
