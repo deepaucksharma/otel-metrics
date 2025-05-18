@@ -1,0 +1,43 @@
+.container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 8px;
+}
+
+.gauge {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.gaugeSvg {
+  display: block;
+}
+
+.gaugeBackground {
+  fill: none;
+  stroke: var(--gaugeBackgroundColor, #e0e0e0);
+  stroke-width: 5;
+}
+
+.gaugeFill {
+  fill: none;
+  stroke-width: 5;
+  transition: stroke-dashoffset 0.3s;
+}
+
+.needle {
+  stroke: var(--needleColor, #555);
+  stroke-width: 2;
+}
+
+.needleCenter {
+  fill: var(--needleCenterColor, #555);
+}
+
+.value {
+  margin-top: 4px;
+  font-weight: 500;
+}

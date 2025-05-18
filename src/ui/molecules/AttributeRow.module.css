@@ -1,58 +1,39 @@
-.row {
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.attributeRow {
   display: grid;
-  grid-template-columns: auto 1fr auto auto;
-  gap: var(--spaceXS);
+  grid-template-columns: minmax(140px, 30%) 1fr auto;
+  grid-gap: 4px;
   align-items: center;
-  padding: var(--spaceXS) var(--spaceS);
-  background: var(--attrRowBg);
-  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
 }
 
-.row:hover {
-  background: var(--attrRowHoverBg);
-}
-
-.focused {
-  background: var(--attrRowFocusBg);
-  outline: 1px solid var(--attrRowBorderFocus);
+.attributeRowFocused {
+  background-color: var(--cardHighlightBg, rgba(0, 102, 204, 0.1));
 }
 
 .key {
-  color: var(--attrKeyColor);
   font-weight: 500;
+  color: var(--attrKeyColor, #555);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .value {
-  font-family: var(--monoFont);
-  white-space: nowrap;
+  font-family: var(--monoFont, monospace);
   overflow: hidden;
   text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .actions {
   display: flex;
+  gap: 4px;
   align-items: center;
-  gap: var(--spaceXS);
-}
-
-.filter,
-.copy {
-  background: transparent;
-  border: none;
-  padding: 0;
-  color: var(--iconGrey);
-  cursor: pointer;
-}
-
-.filter:hover,
-.copy:hover {
-  color: var(--iconHover);
-}
-
-.drop {
-  display: flex;
-  align-items: center;
-  gap: var(--spaceXS);
-  font-size: var(--fontS);
-  color: var(--textPrimary);
 }

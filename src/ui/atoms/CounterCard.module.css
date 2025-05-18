@@ -1,0 +1,30 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 8px;
+}
+
+.value {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.unit {
+  font-size: 12px;
+  color: var(--textSecondary);
+  margin-top: 2px;
+}
+
+.delta {
+  font-size: 14px;
+  margin-top: 4px;
+}
+
+.positive {
+  color: var(--colorPositive, green);
+}
+
+.negative {
+  color: var(--colorNegative, red);
+}
