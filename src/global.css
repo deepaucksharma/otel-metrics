@@ -2,7 +2,7 @@
    Global Styles
    ------------------------------------- */
 
-@import './design/tokens.css';
+@import './tokens.css';
 
 *,
 *::before,

@@ -1,11 +1,16 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
+import { registerEventListeners } from '@/services/eventListeners';
 
 /**
  * The root application component.
  * This acts as the main container for all views within the application.
  */
 const App: React.FC = () => {
+  useEffect(() => {
+    const cleanup = registerEventListeners();
+    return cleanup;
+  }, []);
   return (
     <div className="app-container">
       <h1>IntelliMetric Explorer</h1>
