@@ -35,12 +35,19 @@ export function registerEventListeners(): () => void {
   });
 
   eventBus.on('data.snapshot.error', (payload: EventTypes['data.snapshot.error']) => {
-    metricsActions.registerError(payload.fileName, payload.error);
+    // Log errors instead of mutating state - actions were removed
+    console.error(
+      `Error loading snapshot ${payload.fileName}: ${payload.error}`
+    );
   });
 
-  eventBus.on('data.snapshot.load.start', (payload: EventTypes['data.snapshot.load.start']) => {
-    metricsActions.markLoading(payload.fileName);
-  });
+  eventBus.on(
+    'data.snapshot.load.start',
+    (payload: EventTypes['data.snapshot.load.start']) => {
+      // Indicate loading progress without touching state
+      console.debug(`Loading snapshot ${payload.fileName}`);
+    }
+  );
 
   // UI events
   eventBus.on('ui.inspector.open', (payload: EventTypes['ui.inspector.open']) => {
