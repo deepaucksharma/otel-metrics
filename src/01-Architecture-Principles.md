@@ -87,6 +87,8 @@ Fail a unit-perf test if budgets regress.
 | UI Atoms | Storybook screenshot | per variant |
 | Layout (E2E) | Playwright | load snapshot → open Inspector |
 
+See [tests/README.md](../tests/README.md) for test helpers and snapshot guidelines.
+
 ## 8. Accessibility & i18n
 - Colour tokens meet WCAG AA on dark theme.
 - All interactive elements get aria-label.
