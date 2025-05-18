@@ -4,7 +4,7 @@
  *
  * @remarks
  * Algorithm: maintain a singleton array of workers and dispatch tasks in round-robin.
- * Dependencies: browser `Worker`, `crypto.randomUUID`, `parser.worker.ts` bundle path.
+ * Dependencies: browser `Worker`, {@link randomId}, `parser.worker.ts` bundle path.
  * Consumers: StaticFileProvider and future bulk-import features.
  * Tests: mocked Worker to validate success, failure, round-robin, and termination.
  * Future work: queue length metrics and dynamic pool sizing.
@@ -14,6 +14,7 @@ import type { ParsedSnapshot } from '@/contracts/types';
 import { jsonSafeParse } from '@/logic/workers/utils/jsonSafeParse';
 import { mapToParsedSnapshot } from '@/logic/workers/mapping/otlpMapper';
 import type { RawOtlpExportMetricsServiceRequest } from '@/contracts/rawOtlpTypes';
+import { randomId } from '@/utils/randomId';
 
 export interface ParseTask {
   snapshotId: string;
@@ -138,7 +139,7 @@ export function dispatchToParserWorker(task: ParseTask): Promise<WorkerSuccess |
   }
   ensurePool();
   return new Promise((resolve) => {
-    const taskId = crypto.randomUUID();
+    const taskId = randomId();
     const worker = workers[rr];
     inFlight.set(taskId, { resolve, worker, task });
     worker.postMessage({ taskId, type: 'parse', payload: task });
