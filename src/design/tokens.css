@@ -62,6 +62,12 @@
   --rarityHigh: #e74c3c;
   --simulationBg: rgba(0, 120, 212, 0.1);
 
+  --instrumentGaugeBg: #3498db;
+  --instrumentSumBg: #2ecc71;
+  --instrumentHistogramBg: #f39c12;
+  --instrumentSummaryBg: #9b59b6;
+  --instrumentUnknownBg: #666666;
+
   --spaceXS: 4px;
   --spaceS: 8px;
   --spaceM: 16px;
