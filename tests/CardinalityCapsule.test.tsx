@@ -9,6 +9,7 @@ describe('CardinalityCapsule', () => {
     render(
       <CardinalityCapsule
         seriesCount={10}
+        baseSeriesCount={10}
         thresholdHigh={100}
         attrRank={['method']}
         attrUniq={{ method: 1 }}
@@ -26,6 +27,26 @@ describe('CardinalityCapsule', () => {
     onFocusAttr.mockClear();
     fireEvent.keyDown(row, { key: ' ' });
     expect(onFocusAttr).toHaveBeenCalledWith('method');
+  });
+
+  it('shows correct reduction percentage when drop simulation active', () => {
+    render(
+      <CardinalityCapsule
+        seriesCount={60}
+        baseSeriesCount={100}
+        thresholdHigh={100}
+        attrRank={['method']}
+        attrUniq={{ method: 2 }}
+        focusedAttrKey="method"
+        onFocusAttr={vi.fn()}
+        onToggleDrop={vi.fn()}
+        isDropSimActive={true}
+        droppedKey="method"
+      />
+    );
+    expect(
+      screen.getByText(/\u2192 60 series \(40% less\)/)
+    ).toBeInTheDocument();
   });
 });
 
