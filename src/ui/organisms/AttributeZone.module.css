@@ -4,7 +4,11 @@
   gap: 8px;
 }
 
+<<<<<<< HEAD
 .grid {
+=======
+.list {
+>>>>>>> origin/codex/refactor-attributerow-import-and-usage
   display: flex;
   flex-direction: column;
   gap: 4px;
