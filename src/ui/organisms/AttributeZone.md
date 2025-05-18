@@ -33,6 +33,9 @@ export interface AttributeZoneProps {
   /** Map of attribute keys to unique-value counts */
   attrUniq: Record<string, number>;
   
+  /** Total series count for calculating percentages */
+  seriesCount: number;
+  
   /** Currently focused attribute key (or null) */
   focusedAttrKey: string | null;
   
@@ -84,7 +87,7 @@ export interface AttributeZoneProps {
             key={`res-${key}`}
             attrKey={key}
             attrValue={value}
-            uniqueCount={attrUniq[key] || 1}
+            rarityPercent={(attrUniq[key] / seriesCount) * 100}
             isFocused={focusedAttrKey === key}
             onFocus={() => onFocusAttr(key)}
             onClear={() => onFocusAttr(null)}
@@ -106,7 +109,7 @@ export interface AttributeZoneProps {
             key={`metric-${key}`}
             attrKey={key}
             attrValue={value}
-            uniqueCount={attrUniq[key] || 1}
+            rarityPercent={(attrUniq[key] / seriesCount) * 100}
             isFocused={focusedAttrKey === key}
             onFocus={() => onFocusAttr(key)}
             onClear={() => onFocusAttr(null)}

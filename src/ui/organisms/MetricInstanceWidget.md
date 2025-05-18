@@ -32,11 +32,7 @@ Widget logic derives all further details (series, point, cardinality) from these
 
 ```ts
 const [droppedKey, toggleDrop] = useDropSimulation();
-const inspectorProps = useInspectorProps({
-  snapshotId,
-  metricName,
-  simulateDropAttributeKey: droppedKey
-});
+const inspectorProps = useInspectorProps(droppedKey);
 ```
 
 ---
@@ -49,7 +45,7 @@ const inspectorProps = useInspectorProps({
   {inspectorProps && (
     <DataPointInspectorDrawer
       {...inspectorProps}
-      onSimulateDrop={toggleDrop}
+      onSimulateDrop={handleSimulateDrop}
     />
   )}
 </div>
