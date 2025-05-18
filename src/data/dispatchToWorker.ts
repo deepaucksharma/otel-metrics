@@ -36,7 +36,14 @@ export type WorkerFailure = {
 };
 
 const workers: Worker[] = [];
-const inFlight = new Map<string, { resolve: (r: WorkerSuccess | WorkerFailure) => void }>();
+const inFlight = new Map<
+  string,
+  {
+    resolve: (r: WorkerSuccess | WorkerFailure) => void;
+    worker: Worker;
+    task: ParseTask;
+  }
+>();
 let rr = 0;
 let poolSize = 0;
 
@@ -54,6 +61,19 @@ function ensurePool() {
     };
     worker.onerror = (err) => {
       console.error('Worker crash', err);
+      for (const [taskId, entry] of Array.from(inFlight.entries())) {
+        if (entry.worker === worker) {
+          entry.resolve({
+            type: 'parserError',
+            payload: {
+              snapshotId: entry.task.snapshotId,
+              fileName: entry.task.fileName,
+              message: 'Worker crashed',
+            },
+          });
+          inFlight.delete(taskId);
+        }
+      }
     };
     workers.push(worker);
   }
@@ -69,8 +89,8 @@ export function dispatchToParserWorker(task: ParseTask): Promise<WorkerSuccess |
   ensurePool();
   return new Promise((resolve) => {
     const taskId = crypto.randomUUID();
-    inFlight.set(taskId, { resolve });
     const worker = workers[rr];
+    inFlight.set(taskId, { resolve, worker, task });
     worker.postMessage({ taskId, type: 'parse', payload: task });
     rr = (rr + 1) % poolSize;
   });
