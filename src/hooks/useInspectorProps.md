@@ -21,6 +21,7 @@ Returns **`null`** until all required pieces are available.
 ```ts
 // src/hooks/useInspectorProps.ts
 import type { InspectorProps } from '@/contracts/types';
+import { DEFAULT_THRESHOLD_HIGH } from '@/config';
 
 /**
  * Resolve the fully-assembled props for the Inspector drawer.
@@ -82,7 +83,7 @@ return {
     attrOfPoint : Object.keys(series.metricAttributes).concat(
                     Object.keys(series.resourceAttributes)
                   ),
-    thresholdHigh: 2000  // TODO: global config
+    thresholdHigh: DEFAULT_THRESHOLD_HIGH
   },
   exemplars : point.exemplars,
   onClose   : () => uiActions.closeInspector(),
