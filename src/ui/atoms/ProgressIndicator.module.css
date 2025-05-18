@@ -1,0 +1,99 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 400px;
+  padding: 12px;
+  border-radius: 4px;
+  background-color: var(--panelBackground, #1a1a1a);
+  margin: 8px 0;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.fileName {
+  font-size: 14px;
+  font-weight: 500;
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.fileSize {
+  font-size: 12px;
+  color: var(--textSecondary);
+  margin-left: 8px;
+}
+
+.progressWrapper {
+  width: 100%;
+  height: 8px;
+  background-color: var(--controlBackground, #333);
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 4px;
+}
+
+.progressBar {
+  height: 100%;
+  background-color: var(--colorAccent, #4dabf7);
+  border-radius: 4px;
+  transition: width 0.3s ease;
+}
+
+.progressBar.parsing {
+  background-color: var(--colorParsing, #4dabf7);
+}
+
+.progressBar.mapping {
+  background-color: var(--colorMapping, #40c057);
+}
+
+.progressBar.processing {
+  background-color: var(--colorProcessing, #fab005);
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+}
+
+.stage {
+  color: var(--textPrimary);
+}
+
+.percentage {
+  color: var(--textPrimary);
+}
+
+.cancelButton {
+  background: none;
+  border: none;
+  color: var(--textSecondary);
+  font-size: 12px;
+  cursor: pointer;
+  padding: 2px 6px;
+  margin-top: 4px;
+  align-self: flex-end;
+  border-radius: 4px;
+}
+
+.cancelButton:hover {
+  background-color: var(--controlBackgroundHover, #444);
+}
+
+.cancelButton:active {
+  background-color: var(--controlBackgroundActive, #555);
+}
+
+/* Ready state */
+.container.ready {
+  background-color: var(--successBackground, rgba(64, 192, 87, 0.1));
+}

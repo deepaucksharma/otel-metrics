@@ -1,10 +1,22 @@
-// Browser-side file loader UI that funnels snapshot files into validation → read → worker pipeline.
+/**
+ * Browser-side file loader UI that funnels snapshot files into validation → read → worker pipeline.
+ *
+ * @purpose Provide a UI for loading OTLP snapshot files with drag-and-drop or file browser.
+ * @algorithm
+ * 1. Allow users to select files via drag-and-drop or file dialog
+ * 2. Validate each file for size and format
+ * 3. Process valid files through worker pipeline
+ * 4. Track and display processing status with progress indicators
+ */
 
-import React, { useCallback, useRef, useState } from 'react';
+import React, { useCallback, useRef, useState, useEffect } from 'react';
 import { bus } from '../services/eventBus';
 import { validateFile, ValidFile } from './fileValidator';
 import { readFileContent } from './readFile';
-import { dispatchToParserWorker } from './dispatchToWorker';
+import { dispatchToParserWorker, cancelParserTask } from './dispatchToWorker';
+import { useErrorHandler } from '@/hooks/useErrorHandler';
+import { useUiSlice } from '@/state/uiSlice';
+import styles from './StaticFileProvider.module.css';
 
 /**
  * Props for {@link StaticFileProvider}.
@@ -49,29 +61,65 @@ export function StaticFileProvider({
   const inputRef = useRef<HTMLInputElement>(null);
   const [dragActive, setDragActive] = useState(false);
   const [status, setStatus] = useState<Record<string, string>>({});
+  const [activeTasks, setActiveTasks] = useState<Record<string, string>>({});
+  const handleError = useErrorHandler();
+  const openProgressPanel = useUiSlice(state => state.openProgressPanel);
 
   const handleFiles = useCallback(
     async (files: FileList) => {
       for (const file of Array.from(files)) {
         const id = crypto.randomUUID();
         const snapshotId = `snap-${id}`;
+        const fileSize = file.size;
+        
+        // Update local status and keep track of active task
         setStatus((s) => ({ ...s, [id]: `\u{1F680} reading … ${file.name}` }));
-        bus.emit('data.snapshot.load.start', { fileName: file.name });
+        setActiveTasks((tasks) => ({ ...tasks, [id]: snapshotId }));
+        
+        // Open progress panel for large files automatically
+        if (fileSize > 5 * 1024 * 1024) { // 5MB
+          openProgressPanel();
+        }
+        
+        // Emit start event with file size information
+        bus.emit('data.snapshot.load.start', { 
+          fileName: file.name, 
+          fileSize: file.size,
+          taskId: id
+        });
 
         const result = validateFile(file, maxSizeBytes);
         if (result.type === 'left') {
-          bus.emit('data.snapshot.error', {
+          // Enhanced error details
+          const errorPayload = {
             fileName: file.name,
             error: result.value.message,
-          });
+            taskId: id,
+            detail: result.value.stack
+          };
+          bus.emit('data.snapshot.error', errorPayload);
           setStatus((s) => ({ ...s, [id]: `\u274C ${result.value.message}` }));
+          setActiveTasks((tasks) => {
+            const newTasks = { ...tasks };
+            delete newTasks[id];
+            return newTasks;
+          });
           continue;
         }
         const valid: ValidFile = result.value;
         if (valid.isGzipped && !acceptGzip) {
           const msg = 'Gzip files are not accepted';
-          bus.emit('data.snapshot.error', { fileName: file.name, error: msg });
+          bus.emit('data.snapshot.error', { 
+            fileName: file.name, 
+            error: msg,
+            taskId: id 
+          });
           setStatus((s) => ({ ...s, [id]: `\u274C ${msg}` }));
+          setActiveTasks((tasks) => {
+            const newTasks = { ...tasks };
+            delete newTasks[id];
+            return newTasks;
+          });
           continue;
         }
         try {
@@ -80,7 +128,16 @@ export function StaticFileProvider({
             snapshotId,
             fileName: file.name,
             rawJson: text,
+            fileSize: file.size
           });
+          
+          // Remove from active tasks list
+          setActiveTasks((tasks) => {
+            const newTasks = { ...tasks };
+            delete newTasks[id];
+            return newTasks;
+          });
+          
           if (workerRes.type === 'parsedSnapshot') {
             bus.emit('data.snapshot.parsed', { snapshot: workerRes.payload });
             setStatus((s) => ({
@@ -91,6 +148,8 @@ export function StaticFileProvider({
             bus.emit('data.snapshot.error', {
               fileName: workerRes.payload.fileName,
               error: workerRes.payload.message,
+              taskId: id,
+              detail: workerRes.payload.detail
             });
             setStatus((s) => ({
               ...s,
@@ -98,13 +157,35 @@ export function StaticFileProvider({
             }));
           }
         } catch (err) {
-          const message = err instanceof Error ? err.message : String(err);
-          bus.emit('data.snapshot.error', { fileName: file.name, error: message });
+          // Remove from active tasks list
+          setActiveTasks((tasks) => {
+            const newTasks = { ...tasks };
+            delete newTasks[id];
+            return newTasks;
+          });
+          
+          // Enhanced error handling
+          const error = err instanceof Error ? err : new Error(String(err));
+          const message = error.message;
+          const detail = error.stack;
+          
+          bus.emit('data.snapshot.error', { 
+            fileName: file.name, 
+            error: message,
+            taskId: id,
+            detail
+          });
+          
           setStatus((s) => ({ ...s, [id]: `\u274C ${message}` }));
+          
+          // Propagate error to ErrorBoundary if it's not a cancellation
+          if (!message.includes('Task canceled')) {
+            handleError(error);
+          }
         }
       }
     },
-    [acceptGzip, maxSizeBytes]
+    [acceptGzip, maxSizeBytes, openProgressPanel, handleError]
   );
 
   const openFileDialog = () => inputRef.current?.click();
@@ -139,10 +220,20 @@ export function StaticFileProvider({
     }
   };
 
+  // Cancel any active tasks on component unmount
+  useEffect(() => {
+    return () => {
+      // Cleanup any active tasks on unmount
+      Object.entries(activeTasks).forEach(([id]) => {
+        cancelParserTask(id);
+      });
+    };
+  }, [activeTasks]);
+  
   return (
     <div className={className}>
       <label
-        className={`dropArea${dragActive ? ' dragActive' : ''}`}
+        className={`${styles.dropArea}${dragActive ? ' ' + styles.dragActive : ''}`}
         role="button"
         tabIndex={0}
         onKeyDown={onKeyDown}
@@ -150,6 +241,7 @@ export function StaticFileProvider({
         onDrop={onDrop}
         onDragOver={onDragOver}
         onDragLeave={onDragLeave}
+        aria-label="Drop snapshot files or click to browse"
       >
         <input
           type="file"
@@ -157,10 +249,13 @@ export function StaticFileProvider({
           hidden
           ref={inputRef}
           onChange={onInputChange}
+          accept=".json,.gz"
+          aria-label="File input"
         />
         <span>Drop snapshot files or click to browse</span>
+        <p className={styles.dropAreaSubtext}>Accepts OTLP JSON and gzipped JSON formats</p>
       </label>
-      <ul className="statusList" aria-live="polite">
+      <ul className={styles.statusList} aria-live="polite">
         {Object.entries(status).map(([id, msg]) => (
           <li key={id}>{msg}</li>
         ))}

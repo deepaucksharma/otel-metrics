@@ -25,6 +25,7 @@ export interface UiSliceState {
   inspectedPointId: number | null;
 
   isInspectorOpen: boolean;
+  isProgressPanelOpen: boolean;
   dashboardFilter: string;
 }
 
@@ -39,6 +40,10 @@ export interface UiSliceActions {
 
   openInspector(): void;
   closeInspector(): void;
+  
+  openProgressPanel(): void;
+  closeProgressPanel(): void;
+  toggleProgressPanel(): void;
 
   setDashboardFilter(text: string): void;
 
@@ -57,6 +62,7 @@ export const useUiSlice = create<UiSliceState & UiSliceActions>()(
     inspectedPointId: null,
 
     isInspectorOpen: false,
+    isProgressPanelOpen: false,
     dashboardFilter: '',
 
     setActiveSnapshot: id => set(s => { s.activeSnapshotId = id; }),
@@ -71,6 +77,10 @@ export const useUiSlice = create<UiSliceState & UiSliceActions>()(
 
     openInspector: () => set(s => { s.isInspectorOpen = true; }),
     closeInspector: () => set(s => { s.isInspectorOpen = false; }),
+    
+    openProgressPanel: () => set(s => { s.isProgressPanelOpen = true; }),
+    closeProgressPanel: () => set(s => { s.isProgressPanelOpen = false; }),
+    toggleProgressPanel: () => set(s => { s.isProgressPanelOpen = !s.isProgressPanelOpen; }),
 
     setDashboardFilter: text => set(s => { s.dashboardFilter = text; }),
 
@@ -82,6 +92,7 @@ export const useUiSlice = create<UiSliceState & UiSliceActions>()(
       s.inspectedSeriesKey = null;
       s.inspectedPointId = null;
       s.isInspectorOpen = false;
+      s.isProgressPanelOpen = false;
       s.dashboardFilter = '';
     })
   }))
@@ -89,6 +100,9 @@ export const useUiSlice = create<UiSliceState & UiSliceActions>()(
 
 /** Selector for inspector drawer visibility. */
 export const selectIsInspectorOpen = (state: UiSliceState) => state.isInspectorOpen;
+
+/** Selector for progress panel visibility. */
+export const selectIsProgressPanelOpen = (state: UiSliceState) => state.isProgressPanelOpen;
 
 /**
  * Selector for current inspection context.

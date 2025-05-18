@@ -1,0 +1,90 @@
+.container {
+  padding: 16px;
+  margin: 12px 0;
+  border-radius: 4px;
+  background-color: var(--errorBackground, rgba(255, 59, 48, 0.1));
+  border: 1px solid var(--errorBorder, rgba(255, 59, 48, 0.3));
+  color: var(--textPrimary);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.title {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--errorText, #ff3b30);
+}
+
+.message {
+  margin-bottom: 12px;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.stack {
+  padding: 12px;
+  margin-top: 12px;
+  margin-bottom: 12px;
+  background-color: var(--codeBackground, #1c1c1e);
+  border-radius: 4px;
+  font-family: monospace;
+  font-size: 12px;
+  white-space: pre-wrap;
+  overflow-x: auto;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.buttons {
+  display: flex;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.button {
+  padding: 6px 12px;
+  border-radius: 4px;
+  border: none;
+  font-size: 14px;
+  cursor: pointer;
+  background-color: var(--buttonBackground, #444);
+  color: var(--buttonText, white);
+}
+
+.button:hover {
+  background-color: var(--buttonBackgroundHover, #555);
+}
+
+.button.primary {
+  background-color: var(--primaryButtonBackground, #007aff);
+  color: var(--primaryButtonText, white);
+}
+
+.button.primary:hover {
+  background-color: var(--primaryButtonBackgroundHover, #0056b3);
+}
+
+.details {
+  margin-top: 16px;
+}
+
+.detailsButton {
+  background: none;
+  border: none;
+  color: var(--textSecondary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 0;
+  font-size: 14px;
+}
+
+.childrenContainer {
+  position: relative;
+}

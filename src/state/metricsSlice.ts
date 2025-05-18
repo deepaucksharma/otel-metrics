@@ -233,8 +233,20 @@ export const selectSnapshotSummaries = (state: MetricsSliceState) =>
 /** Selector for current loading state keyed by file name. */
 export const selectLoading = (state: MetricsSliceState) => state.loading;
 
-/** Selector for recorded errors keyed by file name. */
-export const selectErrors = (state: MetricsSliceState) => state.errors;
+/** Selector for recorded errors keyed by file name. Filters out empty error messages. */
+export const selectErrors = (state: MetricsSliceState) => {
+  // Create a new object with only non-empty error messages
+  const filteredErrors: Record<string, { message: string; detail?: string }> = {};
+  
+  Object.entries(state.errors).forEach(([fileName, error]) => {
+    // Skip empty error messages (used for dismissing errors)
+    if (error.message.trim() !== '') {
+      filteredErrors[fileName] = error;
+    }
+  });
+  
+  return filteredErrors;
+};
 
 /** Selector for progress information keyed by file name. */
 export const selectProgress = (state: MetricsSliceState) => state.progress;

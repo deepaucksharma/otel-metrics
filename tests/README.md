@@ -9,8 +9,14 @@ application.
 
 - **AttributeZone.test.tsx** – verifies rarity calculations and interactions in
   the `AttributeZone` component.
+- **ErrorBoundary.test.tsx** – tests error catching and recovery in the `ErrorBoundary`
+  component, including the `useErrorHandler` hook.
 - **InstrumentBadge.test.tsx** – checks rendering of the `InstrumentBadge`
   component.
+- **ProgressPanel.test.tsx** – verifies progress tracking, task cancellation, and UI
+  rendering in the `ProgressPanel` component.
+- **StaticFileProvider.test.tsx** – tests file validation, loading, error handling,
+  and integration with the worker system in the `StaticFileProvider` component.
 - **ValueZone.test.tsx** – covers rendering logic for values and histograms in
   the `ValueZone` component.
 - **uiSlice.test.ts** – exercises the UI state slice helpers and selectors.
