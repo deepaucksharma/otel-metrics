@@ -60,14 +60,6 @@ export function registerEventListeners(): () => void {
     uiActions.inspectMetric(payload.metricName);
   });
 
-  // Cardinality simulation toggle
-  eventBus.on(
-    'ui.cardinality.simulateDrop',
-    (payload: EventTypes['ui.cardinality.simulateDrop']) => {
-      uiActions.toggleSimDrop(payload.key, payload.drop);
-    }
-  );
-
   // Return cleanup function to detach all listeners
   return () => {
     eventBus.off('*');

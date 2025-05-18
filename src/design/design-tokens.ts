@@ -1,4 +1,11 @@
 /**
+ * @file design-tokens.ts
+ * @summary Typed mirror of `tokens.css` design tokens.
+ * @remarks Styling code should reference `tokens.css` variables via `var(--name)`.
+ * @layer design
+ * @perfBudget N/A
+ * @loc_estimate 202
+ *
  * IntelliMetric Explorer – Design Tokens
  *
  * Centralized constants mirroring the CSS variables in `tokens.css`.
@@ -70,6 +77,7 @@ export const visualizationSpecificColorsTokens = {
   chipOperatorColor: "#888888",
   chipCountColor: "#aaaaaa",
   chipEqualsColor: "#e0e0e0",
+  gaugeDefaultColor: "#0066CC",
   exemplarDotDefault: "#666666",
   exemplarDotSelected: "#f39c12",
   exemplarAxisColor: "#444444",
@@ -79,6 +87,15 @@ export const visualizationSpecificColorsTokens = {
   rarityMed: "#f39c12",
   rarityHigh: "#e74c3c",
   simulationBg: "rgba(0, 120, 212, 0.1)",
+} as const;
+
+/** Background colours for instrument badges. */
+export const instrumentBadgeTokens = {
+  instrumentGaugeBg: "#3498db",
+  instrumentSumBg: "#2ecc71",
+  instrumentHistogramBg: "#f39c12",
+  instrumentSummaryBg: "#9b59b6",
+  instrumentUnknownBg: "#666666",
 } as const;
 
 /** Spacing scale and component padding values. */

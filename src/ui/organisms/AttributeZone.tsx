@@ -24,19 +24,19 @@ export interface AttributeZoneProps {
 
   /** Map of attribute keys to unique-value counts */
   attrUniq: Record<string, number>;
-
-  /** Total series count for calculating percentages */
-  seriesCount: number;
-
   /** Currently focused attribute key (or null) */
   focusedAttrKey: string | null;
 
   /** Callback when attribute focus changes */
   onFocusAttr: (key: string | null) => void;
 
-  /** Optional callback to add global filter for attribute */
+  /**
+   * Optional callback to set global filter text from the selected
+   * attribute using `key=value` format.
+   */
   onAddGlobalFilter?: (key: string, value: AttrValue) => void;
 }
+
 
 /**
  * Display resource and metric attributes in a grid with rarity indicators.
@@ -45,32 +45,32 @@ export const AttributeZone: React.FC<AttributeZoneProps> = ({
   resourceAttrs,
   metricAttrs,
   attrUniq,
-  seriesCount,
   focusedAttrKey,
   onFocusAttr,
   onAddGlobalFilter
 }) => {
+
   const renderRow = useCallback(
     (key: string, value: AttrValue, style?: React.CSSProperties) => {
-      const uniqueCount = attrUniq[key] ?? 0;
-      const rarityPercent = seriesCount ? (uniqueCount / seriesCount) * 100 : 0;
-      const handleClick = () =>
-        focusedAttrKey === key ? onFocusAttr(null) : onFocusAttr(key);
+      const rarityPercent = attrUniq[key]
+        ? Math.round((1 / attrUniq[key]) * 100)
+        : 0;
+      const handleClick = () => {
+        onFocusAttr(focusedAttrKey === key ? null : key);
+      };
       return (
-        <div style={style} onClick={handleClick}>
+        <div key={key} style={style} onClick={handleClick}>
           <AttributeRow
             attrKey={key}
             attrValue={value}
             rarityPercent={rarityPercent}
             isFocused={focusedAttrKey === key}
-            onAddGlobalFilter={
-              onAddGlobalFilter ? () => onAddGlobalFilter(key, value) : undefined
-            }
+            onAddGlobalFilter={onAddGlobalFilter}
           />
         </div>
       );
     },
-    [attrUniq, seriesCount, focusedAttrKey, onAddGlobalFilter, onFocusAttr]
+    [attrUniq, focusedAttrKey, onAddGlobalFilter, onFocusAttr]
   );
 
   const metricKeys = Object.keys(metricAttrs);
@@ -84,7 +84,7 @@ export const AttributeZone: React.FC<AttributeZoneProps> = ({
         {resourceKeys.length > 0 && (
           <>
             <h4>Resource ({resourceKeys.length})</h4>
-            <div className={styles.grid}>{resourceKeys.map(k => renderRow(k, resourceAttrs[k]))}</div>
+            <div className={styles.list}>{resourceKeys.map(k => renderRow(k, resourceAttrs[k]))}</div>
           </>
         )}
         <h4>Metric ({metricKeys.length})</h4>
@@ -104,13 +104,13 @@ export const AttributeZone: React.FC<AttributeZoneProps> = ({
       {resourceKeys.length > 0 && (
         <>
           <h4>Resource ({resourceKeys.length})</h4>
-          <div className={styles.grid}>{resourceKeys.map(k => renderRow(k, resourceAttrs[k]))}</div>
+          <div className={styles.list}>{resourceKeys.map(k => renderRow(k, resourceAttrs[k]))}</div>
         </>
       )}
       {metricKeys.length > 0 && (
         <>
           <h4>Metric ({metricKeys.length})</h4>
-          <div className={styles.grid}>{metricKeys.map(k => renderRow(k, metricAttrs[k]))}</div>
+          <div className={styles.list}>{metricKeys.map(k => renderRow(k, metricAttrs[k]))}</div>
         </>
       )}
     </div>
