@@ -39,3 +39,15 @@ Vitest runs in a JSDOM environment. Coverage reports can be generated with:
 pnpm test:unit -- --coverage
 ```
 
+## End-to-End Tests
+
+E2E tests use [Playwright](https://playwright.dev/) and run against a local
+preview server. Build the app and execute the tests with:
+
+```bash
+pnpm build
+pnpm test:e2e
+```
+
+The workflow `.github/workflows/e2e.yml` runs these tests nightly on CI.
+

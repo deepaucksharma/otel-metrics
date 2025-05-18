@@ -1,0 +1,47 @@
+{
+  "resourceMetrics": [
+    {
+      "resource": {
+        "attributes": [
+          { "key": "service.name", "value": { "stringValue": "demo" } }
+        ]
+      },
+      "scopeMetrics": [
+        {
+          "scope": {
+            "name": "test",
+            "version": "1.0.0"
+          },
+          "metrics": [
+            {
+              "name": "cpu_temp",
+              "gauge": {
+                "dataPoints": [
+                  {
+                    "attributes": [
+                      { "key": "host", "value": { "stringValue": "server1" } },
+                      { "key": "cpu", "value": { "stringValue": "1" } }
+                    ],
+                    "timeUnixNano": "1",
+                    "asDouble": 42.5,
+                    "exemplars": [
+                      {
+                        "timeUnixNano": "2",
+                        "asDouble": 42.5,
+                        "spanId": "abcd",
+                        "traceId": "efgh",
+                        "filteredAttributes": [
+                          { "key": "trace", "value": { "stringValue": "example" } }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
