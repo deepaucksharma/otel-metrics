@@ -58,6 +58,8 @@ Zustand + immer for tiny, predictable slices.
 - metricsSlice → immutable map of ParsedSnapshots.
 - uiSlice → pointers only (snapshot-id, metricName, seriesKey).
 - Selectors in hooks ➔ no component re-render storms.
+### 4.1 Persistence in v1.1
+No slices are persisted to storage in this release; the Zustand store resets entirely on page reload.
 
 ## 5. Event Bus vs Callbacks
 | Use case | Mechanism |
