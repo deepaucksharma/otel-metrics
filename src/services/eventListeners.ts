@@ -14,7 +14,7 @@
  * - cleanup detaches all handlers
  */
 
-import { eventBus } from './eventBus';
+import { bus as eventBus } from './eventBus';
 import { useMetricsSlice } from '@/state/metricsSlice';
 import { useUiSlice } from '@/state/uiSlice';
 import type { EventTypes } from './eventTypes';

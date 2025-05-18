@@ -2,7 +2,9 @@
   "name": "intelimetric-explorer",
   "version": "0.0.0",
   "private": true,
-  "engines": { "node": ">=18.17" },
+  "engines": {
+    "node": ">=18.17"
+  },
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -20,6 +22,7 @@
     "pako": "^2.1.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
+    "react-router-dom": "^7.6.0",
     "zustand": "^5.0.4"
   },
   "devDependencies": {
@@ -27,6 +30,7 @@
     "@vitejs/plugin-react": "^4.0.0",
     "eslint": "^9.27.0",
     "eslint-plugin-react": "^7.32.2",
+    "immer": "^10.1.1",
     "playwright": "^1.37.0",
     "typescript": "^5.1.6",
     "vite": "^6.3.5",
