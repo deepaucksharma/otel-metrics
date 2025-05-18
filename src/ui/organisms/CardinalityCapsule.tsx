@@ -20,6 +20,8 @@ import { InstrumentBadge } from '@/ui/atoms/InstrumentBadge';
 export interface CardinalityCapsuleProps {
   /** Current series count for the metric. */
   seriesCount: number;
+  /** Series count before any drop simulation. */
+  baseSeriesCount: number;
   /** Threshold where cardinality is considered high. */
   thresholdHigh: number;
   /** Ordered list of attribute keys by impact on cardinality. */
@@ -48,6 +50,7 @@ export interface CardinalityCapsuleProps {
  */
 export const CardinalityCapsule: React.FC<CardinalityCapsuleProps> = ({
   seriesCount,
+  baseSeriesCount,
   thresholdHigh,
   attrRank,
   attrUniq,
@@ -77,10 +80,8 @@ export const CardinalityCapsule: React.FC<CardinalityCapsuleProps> = ({
 
   // Calculate reduction percentage when simulation is active
   const reductionPct =
-    isDropSimActive && droppedKey && attrUniq[droppedKey]
-      ? Math.round(
-          (1 - seriesCount / (seriesCount * attrUniq[droppedKey])) * 100,
-        )
+    isDropSimActive && droppedKey && baseSeriesCount
+      ? Math.round((1 - seriesCount / baseSeriesCount) * 100)
       : 0;
 
   return (

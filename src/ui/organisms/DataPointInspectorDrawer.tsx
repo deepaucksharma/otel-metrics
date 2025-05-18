@@ -134,6 +134,7 @@ export const DataPointInspectorDrawer: React.FC<DataPointInspectorDrawerProps> =
 
         <CardinalityCapsule
           seriesCount={cardinality.seriesCount}
+          baseSeriesCount={cardinality.baseSeriesCount}
           thresholdHigh={cardinality.thresholdHigh}
           attrRank={cardinality.attrRank}
           attrUniq={cardinality.attrUniq}
