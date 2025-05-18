@@ -14,7 +14,7 @@ jobs:
       - uses: pnpm/action-setup@v2
         with: { version: 8 }
 
-      - run: pnpm i --frozen-lockfile
+      - run: pnpm i
 
       - run: pnpm lint
       - run: pnpm test:unit -- --ci

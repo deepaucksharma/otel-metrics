@@ -7,17 +7,15 @@ const baseProps = {
   resourceAttrs: { env: 'prod' },
   metricAttrs: { method: 'GET' },
   attrUniq: { env: 2, method: 5 },
-  seriesCount: 10,
   focusedAttrKey: null as string | null,
-  onAddGlobalFilter: undefined as any,
 };
 
 describe('AttributeZone', () => {
   it('computes rarity percentage for each attribute', () => {
     const props = { ...baseProps, onFocusAttr: vi.fn() };
     render(<AttributeZone {...props} />);
-    expect(screen.getByLabelText('occurs in 20.0% of series')).toBeInTheDocument();
     expect(screen.getByLabelText('occurs in 50.0% of series')).toBeInTheDocument();
+    expect(screen.getByLabelText('occurs in 20.0% of series')).toBeInTheDocument();
   });
 
   it('calls onFocusAttr when row clicked', () => {
@@ -26,9 +24,7 @@ describe('AttributeZone', () => {
       resourceAttrs: {},
       metricAttrs: { method: 'GET' },
       attrUniq: { method: 1 },
-      seriesCount: 10,
       focusedAttrKey: null,
-      onAddGlobalFilter: undefined as any,
       onFocusAttr,
     };
     render(<AttributeZone {...props} />);
@@ -42,9 +38,7 @@ describe('AttributeZone', () => {
       resourceAttrs: {},
       metricAttrs: { method: 'GET' },
       attrUniq: { method: 1 },
-      seriesCount: 10,
       focusedAttrKey: null,
-      onAddGlobalFilter: undefined as any,
       onFocusAttr,
     };
     render(<AttributeZone {...props} />);
