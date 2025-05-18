@@ -13,7 +13,12 @@ import styles from './RarityDot.module.css';
  *
  * @example
  * ```tsx
- * <RarityDot rarityPercent={12.3} onClick={() => { /* highlight */ }} />
+ * <RarityDot
+ *   rarityPercent={12.3}
+ *   onClick={() => {
+ *     // highlight
+ *   }}
+ * />
  * ```
  */
 export interface RarityDotProps {
