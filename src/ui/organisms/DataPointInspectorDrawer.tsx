@@ -6,6 +6,7 @@ import { CardinalityCapsule } from './CardinalityCapsule';
 import { AttributeZone } from './AttributeZone';
 import { ExemplarsZone } from './ExemplarsZone';
 import { RawJsonZone } from './RawJsonZone';
+import { useFocusTrap } from '@/hooks/useFocusTrap';
 import styles from './DataPointInspectorDrawer.module.css';
 
 /**
@@ -81,10 +82,8 @@ export const DataPointInspectorDrawer: React.FC<DataPointInspectorDrawerProps> =
     return () => document.removeEventListener('keydown', handler);
   }, [onClose]);
 
-  // Auto focus when mounted
-  useEffect(() => {
-    drawerRef.current?.focus();
-  }, []);
+  // Trap focus inside drawer while mounted
+  useFocusTrap(drawerRef);
 
   const memoizedAttributeZone = useMemo(
     () => (
