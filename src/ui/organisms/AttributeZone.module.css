@@ -10,3 +10,25 @@
   gap: 4px;
 }
 
+.key {
+  font-weight: 500;
+  color: var(--attrKeyColor);
+}
+
+.value {
+  font-family: var(--monoFont);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.rowFocused {
+  background-color: var(--focusHighlightBg);
+  outline: 1px solid var(--attrRowBorderFocus);
+}
+
+.actions {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+}

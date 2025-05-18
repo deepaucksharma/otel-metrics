@@ -6,6 +6,8 @@
 /**
  * Describes why validation failed.
  */
+import type { Either } from '@/contracts/either';
+
 export interface ValidationError {
   /** Error classification */
   code: 'INVALID_EXTENSION' | 'FILE_TOO_LARGE';
@@ -26,9 +28,6 @@ export interface ValidFile {
 /**
  * Discriminated union returned by {@link validateFile}.
  */
-export type Either<L, R> =
-  | { type: 'left'; value: L }
-  | { type: 'right'; value: R };
 
 const ALLOWED_EXTENSIONS = new Set(['json', 'gz', 'otel']);
 

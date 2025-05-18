@@ -2,6 +2,8 @@
    Global Styles
    ------------------------------------- */
 
+@import './design/tokens.css';
+
 :root {
   /* Typography */
   --systemFont: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,

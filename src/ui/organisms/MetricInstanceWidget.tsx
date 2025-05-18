@@ -8,7 +8,7 @@ import { DataPointInspectorDrawer } from '@/ui/organisms/DataPointInspectorDrawe
  * {@link DataPointInspectorDrawer}.
  *
  * The widget obtains inspector properties using {@link useInspectorProps}
- * based on the provided snapshot and metric identifiers. It keeps track of
+ * based on global UI state for the active snapshot and metric. It keeps track of
  * attribute drop simulation via {@link useDropSimulation} and forwards toggle
  * events from the drawer back to the hook.
  *
@@ -37,7 +37,7 @@ export const MetricInstanceWidget: React.FC<MetricInstanceWidgetProps> = ({
   metricName,
 }) => {
   const [droppedKey, toggleDrop] = useDropSimulation();
-  const inspectorProps = useInspectorProps(snapshotId, metricName, droppedKey);
+  const inspectorProps = useInspectorProps(droppedKey);
 
   const handleSimulateDrop = useCallback(
     (key: string, drop: boolean) => {

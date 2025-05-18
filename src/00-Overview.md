@@ -61,7 +61,7 @@ Only one round-trip to a Web Worker per file; everything else stays on-thread.
 
 ## 5. Reading order for newcomers
 - 01-Architecture-Principles.md – contract & boundaries
-- 03-Data-Contracts.md – every shared TypeScript interface
+- contracts/README.md – summary of shared TypeScript interfaces
 
 Pick a path:
 - Backend-ish? Read data/*.md → workers/*.md → processing/*.md.

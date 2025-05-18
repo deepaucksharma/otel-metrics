@@ -17,9 +17,7 @@
  * - Invalid `'foo{'` → `type` is `left` with message containing `"Unexpected token"`.
  * - Parsing a 10 MB string completes within ~20 ms on a 3 GHz worker.
  */
-export type Either<L, R> =
-  | { type: 'left'; value: L }
-  | { type: 'right'; value: R };
+import type { Either } from '@/contracts/either';
 
 /**
  * Safely parse a JSON string without throwing.
