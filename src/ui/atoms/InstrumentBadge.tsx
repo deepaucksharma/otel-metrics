@@ -1,3 +1,21 @@
+/**
+ * @file InstrumentBadge.tsx
+ * @summary Displays an icon for a metric instrument type.
+ * @remarks
+ * ### Purpose
+ * Provide a consistent visual indicator for each instrument type.
+ *
+ * ### Public API
+ * - `InstrumentBadge` React component
+ * - `InstrumentBadgeProps` interface
+ *
+ * ### Usage
+ * ```tsx
+ * <InstrumentBadge type="Gauge" size="small" />
+ * ```
+ *
+ * @layer UI-Atom
+ */
 import React from 'react';
 import clsx from 'clsx';
 import { Gauge, Sigma, BarChart2, List, HelpCircle } from 'lucide-react';

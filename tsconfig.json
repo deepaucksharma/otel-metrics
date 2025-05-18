@@ -9,11 +9,11 @@
     "moduleResolution": "Node",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
-    "baseUrl": "./src",
+    "baseUrl": ".",
     "paths": {
-      "@/*": ["./*"],
-      "@intellimetric/contracts": ["../packages/contracts"],
-      "@intellimetric/contracts/*": ["../packages/contracts/*"]
+      "@/*": ["src/*"],
+      "@intellimetric/contracts": ["packages/contracts"],
+      "@intellimetric/contracts/*": ["packages/contracts/*"]
     },
     "types": ["node"]
   },

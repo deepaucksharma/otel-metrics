@@ -86,6 +86,7 @@ export const HistogramMiniChart: React.FC<HistogramMiniChartProps> = ({
 
   return (
     <div
+      data-testid="histogram-chart"
       className={className}
       style={{ display: 'flex', flexDirection: 'column', width: '100%', height: height + 40 }}
     >
