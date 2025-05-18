@@ -1,0 +1,58 @@
+.row {
+  display: grid;
+  grid-template-columns: auto 1fr auto auto;
+  gap: var(--spaceXS);
+  align-items: center;
+  padding: var(--spaceXS) var(--spaceS);
+  background: var(--attrRowBg);
+  cursor: pointer;
+}
+
+.row:hover {
+  background: var(--attrRowHoverBg);
+}
+
+.focused {
+  background: var(--attrRowFocusBg);
+  outline: 1px solid var(--attrRowBorderFocus);
+}
+
+.key {
+  color: var(--attrKeyColor);
+  font-weight: 500;
+}
+
+.value {
+  font-family: var(--monoFont);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: var(--spaceXS);
+}
+
+.filter,
+.copy {
+  background: transparent;
+  border: none;
+  padding: 0;
+  color: var(--iconGrey);
+  cursor: pointer;
+}
+
+.filter:hover,
+.copy:hover {
+  color: var(--iconHover);
+}
+
+.drop {
+  display: flex;
+  align-items: center;
+  gap: var(--spaceXS);
+  font-size: var(--fontS);
+  color: var(--textPrimary);
+}
