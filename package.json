@@ -12,7 +12,6 @@
     "storybook": "storybook dev -p 6006",
     "lint": "ESLINT_USE_FLAT_CONFIG=false eslint -c .eslintrc.cjs . --ext .ts,.tsx,.js,.jsx,.md",
     "test:unit": "vitest run",
-    "test:perf": "node scripts/perf-budget.js",
     "test:e2e": "playwright test",
     "build:storybook": "storybook build",
     "docs:mkdocs": "mkdocs build",
