@@ -25,7 +25,7 @@ import type { EventTypes } from './eventTypes';
  * Call once during application startup. Returns a function that
  * unregisters all handlers when invoked.
  */
-export function registerEventListeners(): () => void {
+export function registerGlobalEventListeners(): () => void {
   const metricsActions = useMetricsSlice.getState();
   const uiActions = useUiSlice.getState();
 
@@ -65,3 +65,6 @@ export function registerEventListeners(): () => void {
     eventBus.off('*');
   };
 }
+
+export { registerGlobalEventListeners as registerEventListeners };
+export default registerGlobalEventListeners;
