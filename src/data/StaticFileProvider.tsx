@@ -56,18 +56,21 @@ export function StaticFileProvider({
         const id = crypto.randomUUID();
         const snapshotId = `snap-${id}`;
         setStatus((s) => ({ ...s, [id]: `\u{1F680} reading … ${file.name}` }));
-        bus.emit('data.snapshot.loading', { fileId: id, fileName: file.name });
+        bus.emit('data.snapshot.load.start', { fileName: file.name });
 
         const result = validateFile(file, maxSizeBytes);
         if (result.type === 'left') {
-          bus.emit('data.error', { message: result.value.message });
+          bus.emit('data.snapshot.error', {
+            fileName: file.name,
+            error: result.value.message,
+          });
           setStatus((s) => ({ ...s, [id]: `\u274C ${result.value.message}` }));
           continue;
         }
         const valid: ValidFile = result.value;
         if (valid.isGzipped && !acceptGzip) {
           const msg = 'Gzip files are not accepted';
-          bus.emit('data.error', { message: msg });
+          bus.emit('data.snapshot.error', { fileName: file.name, error: msg });
           setStatus((s) => ({ ...s, [id]: `\u274C ${msg}` }));
           continue;
         }
@@ -79,15 +82,15 @@ export function StaticFileProvider({
             rawJson: text,
           });
           if (workerRes.type === 'parsedSnapshot') {
-            bus.emit('data.snapshot.loaded', { snapshot: workerRes.payload });
+            bus.emit('data.snapshot.parsed', { snapshot: workerRes.payload });
             setStatus((s) => ({
               ...s,
               [id]: `\u2705 loaded ${workerRes.payload.id}`,
             }));
           } else {
-            bus.emit('data.error', {
-              message: workerRes.payload.message,
-              error: workerRes.payload.detail,
+            bus.emit('data.snapshot.error', {
+              fileName: workerRes.payload.fileName,
+              error: workerRes.payload.message,
             });
             setStatus((s) => ({
               ...s,
@@ -96,7 +99,7 @@ export function StaticFileProvider({
           }
         } catch (err) {
           const message = err instanceof Error ? err.message : String(err);
-          bus.emit('data.error', { message, error: err });
+          bus.emit('data.snapshot.error', { fileName: file.name, error: message });
           setStatus((s) => ({ ...s, [id]: `\u274C ${message}` }));
         }
       }

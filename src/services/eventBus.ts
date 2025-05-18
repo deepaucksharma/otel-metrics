@@ -1,5 +1,5 @@
 import mitt from 'mitt';
-import type { ParsedSnapshot } from '@/contracts/types';
+import type { ParsedSnapshot, SeriesKey } from '@/contracts/types';
 
 /**
  * Map of all events that can be emitted on the global {@link bus} instance.
@@ -14,19 +14,19 @@ export type EventMap = {
    *
    * Emitted by the StaticFileProvider when it begins reading a file.
    */
-  'data.snapshot.loading': { fileId: string; fileName: string };
+  'data.snapshot.load.start': { fileName: string };
 
   /**
    * A snapshot has been parsed and is ready for use.
    *
    * Typically emitted by the parser worker once parsing succeeds.
    */
-  'data.snapshot.loaded': { snapshot: ParsedSnapshot };
+  'data.snapshot.parsed': { snapshot: ParsedSnapshot };
 
   /**
    * Reports any recoverable error that occurred during loading or parsing.
    */
-  'data.error': { message: string; error?: unknown };
+  'data.snapshot.error': { fileName: string; error: string };
 
   /**
    * Progress update while loading a snapshot.
@@ -36,12 +36,27 @@ export type EventMap = {
   /**
    * A metric widget is requesting to inspect a specific metric.
    */
-  'ui.metric.inspectRequest': { metricName: string; snapshotId: string };
+  'ui.metric.inspect': { metricName: string; snapshotId: string };
 
   /**
    * Open the data point inspector drawer.
    */
-  'ui.inspector.openRequest': void;
+  'ui.inspector.open': {
+    snapshotId: string;
+    metricName: string;
+    seriesKey: SeriesKey;
+    pointId: number;
+  };
+
+  /**
+   * Close the data point inspector drawer.
+   */
+  'ui.inspector.close': void;
+
+  /**
+   * Toggle cardinality drop simulation for a metric.
+   */
+  'ui.cardinality.simulateDrop': { key: string; drop: boolean };
 
   /**
    * Clear all application state.
