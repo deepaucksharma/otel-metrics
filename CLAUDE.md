@@ -11,7 +11,7 @@ IntelliMetric Explorer / Data-Point Inspector Drawer is a specialized UI compone
 - A 660px slide-in panel for showing comprehensive data about a single OTLP metric data point
 - Cardinality visualization system (C-Ring, B-MiniBars, P-Rarity Dots)
 - Interactive attribute exploration with simulation capabilities
-- Exemplar timeline visualization
+- Exemplars timeline visualization integrated in the `ExemplarsZone` component
 - Raw JSON access with copy functionality
 
 ## Development Commands
@@ -83,7 +83,7 @@ The project has strict performance budgets:
 
 1. `src/00-Overview.md` - Project overview
 2. `src/01-Architecture-Principles.md` - Contracts and boundaries
-3. `src/contracts/03-Data-Contracts.md` - TypeScript interfaces
+3. `src/contracts/README.md` - TypeScript interfaces summary
 
 Backend focus path:
 - `src/data/*.md` → `src/logic/workers/*.md` → `src/logic/processing/*.md`
