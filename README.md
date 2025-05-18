@@ -17,6 +17,7 @@ pnpm dev        # Vite + HMR
 pnpm storybook  # component catalog
 pnpm test:unit  # Jest/Vitest
 pnpm lint
+pnpm typecheck  # verify TypeScript types
 pnpm generate:tokens  # update design-tokens.ts from tokens.css
 ```
 
@@ -24,6 +25,7 @@ After installing dependencies the project can be verified locally:
 
 ```bash
 pnpm lint  # runs ESLint using eslint.config.js
+pnpm typecheck  # TypeScript compiler check
 pnpm dev   # starts the Vite dev server
 ```
 
