@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { ExemplarData } from '@/contracts/types';
-import { formatTimestamp, formatDuration } from '@/utils/formatters';
+import { formatters } from '@/utils/formatters';
 import { CopyButton } from '@/ui/atoms/CopyButton';
 import styles from './ExemplarsZone.module.css';
 
@@ -80,7 +80,7 @@ export const ExemplarsZone: React.FC<ExemplarsZoneProps> = ({
                   className={`${styles.dot} ${isSelected ? styles.selected : ''}`}
                   style={{ left: `${position}%` }}
                   onClick={() => handleExemplarSelect(exemplar)}
-                  title={`Value: ${exemplar.value}, Time: ${formatTimestamp(exemplar.timeUnixNano)}`}
+                  title={`Value: ${exemplar.value}, Time: ${formatters.timestamp(exemplar.timeUnixNano)}`}
                 />
               );
             })}
@@ -96,7 +96,7 @@ export const ExemplarsZone: React.FC<ExemplarsZoneProps> = ({
                   style={{ left: `${position}%` }}
                 >
                   <span className={styles.tickLabel}>
-                    {formatTimestamp(timeRange.minTime + (timeRange.span * (position / 100)))}
+                    {formatters.timestamp(timeRange.minTime + (timeRange.span * (position / 100)))}
                   </span>
                 </div>
               ))}
@@ -109,10 +109,10 @@ export const ExemplarsZone: React.FC<ExemplarsZoneProps> = ({
         <div className={styles.details}>
           <div className={styles.header}>
             <div className={styles.timestamp}>
-              {formatTimestamp(selectedExemplar.timeUnixNano, true)}
+              {formatters.timestamp(selectedExemplar.timeUnixNano, true)}
             </div>
             <div className={styles.value}>
-              value: {formatDuration(selectedExemplar.value)}
+              value: {formatters.duration(selectedExemplar.value)}
             </div>
           </div>
 
