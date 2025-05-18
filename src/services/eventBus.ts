@@ -54,15 +54,10 @@ export type EventMap = {
   'ui.inspector.close': void;
 
   /**
-   * Toggle cardinality drop simulation for a metric.
-   */
-  'ui.cardinality.simulateDrop': { key: string; drop: boolean };
-
-  /**
    * Clear all application state.
    */
   'app.reset': void;
-};
+}; 
 
 /**
  * Global mitt-based event channel for decoupled communication.

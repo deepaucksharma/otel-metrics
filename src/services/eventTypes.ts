@@ -17,5 +17,4 @@ export interface EventTypes {
   };
   'ui.inspector.close': void;
   'ui.metric.inspect': { snapshotId: string; metricName: string };
-  'ui.cardinality.simulateDrop': { key: string; drop: boolean };
 }
