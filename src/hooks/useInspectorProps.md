@@ -24,9 +24,13 @@ import type { InspectorProps } from '@/contracts/types';
 
 /**
  * Resolve the fully-assembled props for the Inspector drawer.
+ *
+ * @param droppedKey Which attribute key is currently dropped, or null.
  * Returns null if context incomplete or data missing.
  */
-export function useInspectorProps(): InspectorProps | null;
+export function useInspectorProps(
+  droppedKey: string | null
+): InspectorProps | null;
 ```
 
 ## 3. Internal Flow
@@ -45,7 +49,7 @@ Algorithm (simplified):
 ```ts
 const {
   activeSnapshotId,
-  inspectedMetricName,
+  inspectedMetricName: metricName,
   inspectedSeriesKey,
   inspectedPointId,
   isInspectorOpen
@@ -57,8 +61,8 @@ if !all ids present → return null
 snapshot = useSnapshot(activeSnapshotId)
 if !snapshot → return null
 
-metricInfo = getProcessedMetricInfo(snapshot, inspectedMetricName, {
-  // simulateDrop handled externally via separate state
+metricInfo = getProcessedMetricInfo(snapshot, metricName, {
+  simulateDropAttributeKey: droppedKey
 })
 
 series = snapshot.resources[...] // helper findSeriesByKey
@@ -83,7 +87,7 @@ return {
   exemplars : point.exemplars,
   onClose   : () => uiActions.closeInspector(),
   onAddGlobalFilter: (k,v)=> uiActions.addFilter(k,v), // future
-  onSimulateDrop  : (key,drop) => uiActions.toggleSimDrop(key,drop),
+  onSimulateDrop,  // provided by caller
   metricLatestNValues: undefined  // Caller may pass later
 }
 ```
@@ -102,7 +106,9 @@ Utility: helper findSeriesData(snapshot, metricName, seriesKey)
 
 ## 5. Consumers
 MetricInstanceWidget – passes return value directly to
-<DataPointInspectorDrawer {...props}/>
+<DataPointInspectorDrawer {...props}/>.
+The widget also provides the `onSimulateDrop` callback, typically wiring it
+to `toggleDrop` from `useDropSimulation`.
 
 ## 6. Edge Cases
 | Case | Result |
