@@ -3,8 +3,9 @@
  *
  * UI state from {@link useUiSlice}, parsed snapshot data from {@link useSnapshot},
  * and cardinality context from {@link getProcessedMetricInfo} are merged into a
- * single object. The hook returns `null` until every piece of the context is
- * available.
+ * single object. The hook reads the currently inspected snapshot and metric
+ * from the global UI slice rather than requiring them as parameters. The hook
+ * returns `null` until every piece of the context is available.
  *
  * @param simulateDropKey - optional attribute key to simulate dropping for
  * cardinality reduction demonstration.
@@ -34,7 +35,7 @@ export function useInspectorProps(simulateDropKey?: string | null): InspectorPro
     inspectedPointId,
     isInspectorOpen,
     closeInspector,
-    addFilter,
+    setDashboardFilter,
   } = useUiSlice(state => ({
     activeSnapshotId : state.activeSnapshotId,
     inspectedMetricName: state.inspectedMetricName,
@@ -42,7 +43,7 @@ export function useInspectorProps(simulateDropKey?: string | null): InspectorPro
     inspectedPointId   : state.inspectedPointId,
     isInspectorOpen    : state.isInspectorOpen,
     closeInspector     : state.closeInspector,
-    addFilter          : state.addFilter,
+    setDashboardFilter : state.setDashboardFilter,
   }));
 
   const snapshot = useSnapshot(activeSnapshotId);
@@ -83,7 +84,7 @@ export function useInspectorProps(simulateDropKey?: string | null): InspectorPro
       },
       exemplars: point.exemplars,
       onClose: closeInspector,
-      onAddGlobalFilter: addFilter,
+      onAddGlobalFilter: setDashboardFilter,
       metricLatestNValues: undefined,
     };
 
@@ -96,6 +97,6 @@ export function useInspectorProps(simulateDropKey?: string | null): InspectorPro
     inspectedPointId,
     simulateDropKey,
     closeInspector,
-    addFilter,
+    setDashboardFilter,
   ]);
 }

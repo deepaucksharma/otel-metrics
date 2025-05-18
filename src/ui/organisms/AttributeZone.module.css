@@ -5,10 +5,9 @@
 }
 
 .grid {
-  display: grid;
-  grid-template-columns: minmax(140px, 30%) 1fr auto;
+  display: flex;
+  flex-direction: column;
   gap: 4px;
-  align-items: center;
 }
 
 .key {
@@ -32,8 +31,4 @@
   display: flex;
   gap: 4px;
   align-items: center;
-}
-
-.rarityDot {
-  margin-right: 4px;
 }
