@@ -35,6 +35,12 @@ interface UiSliceState {
 
   // Dashboard search
   dashboardFilter : string;
+  
+  // Simulation state
+  dropSimulation? : {
+    attributeKey : string | null;
+    isActive     : boolean;
+  };
 }
 
 interface UiSliceActions {
@@ -49,6 +55,13 @@ interface UiSliceActions {
   closeInspector(): void;
 
   setDashboardFilter(text: string): void;
+  
+  /**
+   * Toggle simulation of dropping an attribute for cardinality analysis.
+   * @param key The attribute key to toggle dropping
+   * @param drop True to simulate dropping, false to restore
+   */
+  toggleSimDrop(key: string, drop: boolean): void;
 
   resetUi(): void;
 }
@@ -65,6 +78,10 @@ inspectSeriesAndPoint(seriesKey, ts) then openInspector().
 Drawer close (ESC or ×)
 Component calls closeInspector().
 
+Attribute drop simulation in Inspector
+User toggles "Simulate Drop" → toggleSimDrop(key, true)
+→ MetricInstanceWidget gets updated via useDropSimulation hook.
+
 ## 4. Selectors
 
 ```ts
@@ -72,6 +89,7 @@ selectIsInspectorOpen(state)    → boolean
 selectCurrentInspectionContext(state) → {
     snapshotId, metricName, seriesKey, pointId
 }
+selectDropSimulation(state) → { attributeKey, isActive } | undefined
 ```
 
 All selectors memoised via zustand's shallow.
@@ -84,11 +102,19 @@ export const useUiSlice = create<UiSliceState & UiSliceActions>()(
     // state
     isInspectorOpen: false,
     dashboardFilter: '',
+    dropSimulation: undefined,
 
     // actions
     openInspector: () => set(s => { s.isInspectorOpen = true }),
     closeInspector:() => set(s => { s.isInspectorOpen = false }),
     inspectMetric :(m)=> set(s => { s.inspectedMetricName=m }),
+    toggleSimDrop :(key, drop) => set(s => {
+      if (drop) {
+        s.dropSimulation = { attributeKey: key, isActive: true };
+      } else {
+        s.dropSimulation = undefined;
+      }
+    }),
     // ...rest omitted for brevity
   }))
 );
@@ -99,6 +125,9 @@ Listen
 eventBus.on('ui.metric.inspectRequest', {metricName,snapshotId})
 → set active snapshot & metric.
 
+eventBus.on('ui.cardinality.simulateDrop', {key, drop})
+→ toggleSimDrop(key, drop)
+
 Emit
 Hooks/components may emit ui.inspector.openRequest but most directly call slice actions.
 
@@ -108,6 +137,8 @@ Hooks/components may emit ui.inspector.openRequest but most directly call slice 
 | openInspector sets flag true | selector returns true |
 | closeInspector resets to false | … |
 | inspectSeriesAndPoint updates both fields | values accessible |
+| toggleSimDrop with key=http.method, drop=true | dropSimulation.attributeKey === http.method |
+| toggleSimDrop with drop=false | dropSimulation undefined |
 | resetUi clears all nullable fields | all become null / defaults |
 
 ## 8. Persistence
