@@ -17,6 +17,7 @@ pnpm dev        # Vite + HMR
 pnpm storybook  # component catalog
 pnpm test:unit  # Jest/Vitest
 pnpm lint
+pnpm generate:tokens  # update design-tokens.ts from tokens.css
 ```
 
 After installing dependencies the project can be verified locally:

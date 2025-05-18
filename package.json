@@ -16,7 +16,8 @@
     "test:e2e": "playwright test",
     "build:storybook": "storybook build",
     "docs:mkdocs": "mkdocs build",
-    "release": "semantic-release"
+    "release": "semantic-release",
+    "generate:tokens": "node scripts/generate-design-tokens.js"
   },
   "dependencies": {
     "mitt": "^3.0.1",
