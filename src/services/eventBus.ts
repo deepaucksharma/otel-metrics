@@ -24,14 +24,29 @@ export type EventMap = {
   'data.snapshot.loaded': { snapshot: ParsedSnapshot };
 
   /**
-   * Reports any recoverable error that occurred during loading or parsing.
+   * Reports any error that occurred during snapshot processing.
    */
-  'data.error': { message: string; error?: unknown };
+  'data.snapshot.error': { fileName: string; error: string; detail?: string };
 
   /**
-   * Progress update while loading a snapshot.
+   * A file load operation has started.
    */
-  'data.snapshot.progress': { snapshotId: string; progress: number };
+  'data.snapshot.load.start': { fileName: string; fileSize: number };
+  
+  /**
+   * Progress update for a file being processed.
+   */
+  'data.snapshot.load.progress': { 
+    taskId: string;
+    fileName: string;
+    progress: number; // 0-100 percentage
+    stage: 'parsing' | 'mapping' | 'processing' 
+  };
+  
+  /**
+   * A file load operation has been canceled.
+   */
+  'data.snapshot.load.cancel': { fileName: string; taskId: string };
 
   /**
    * A metric widget is requesting to inspect a specific metric.
