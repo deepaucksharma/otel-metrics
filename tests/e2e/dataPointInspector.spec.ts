@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from './fixtures';
 import path from 'path';
 
 const fixturePath = path.resolve(__dirname, '../fixtures/basic-snapshot.json');
