@@ -4,11 +4,10 @@
   gap: 8px;
 }
 
-.grid {
-  display: grid;
-  grid-template-columns: minmax(140px, 30%) 1fr auto;
+.list {
+  display: flex;
+  flex-direction: column;
   gap: 4px;
-  align-items: center;
 }
 
 .key {
