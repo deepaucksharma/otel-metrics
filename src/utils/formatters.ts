@@ -1,6 +1,17 @@
 /**
  * Collection of formatting helpers used across UI components.
  */
+/**
+ * Format a Unix nanosecond timestamp into a locale string.
+ *
+ * @param ns - Timestamp in nanoseconds
+ * @param long - Include the date portion when true
+ */
+export function formatTimestamp(ns: number, long = false): string {
+  const date = new Date(Math.floor(ns / 1_000_000));
+  return long ? date.toLocaleString() : date.toLocaleTimeString();
+}
+
 export const formatters = {
   /** Format a number with thousand separators. */
   int(value: number): string {
@@ -30,7 +41,6 @@ export const formatters = {
 
   /** Format a Unix nanosecond timestamp. */
   timestamp(value: number, withDate = false): string {
-    const date = new Date(value / 1_000_000);
-    return withDate ? date.toLocaleString() : date.toLocaleTimeString();
+    return formatTimestamp(value, withDate);
   },
 };
