@@ -121,8 +121,8 @@ export const ExemplarsZone: React.FC<ExemplarsZoneProps> = ({
               <div className={styles.traceId}>
                 Trace ID: {selectedExemplar.traceId.substring(0, 10)}...
                 <CopyButton
-                  value={selectedExemplar.traceId}
-                  label="Copy trace ID"
+                  copyValue={selectedExemplar.traceId}
+                  ariaLabel="Copy trace ID"
                 />
               </div>
 
@@ -130,8 +130,8 @@ export const ExemplarsZone: React.FC<ExemplarsZoneProps> = ({
                 <div className={styles.spanId}>
                   Span ID: {selectedExemplar.spanId}
                   <CopyButton
-                    value={selectedExemplar.spanId}
-                    label="Copy span ID"
+                    copyValue={selectedExemplar.spanId}
+                    ariaLabel="Copy span ID"
                   />
                 </div>
               )}

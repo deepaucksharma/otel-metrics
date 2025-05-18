@@ -104,8 +104,10 @@ export const RawJsonZone: React.FC<RawJsonZoneProps> = ({
   const displayJson = showFullContext ? fullJson : pointJson;
 
   const handleCopy = useCallback(() => {
-    void navigator.clipboard.writeText(displayJson);
+    return displayJson;
   }, [displayJson]);
+
+  const getCopyValue = useCallback(() => handleCopy(), [handleCopy]);
 
   if (isCollapsed) {
     return (
@@ -138,7 +140,7 @@ export const RawJsonZone: React.FC<RawJsonZoneProps> = ({
           >
             ▲
           </button>
-          <CopyButton onCopy={handleCopy} label="Copy JSON" />
+          <CopyButton copyValue={getCopyValue()} ariaLabel="Copy JSON" />
         </div>
       </div>
 
