@@ -23,6 +23,10 @@ export interface MetricsSliceState {
   snapshots: Record<string, ParsedSnapshot>;
   /** Ordered list of snapshot ids in insertion order. */
   snapshotOrder: string[];
+  /** Files currently being loaded keyed by file name. */
+  loading: Record<string, boolean>;
+  /** Errors encountered while loading keyed by file name. */
+  errors: Record<string, string>;
 }
 
 /** Actions mutating {@link MetricsSliceState}. */
@@ -33,6 +37,10 @@ export interface MetricsSliceActions {
   removeSnapshot(id: string): void;
   /** Clear all snapshots. */
   clearSnapshots(): void;
+  /** Record an error for a given file. */
+  registerError(fileName: string, error: string): void;
+  /** Mark a file as currently loading. */
+  markLoading(fileName: string): void;
 }
 
 /** Zustand store containing metrics data and actions. */
@@ -40,6 +48,8 @@ export const useMetricsSlice = create<MetricsSliceState & MetricsSliceActions>()
   immer((set) => ({
     snapshots: {},
     snapshotOrder: [],
+    loading: {},
+    errors: {},
 
     addSnapshot: (snap) =>
       set((state) => {
@@ -47,6 +57,8 @@ export const useMetricsSlice = create<MetricsSliceState & MetricsSliceActions>()
         if (!state.snapshotOrder.includes(snap.id)) {
           state.snapshotOrder.push(snap.id);
         }
+        delete state.loading[snap.fileName];
+        delete state.errors[snap.fileName];
       }),
 
     removeSnapshot: (id) =>
@@ -59,6 +71,20 @@ export const useMetricsSlice = create<MetricsSliceState & MetricsSliceActions>()
       set((state) => {
         state.snapshots = {};
         state.snapshotOrder = [];
+        state.loading = {};
+        state.errors = {};
+      }),
+
+    registerError: (fileName, error) =>
+      set((state) => {
+        state.errors[fileName] = error;
+        delete state.loading[fileName];
+      }),
+
+    markLoading: (fileName) =>
+      set((state) => {
+        state.loading[fileName] = true;
+        delete state.errors[fileName];
       }),
   }))
 );
