@@ -45,7 +45,7 @@ export const CounterCard: React.FC<CounterCardProps> = ({
   const formattedValue = useSINotation ? formatters.SI(value) : formatters.int(value);
 
   return (
-    <div className={`${styles.container} ${className || ''}`.trim()}>
+    <div data-testid="counter-card" className={`${styles.container} ${className || ''}`.trim()}>
       <div className={styles.value}>{formattedValue}</div>
       {unit && <div className={styles.unit}>{unit}</div>}
       {delta !== undefined && (
