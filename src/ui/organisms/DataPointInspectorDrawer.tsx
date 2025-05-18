@@ -6,6 +6,7 @@ import { CardinalityCapsule } from './CardinalityCapsule';
 import { AttributeZone } from './AttributeZone';
 import { ExemplarsZone } from './ExemplarsZone';
 import { RawJsonZone } from './RawJsonZone';
+import { useFocusTrap } from '@/hooks/useFocusTrap';
 import styles from './DataPointInspectorDrawer.module.css';
 
 /**
@@ -80,10 +81,8 @@ export const DataPointInspectorDrawer: React.FC<DataPointInspectorDrawerProps> =
     return () => document.removeEventListener('keydown', handler);
   }, [onClose]);
 
-  // Auto focus when mounted
-  useEffect(() => {
-    drawerRef.current?.focus();
-  }, []);
+  // Trap focus inside drawer while mounted
+  useFocusTrap(drawerRef);
 
   const memoizedAttributeZone = useMemo(
     () => (
@@ -91,7 +90,6 @@ export const DataPointInspectorDrawer: React.FC<DataPointInspectorDrawerProps> =
         resourceAttrs={resourceAttrs}
         metricAttrs={metricAttrs}
         attrUniq={cardinality.attrUniq}
-        seriesCount={cardinality.seriesCount}
         focusedAttrKey={focusedAttrKey}
         onFocusAttr={setFocusedAttrKey}
       />
@@ -100,7 +98,6 @@ export const DataPointInspectorDrawer: React.FC<DataPointInspectorDrawerProps> =
       resourceAttrs,
       metricAttrs,
       cardinality.attrUniq,
-      cardinality.seriesCount,
       focusedAttrKey,
     ]
   );
@@ -164,4 +161,3 @@ export const DataPointInspectorDrawer: React.FC<DataPointInspectorDrawerProps> =
     </div>
   );
 };
-

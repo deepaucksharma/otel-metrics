@@ -2,11 +2,30 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background-color: var(--cardBg);
   color: var(--textPrimary);
   border-radius: 4px;
   font-weight: 500;
   text-transform: uppercase;
+}
+
+.gauge {
+  background-color: var(--instrumentGaugeBg);
+}
+
+.sum {
+  background-color: var(--instrumentSumBg);
+}
+
+.histogram {
+  background-color: var(--instrumentHistogramBg);
+}
+
+.summary {
+  background-color: var(--instrumentSummaryBg);
+}
+
+.unknown {
+  background-color: var(--instrumentUnknownBg);
 }
 
 .small {

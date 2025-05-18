@@ -84,7 +84,8 @@ export function useInspectorProps(simulateDropKey?: string | null): InspectorPro
       },
       exemplars: point.exemplars,
       onClose: closeInspector,
-      onAddGlobalFilter: setDashboardFilter,
+      onAddGlobalFilter: (key, value) =>
+        setDashboardFilter(`${key}=${String(value)}`),
       metricLatestNValues: undefined,
     };
 
