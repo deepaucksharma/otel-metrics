@@ -8,7 +8,7 @@ import {
   HelpCircle,
 } from 'lucide-react';
 import styles from './InstrumentBadge.module.css';
-import type { MetricDefinition } from '@/contracts/types';
+import type { MetricDefinition } from '@intellimetric/contracts/types';
 
 /**
  * Props for {@link InstrumentBadge}.

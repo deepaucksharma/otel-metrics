@@ -1,7 +1,7 @@
 // Transform raw OTLP exemplar objects into lightweight `ExemplarData`.
 
-import type { ExemplarData, AttrMap } from '@/contracts/types';
-import type { RawOtlpExemplar } from '@/contracts/rawOtlpTypes';
+import type { ExemplarData, AttrMap } from '@intellimetric/contracts/types';
+import type { RawOtlpExemplar } from '@intellimetric/contracts/rawOtlpTypes';
 
 /**
  * Map an array of raw OTLP exemplars to the internal {@link ExemplarData} shape.

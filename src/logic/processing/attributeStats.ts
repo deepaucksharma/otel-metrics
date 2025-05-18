@@ -1,4 +1,4 @@
-import type { ParsedMetricData, UniqueCount, AttrValue } from '@/contracts/types';
+import type { ParsedMetricData, UniqueCount, AttrValue } from '@intellimetric/contracts/types';
 import { getUniqueValues } from './utils/uniqueValueCounter';
 
 export interface AttributeStatistics {

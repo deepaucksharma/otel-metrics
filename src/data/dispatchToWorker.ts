@@ -10,10 +10,10 @@
  * Future work: queue length metrics and dynamic pool sizing.
  */
 
-import type { ParsedSnapshot } from '@/contracts/types';
+import type { ParsedSnapshot } from '@intellimetric/contracts/types';
 import { jsonSafeParse } from '@/logic/workers/utils/jsonSafeParse';
 import { mapToParsedSnapshot } from '@/logic/workers/mapping/otlpMapper';
-import type { RawOtlpExportMetricsServiceRequest } from '@/contracts/rawOtlpTypes';
+import type { RawOtlpExportMetricsServiceRequest } from '@intellimetric/contracts/rawOtlpTypes';
 
 export interface ParseTask {
   snapshotId: string;

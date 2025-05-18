@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useMemo, useEffect, useRef } from 'react';
-import type { InspectorProps } from '@/contracts/types';
+import type { InspectorProps } from '@intellimetric/contracts/types';
 import { InspectorHeader } from './InspectorHeader';
 import { ValueZone } from './ValueZone';
 import { CardinalityCapsule } from './CardinalityCapsule';

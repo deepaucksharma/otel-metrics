@@ -3,7 +3,7 @@
  *
  * Public API:
  * ```ts
- * import type { ParsedSnapshot, ParsedSeriesData } from '@/contracts/types';
+ * import type { ParsedSnapshot, ParsedSeriesData } from '@intellimetric/contracts/types';
  *
  * export function findSeriesData(
  *   snapshot: ParsedSnapshot,
@@ -39,7 +39,7 @@
  * - ✓ searches across resources and scopes
  */
 
-import type { ParsedSnapshot, ParsedSeriesData } from '@/contracts/types';
+import type { ParsedSnapshot, ParsedSeriesData } from '@intellimetric/contracts/types';
 
 export function findSeriesData(
   snapshot: ParsedSnapshot,

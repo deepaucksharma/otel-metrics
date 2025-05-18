@@ -8,7 +8,7 @@
  * within a snapshot.
  */
 
-import type { AttrMap, SeriesKey } from '@/contracts/types';
+import type { AttrMap, SeriesKey } from '@intellimetric/contracts/types';
 
 /** Placeholder string used when an attribute value is null or undefined. */
 export const NULL_PLACEHOLDER = '__NULL__';

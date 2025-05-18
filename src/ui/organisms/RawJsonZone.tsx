@@ -1,6 +1,6 @@
 import React, { useState, useCallback, useMemo } from 'react';
 import { CopyButton } from '@/ui/atoms/CopyButton';
-import type { ParsedPoint, AttrMap } from '@/contracts/types';
+import type { ParsedPoint, AttrMap } from '@intellimetric/contracts/types';
 import styles from './RawJsonZone.module.css';
 
 /**
