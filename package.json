@@ -20,6 +20,9 @@
   "dependencies": {
     "mitt": "^3.0.1",
     "pako": "^2.1.0",
+    "clsx": "^2.1.0",
+    "lucide-react": "^0.284.0",
+    "react-window": "^1.8.7",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-router-dom": "^7.6.0",
@@ -35,6 +38,8 @@
     "clsx": "^2.1.1",
     "eslint": "^9.27.0",
     "eslint-plugin-react": "^7.32.2",
+    "@testing-library/react": "^14.2.2",
+    "@testing-library/react-hooks": "^8.1.2",
     "immer": "^10.1.1",
     "playwright": "^1.37.0",
     "react-window": "^1.8.11",
