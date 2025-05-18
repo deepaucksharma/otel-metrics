@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './GaugeCard.module.css';
-import { formatDuration } from '@/utils/formatters';
+import { formatters } from '@/utils/formatters';
 
 /**
  * Radial gauge visualization for gauge metrics and up-down counters.
@@ -50,7 +50,7 @@ export const GaugeCard: React.FC<GaugeCardProps> = ({
   const effectiveMax = max ?? Math.max(value * 1.5, 100);
   const angle = ((value - min) / (effectiveMax - min)) * 180;
   const gaugeColor = determineColor(value, ranges);
-  const formattedValue = unit ? formatDuration(value, unit) : value.toString();
+  const formattedValue = unit ? formatters.duration(value, unit) : value.toString();
 
   return (
     <div className={`${styles.container} ${className ?? ''}`.trim()}>

@@ -8,7 +8,7 @@
  * to primitive values.
  */
 
-import type { AttrMap } from '@/contracts/types';
+import type { AttrMap } from '@intellimetric/contracts/types';
 
 /**
  * Return a number in the inclusive range `[0, 1]` describing how similar

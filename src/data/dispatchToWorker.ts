@@ -1,4 +1,3 @@
-
 /**
  * Create and manage a micro‑pool of Web Workers running `parser.worker.ts` and expose a promise-based API.
  *
@@ -14,11 +13,12 @@
  * Tests: mocked Worker to validate success, failure, round-robin, and termination.
  */
 
-import type { ParsedSnapshot } from '@/contracts/types';
+import type { ParsedSnapshot } from '@intellimetric/contracts/types';
 import { jsonSafeParse } from '@/logic/workers/utils/jsonSafeParse';
 import { mapToParsedSnapshot } from '@/logic/workers/mapping/otlpMapper';
-import type { RawOtlpExportMetricsServiceRequest } from '@/contracts/rawOtlpTypes';
+import type { RawOtlpExportMetricsServiceRequest } from '@intellimetric/contracts/rawOtlpTypes';
 import { bus } from '@/services/eventBus';
+import { randomId } from '@/utils/randomId';
 
 export interface ParseTask {
   snapshotId: string;
@@ -249,7 +249,7 @@ function ensurePool() {
  * @throws Error if the task is canceled before completion.
  */
 export function dispatchToParserWorker(task: ParseTask): Promise<WorkerSuccess | WorkerFailure> {
-  const taskId = crypto.randomUUID();
+  const taskId = randomId();
   
   // Report initial load event
   bus.emit('data.snapshot.load.start', { fileName: task.fileName, fileSize: task.fileSize });
@@ -345,4 +345,3 @@ export function terminateAllParserWorkers(): void {
   inFlight.clear();
   canceledTasks.clear();
 }
-

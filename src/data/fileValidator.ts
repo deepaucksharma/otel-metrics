@@ -6,7 +6,7 @@
 /**
  * Describes why validation failed.
  */
-import type { Either } from '@/contracts/either';
+import type { Either } from '@intellimetric/contracts/either';
 
 export interface ValidationError {
   /** Error classification */

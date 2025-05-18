@@ -144,6 +144,8 @@ export interface ParsedSnapshot {
 export interface MetricCardinalityContext {
   /** Total number of unique series. */
   seriesCount: SeriesCount;
+  /** Series count before any drop simulation. */
+  baseSeriesCount: SeriesCount;
   /** Map of attribute keys to their unique value counts. */
   attrUniq: Record<string, UniqueCount>;
   /** Attribute keys ranked by unique count descending. */
@@ -179,6 +181,8 @@ export interface InspectorProps {
   cardinality: {
     /** Total series count for the metric. */
     seriesCount: SeriesCount;
+    /** Original series count before simulation. */
+    baseSeriesCount: SeriesCount;
     /** Unique attribute value counts. */
     attrUniq: Record<string, UniqueCount>;
     /** Attribute keys ranked by unique count. */

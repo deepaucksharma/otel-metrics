@@ -11,16 +11,24 @@ microscopically analysing a single OTLP snapshot.
 
 ## Quick start
 
-Requires **Node.js >=18.17**. We recommend using
-[nvm](https://github.com/nvm-sh/nvm) to manage Node versions.
-
 ```bash
 pnpm i          # install deps
 pnpm dev        # Vite + HMR
 pnpm storybook  # component catalog
 pnpm test:unit  # Jest/Vitest
 pnpm lint
+pnpm generate:tokens  # update design-tokens.ts from tokens.css
 ```
+
+After installing dependencies the project can be verified locally:
+
+```bash
+pnpm lint  # runs ESLint using eslint.config.js
+pnpm dev   # starts the Vite dev server
+```
+
+Ensure `eslint.config.js` and `tsconfig.json` exist in the repository root
+before running these commands.
 
 ## Documentation
 

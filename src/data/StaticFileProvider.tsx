@@ -5,6 +5,7 @@ import { bus } from '../services/eventBus';
 import { validateFile, ValidFile } from './fileValidator';
 import { readFileContent } from './readFile';
 import { dispatchToParserWorker } from './dispatchToWorker';
+import { randomId } from '@/utils/randomId';
 
 /**
  * Props for {@link StaticFileProvider}.
@@ -28,11 +29,11 @@ export interface StaticFileProviderProps {
  * 1. Hidden `<input type="file" multiple>` stores the FileList.
  * 2. Drop area or keyboard activation triggers the input.
  * 3. For each chosen file:
- *    - Generate an id and emit `data.snapshot.load.start`.
- *    - Validate using {@link validateFile}. Invalid files emit `data.snapshot.error`.
+ *    - Generate an id and emit `data.snapshot.loading`.
+ *    - Validate using {@link validateFile}. Invalid files emit `data.error`.
  *    - Read text with {@link readFileContent}.
  *    - Dispatch to parser worker via {@link dispatchToParserWorker}.
- *    - Emit `data.snapshot.parsed` on success; otherwise emit `data.snapshot.error`.
+ *    - Emit `data.snapshot.loaded` on success; otherwise emit `data.error`.
  *
  * ### Dependencies
  * - {@link validateFile}
@@ -53,16 +54,16 @@ export function StaticFileProvider({
   const handleFiles = useCallback(
     async (files: FileList) => {
       for (const file of Array.from(files)) {
-        const id = crypto.randomUUID();
+        const id = randomId();
         const snapshotId = `snap-${id}`;
         setStatus((s) => ({ ...s, [id]: `\u{1F680} reading … ${file.name}` }));
-        bus.emit('data.snapshot.load.start', { fileName: file.name });
+        bus.emit('data.snapshot.loading', { fileId: id, fileName: file.name });
 
         const result = validateFile(file, maxSizeBytes);
         if (result.type === 'left') {
-          bus.emit('data.snapshot.error', {
-            fileName: file.name,
-            error: result.value.message,
+          bus.emit('data.error', {
+            message: result.value.message,
+            error: result.value
           });
           setStatus((s) => ({ ...s, [id]: `\u274C ${result.value.message}` }));
           continue;
@@ -70,7 +71,7 @@ export function StaticFileProvider({
         const valid: ValidFile = result.value;
         if (valid.isGzipped && !acceptGzip) {
           const msg = 'Gzip files are not accepted';
-          bus.emit('data.snapshot.error', { fileName: file.name, error: msg });
+          bus.emit('data.error', { message: msg });
           setStatus((s) => ({ ...s, [id]: `\u274C ${msg}` }));
           continue;
         }
@@ -82,15 +83,15 @@ export function StaticFileProvider({
             rawJson: text,
           });
           if (workerRes.type === 'parsedSnapshot') {
-            bus.emit('data.snapshot.parsed', { snapshot: workerRes.payload });
+            bus.emit('data.snapshot.loaded', { snapshot: workerRes.payload });
             setStatus((s) => ({
               ...s,
               [id]: `\u2705 loaded ${workerRes.payload.id}`,
             }));
           } else {
-            bus.emit('data.snapshot.error', {
-              fileName: workerRes.payload.fileName,
-              error: workerRes.payload.message,
+            bus.emit('data.error', {
+              message: workerRes.payload.message,
+              error: workerRes.payload
             });
             setStatus((s) => ({
               ...s,
@@ -99,7 +100,7 @@ export function StaticFileProvider({
           }
         } catch (err) {
           const message = err instanceof Error ? err.message : String(err);
-          bus.emit('data.snapshot.error', { fileName: file.name, error: message });
+          bus.emit('data.error', { message, error: err });
           setStatus((s) => ({ ...s, [id]: `\u274C ${message}` }));
         }
       }

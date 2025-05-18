@@ -22,5 +22,6 @@ root.render(
   </React.StrictMode>
 );
 
+// Initialize application event listeners
 registerEventListeners();
 

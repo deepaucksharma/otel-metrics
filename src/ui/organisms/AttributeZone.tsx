@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import type { AttrMap, AttrValue } from '@/contracts/types';
+import type { AttrMap, AttrValue } from '@intellimetric/contracts/types';
 import { FixedSizeList } from 'react-window';
 import { AttributeRow } from '../molecules/AttributeRow';
 import styles from './AttributeZone.module.css';

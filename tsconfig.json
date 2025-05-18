@@ -1,18 +1,21 @@
-{  
-  "extends": "@tsconfig/vite/tsconfig.json",  
-  "compilerOptions": {  
-    "jsx": "react-jsx",  
-    "strict": true,  
-    "rootDir": "src",  
-    "noEmit": false,  
-    "skipLibCheck": true,  
-    "baseUrl": "./src",  
-    "paths": {  
-      "@/*": ["./*"]  
-    },  
-    "forceConsistentCasingInFileNames": true,  
-    "types": ["node"]  
-  },  
-  "include": ["src", "tests", "vite.config.js"],  
-  "exclude": ["node_modules", "dist"]  
-} 
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "jsx": "react-jsx",
+    "strict": true,
+    "noEmit": false,
+    "skipLibCheck": true,
+    "moduleResolution": "Node",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "baseUrl": "./src",
+    "paths": {
+      "@/*": ["./*"],
+      "@intellimetric/contracts": ["../packages/contracts"],
+      "@intellimetric/contracts/*": ["../packages/contracts/*"]
+    },
+    "types": ["node"]
+  },
+  "include": ["src", "tests", "vite.config.js"]
+}

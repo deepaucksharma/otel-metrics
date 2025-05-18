@@ -23,7 +23,7 @@
  * - treats '42' (string) !== 42 (number)
  * - empty iterable → size 0 / empty Set
  */
-import type { AttrValue, UniqueCount } from '@/contracts/types';
+import type { AttrValue, UniqueCount } from '@intellimetric/contracts/types';
 
 /**
  * Builds and returns a {@link Set} containing each distinct attribute value.

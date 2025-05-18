@@ -15,6 +15,7 @@ IntelliMetric Explorer / Data-Point Inspector Drawer is a specialized UI compone
 - Raw JSON access with copy functionality
 
 ## Development Commands
+Requires Node.js 18.17 or later. All examples use `pnpm`.
 
 ```bash
 # Install dependencies
@@ -52,6 +53,12 @@ pnpm build:storybook
 
 # Build documentation
 pnpm docs:mkdocs
+
+# Generate design tokens from CSS
+pnpm generate:tokens
+
+# Run performance budget tests
+pnpm test:perf
 ```
 
 ## Project Architecture
@@ -65,7 +72,7 @@ This project follows a strict nano-module architecture where:
 
 ### Layer Model
 
-1. **Contracts** (`src/contracts/`) - Type definitions and interfaces
+1. **Contracts** (`packages/contracts/`) - Type definitions and interfaces
 2. **Data Provider** (`src/data/`) - File handling (validation, decompression, reading)
 3. **Parser Worker** (`src/logic/workers/`) - Processes OTLP data in a WebWorker
 4. **Metric Processing** (`src/logic/processing/`) - Handles attribute stats and cardinality calculations
@@ -74,7 +81,17 @@ This project follows a strict nano-module architecture where:
 7. **UI Components** (`src/ui/`) - React components (atoms → organisms → layouts)
 8. **Services** (`src/services/`) - Event bus and listeners
 
-The architecture enforces strict import rules between layers to maintain boundaries and prevent circular dependencies.
+The architecture enforces strict import rules between layers to maintain boundaries and prevent circular dependencies:
+- Contracts can only import built-ins
+- Data Provider can import Contracts, but not State, UI, or Processing
+- Parser Worker can import Contracts and its own utils, but not State or UI
+- Metric Processing can import Contracts, Parser utils, but not UI
+- State can import Contracts, but not UI
+- Hooks can import Contracts, State, Processing, but not Data or Workers
+- UI can import Contracts, Hooks, State selectors, but not Data, Workers, or direct Processing
+- Services can import Contracts, but not UI
+
+ESLint "no-restricted-paths" enforces these import rules with some documented exceptions.
 
 ### Data Flow
 
@@ -102,7 +119,7 @@ StaticFileProvider → Worker Dispatch → Parser Worker → Event Bus → Metri
 
 ### Key Technologies
 
-- React with TypeScript
+- React 19 with TypeScript
 - Zustand + immer for state management
 - Vite for build system (HMR and worker bundling)
 - mitt for event handling (micro-event bus)
@@ -123,7 +140,7 @@ Performance tests will fail the build if these budgets are not met.
 
 ## Type System
 
-- All cross-layer payloads derive from base types in `src/contracts/types.ts`
+- All cross-layer payloads derive from base types in `packages/contracts/types.ts`
 - Branded primitives are used for critical numbers to prevent mix-ups
 - Strict typing with no optional nulls
 
@@ -146,7 +163,7 @@ The testing harnesses in `tests/harnesses/` provide utilities for each layer's s
 
 1. `src/00-Overview.md` - Project overview
 2. `src/01-Architecture-Principles.md` - Contracts and boundaries
-3. `src/contracts/README.md` - TypeScript interfaces summary
+3. `packages/contracts/README.md` - TypeScript interfaces summary
 4. `src/02-Code-Comment-Guide.md` - Code documentation standards with TSDoc tags
 
 Backend focus path:

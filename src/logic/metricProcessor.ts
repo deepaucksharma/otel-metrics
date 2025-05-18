@@ -32,7 +32,7 @@ import type {
   ParsedMetricData,
   ProcessedMetricInfo,
   SeriesCount,
-} from '@/contracts/types';
+} from '@intellimetric/contracts/types';
 import { calculateAttributeStatsForMetric } from './processing/attributeStats';
 import {
   getActualSeriesCount,
@@ -103,6 +103,7 @@ export function getProcessedMetricInfo(
     definition: metric.definition,
     cardinality: {
       seriesCount,
+      baseSeriesCount: baseCount,
       attrUniq: stats.attrUniq,
       attrRank: stats.attrRank,
     },
