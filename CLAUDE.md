@@ -83,7 +83,7 @@ The project has strict performance budgets:
 
 1. `src/00-Overview.md` - Project overview
 2. `src/01-Architecture-Principles.md` - Contracts and boundaries
-3. `src/contracts/03-Data-Contracts.md` - TypeScript interfaces
+3. `src/contracts/README.md` - TypeScript interfaces summary
 
 Backend focus path:
 - `src/data/*.md` → `src/logic/workers/*.md` → `src/logic/processing/*.md`
