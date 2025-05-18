@@ -30,15 +30,15 @@ export function registerEventListeners(): () => void {
   const uiActions = useUiSlice.getState();
 
   // Data events
-  eventBus.on('data.snapshot.parsed', (payload: EventTypes['data.snapshot.parsed']) => {
+  eventBus.on('data.snapshot.loaded', (payload: EventTypes['data.snapshot.loaded']) => {
     metricsActions.addSnapshot(payload.snapshot);
   });
 
-  eventBus.on('data.snapshot.error', (payload: EventTypes['data.snapshot.error']) => {
-    metricsActions.registerError(payload.fileName, payload.error);
+  eventBus.on('data.error', (payload: EventTypes['data.error']) => {
+    metricsActions.registerError(payload.message);
   });
 
-  eventBus.on('data.snapshot.load.start', (payload: EventTypes['data.snapshot.load.start']) => {
+  eventBus.on('data.snapshot.loading', (payload: EventTypes['data.snapshot.loading']) => {
     metricsActions.markLoading(payload.fileName);
   });
 

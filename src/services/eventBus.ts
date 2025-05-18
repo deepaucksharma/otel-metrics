@@ -36,12 +36,16 @@ export type EventMap = {
   /**
    * A metric widget is requesting to inspect a specific metric.
    */
-  'ui.metric.inspectRequest': { metricName: string; snapshotId: string };
+  'ui.metric.inspect': { metricName: string; snapshotId: string };
 
-  /**
-   * Open the data point inspector drawer.
-   */
-  'ui.inspector.openRequest': void;
+  /** Open the data point inspector drawer. */
+  'ui.inspector.open': void;
+
+  /** Close the data point inspector drawer. */
+  'ui.inspector.close': void;
+
+  /** Toggle attribute drop simulation for cardinality analysis. */
+  'ui.cardinality.simulateDrop': { key: string; drop: boolean };
 
   /**
    * Clear all application state.

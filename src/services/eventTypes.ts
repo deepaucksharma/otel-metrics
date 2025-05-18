@@ -5,12 +5,12 @@ import type { ParsedSnapshot, SeriesKey } from '@/contracts/types';
  * Maps event names to their payload types.
  */
 export interface EventTypes {
-  'data.snapshot.parsed': { snapshot: ParsedSnapshot };
-  'data.snapshot.error': { fileName: string; error: string };
-  'data.snapshot.load.start': { fileName: string };
-  
-  'ui.inspector.open': { 
-    snapshotId: string; 
+  'data.snapshot.loading': { fileId: string; fileName: string };
+  'data.snapshot.loaded': { snapshot: ParsedSnapshot };
+  'data.error': { message: string; error?: unknown };
+
+  'ui.inspector.open': {
+    snapshotId: string;
     metricName: string;
     seriesKey: SeriesKey;
     pointId: number;
