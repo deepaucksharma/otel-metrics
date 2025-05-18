@@ -1,0 +1,11 @@
+.ring {
+  transform: rotate(-90deg);
+}
+
+.track {
+  /* intentionally empty for now */
+}
+
+.progress {
+  transition: stroke-dashoffset 0.4s ease, stroke 0.4s ease;
+}
