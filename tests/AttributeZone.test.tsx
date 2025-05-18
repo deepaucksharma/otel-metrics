@@ -9,7 +9,6 @@ const baseProps = {
   attrUniq: { env: 2, method: 5 },
   seriesCount: 10,
   focusedAttrKey: null as string | null,
-  onAddGlobalFilter: undefined as any,
 };
 
 describe('AttributeZone', () => {
@@ -28,7 +27,6 @@ describe('AttributeZone', () => {
       attrUniq: { method: 1 },
       seriesCount: 10,
       focusedAttrKey: null,
-      onAddGlobalFilter: undefined as any,
       onFocusAttr,
     };
     render(<AttributeZone {...props} />);

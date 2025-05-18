@@ -33,9 +33,6 @@ export interface AttributeZoneProps {
 
   /** Callback when attribute focus changes */
   onFocusAttr: (key: string | null) => void;
-
-  /** Optional callback to add global filter for attribute */
-  onAddGlobalFilter?: (key: string, value: AttrValue) => void;
 }
 
 /**
@@ -47,8 +44,7 @@ export const AttributeZone: React.FC<AttributeZoneProps> = ({
   attrUniq,
   seriesCount,
   focusedAttrKey,
-  onFocusAttr,
-  onAddGlobalFilter
+  onFocusAttr
 }) => {
   const renderRow = useCallback(
     (key: string, value: AttrValue, style?: React.CSSProperties) => {
@@ -63,14 +59,11 @@ export const AttributeZone: React.FC<AttributeZoneProps> = ({
             attrValue={value}
             rarityPercent={rarityPercent}
             isFocused={focusedAttrKey === key}
-            onAddGlobalFilter={
-              onAddGlobalFilter ? () => onAddGlobalFilter(key, value) : undefined
-            }
           />
         </div>
       );
     },
-    [attrUniq, seriesCount, focusedAttrKey, onAddGlobalFilter, onFocusAttr]
+    [attrUniq, seriesCount, focusedAttrKey, onFocusAttr]
   );
 
   const metricKeys = Object.keys(metricAttrs);
