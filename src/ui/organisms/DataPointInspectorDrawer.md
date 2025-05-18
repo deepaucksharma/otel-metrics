@@ -103,12 +103,12 @@ const [droppedKey, setDroppedKey] = useState<string | null>(null);
 
 // Handle drop simulation toggle from CardinalityCapsule
 const handleToggleDrop = useCallback((attrKey: string, nextState: boolean) => {
-  // Only call parent callback if we have one
+  // First call parent callback to trigger recalculation in global state 
   if (onSimulateDrop) {
     onSimulateDrop(attrKey, nextState);
   }
   
-  // Update local state
+  // Then update local state for UI feedback
   setDroppedKey(nextState ? attrKey : null);
 }, [onSimulateDrop]);
 ```
