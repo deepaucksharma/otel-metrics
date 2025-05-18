@@ -142,13 +142,15 @@ export interface InspectorProps {
 
   /** Callbacks */
   onClose        : () => void;
-  onAddGlobalFilter?: (key: string, value: AttrValue) => void;
+  onAddGlobalFilter?: (key: string, value: AttrValue) => void; // adds a filter chip in host UI
   onSimulateDrop?: (attributeKey: string, isDropped: boolean) => void;
 
   /** Optional micro-trend sparkline */
   metricLatestNValues?: number[];
 }
 ```
+
+`onAddGlobalFilter` requests that the host UI add a corresponding filter chip. The field remains optional in Inspector **v1.1** and may be fully adopted in a later version.
 
 ## 5. Raw OTLP helper types
 rawOtlpTypes.ts mirrors the JSON produced by otelcol protobuf-JSON.
