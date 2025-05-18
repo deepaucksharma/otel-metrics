@@ -16,8 +16,6 @@ import { DataPointInspectorDrawer } from '@/ui/organisms/DataPointInspectorDrawe
  * allowing parent components to omit the inspector until context is ready.
  */
 export interface MetricInstanceWidgetProps {
-  /** Identifier of the {@link ParsedSnapshot} to read from. */
-  snapshotId: string;
   /** Metric key within the snapshot. */
   metricName: string;
 }
@@ -33,7 +31,6 @@ export interface MetricInstanceWidgetProps {
  * counts stay in sync.
  */
 export const MetricInstanceWidget: React.FC<MetricInstanceWidgetProps> = ({
-  snapshotId,
   metricName,
 }) => {
   const [droppedKey, toggleDrop] = useDropSimulation();
