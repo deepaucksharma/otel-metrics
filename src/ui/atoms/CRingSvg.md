@@ -113,7 +113,7 @@ role="img" automatically inferred by SVG.
 
 aria-label provides numeric context for screen readers.
 
-## 6. Design Tokens (tokens.css)
+## 6. Design Tokens ([tokens.css](../tokens.css.md))
 
 ```css
 :root {

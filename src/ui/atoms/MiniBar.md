@@ -54,13 +54,13 @@ If percent === 0 → renders 1-px placeholder so count text still aligns.
 .label   { color:#fff; font-size:0.7rem; line-height:1; padding-left:4px; white-space:nowrap; }
 ```
 
-## 5. Design Tokens
+## 5. Design Tokens ([tokens.css](../tokens.css.md))
 | Token | Default Hex | Usage |
 |-------|-------------|-------|
 | --metricBlue | #3399ff | default fill |
 | --barTrack | #2b2b2b | track/backdrop of wrapper |
 
-Tokens set in styles/tokens.css.
+Tokens set in [tokens.css](../tokens.css.md).
 
 ## 6. Accessibility
 <div role="img" aria-label="X percent"> on bar for screen readers.
