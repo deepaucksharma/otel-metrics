@@ -1,4 +1,20 @@
 /**
+ * @layer Metric Processing
+ * @summary TODO
+ *
+ * ## Purpose
+ *
+ * TODO
+ *
+ * ## Algorithm/Visual
+ *
+ * TODO
+ *
+ * @perfBudget TODO
+ * @loc_estimate TODO
+ */
+
+/**
  * Fa\u00e7ade providing `getProcessedMetricInfo` and related helpers.
  *
  * ### Options

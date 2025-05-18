@@ -1,3 +1,19 @@
+/**
+ * @layer UI Components
+ * @summary TODO
+ *
+ * ## Purpose
+ *
+ * TODO
+ *
+ * ## Algorithm/Visual
+ *
+ * TODO
+ *
+ * @perfBudget TODO
+ * @loc_estimate TODO
+ */
+
 import React from 'react';
 import styles from './GaugeCard.module.css';
 import { formatDuration } from '@/utils/formatters';

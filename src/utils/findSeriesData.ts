@@ -1,4 +1,20 @@
 /**
+ * @layer Utils
+ * @summary TODO
+ *
+ * ## Purpose
+ *
+ * TODO
+ *
+ * ## Algorithm/Visual
+ *
+ * TODO
+ *
+ * @perfBudget TODO
+ * @loc_estimate TODO
+ */
+
+/**
  * Locate `ParsedSeriesData` by metric name and seriesKey within a snapshot.
  *
  * Public API:

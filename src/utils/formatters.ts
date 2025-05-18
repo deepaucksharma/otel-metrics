@@ -1,4 +1,20 @@
 /**
+ * @layer Utils
+ * @summary TODO
+ *
+ * ## Purpose
+ *
+ * TODO
+ *
+ * ## Algorithm/Visual
+ *
+ * TODO
+ *
+ * @perfBudget TODO
+ * @loc_estimate TODO
+ */
+
+/**
  * Formatting helpers for consistent data presentation across the Inspector UI.
  *
  * These utilities centralize locale-aware formatting logic. Locale defaults

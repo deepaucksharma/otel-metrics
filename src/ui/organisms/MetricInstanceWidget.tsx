@@ -1,3 +1,19 @@
+/**
+ * @layer UI Components
+ * @summary TODO
+ *
+ * ## Purpose
+ *
+ * TODO
+ *
+ * ## Algorithm/Visual
+ *
+ * TODO
+ *
+ * @perfBudget TODO
+ * @loc_estimate TODO
+ */
+
 import React, { useCallback } from 'react';
 import { useDropSimulation } from '@/hooks/useDropSimulation';
 import { useInspectorProps } from '@/hooks/useInspectorProps';

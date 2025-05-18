@@ -1,4 +1,20 @@
 /**
+ * @layer Data Provider
+ * @summary TODO
+ *
+ * ## Purpose
+ *
+ * TODO
+ *
+ * ## Algorithm/Visual
+ *
+ * TODO
+ *
+ * @perfBudget TODO
+ * @loc_estimate TODO
+ */
+
+/**
  * Validate a user-selected File object before any expensive I/O,
  * checking extension and size.
  */

@@ -1,4 +1,20 @@
 /**
+ * @layer Metric Processing
+ * @summary TODO
+ *
+ * ## Purpose
+ *
+ * TODO
+ *
+ * ## Algorithm/Visual
+ *
+ * TODO
+ *
+ * @perfBudget TODO
+ * @loc_estimate TODO
+ */
+
+/**
  * Helpers used by attribute-level cardinality calculations.
  *
  * @remarks

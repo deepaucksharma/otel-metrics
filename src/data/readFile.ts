@@ -1,3 +1,19 @@
+/**
+ * @layer Data Provider
+ * @summary TODO
+ *
+ * ## Purpose
+ *
+ * TODO
+ *
+ * ## Algorithm/Visual
+ *
+ * TODO
+ *
+ * @perfBudget TODO
+ * @loc_estimate TODO
+ */
+
 import { ValidFile } from './fileValidator';
 import { decompressGzipToString } from './decompressGzip';
 

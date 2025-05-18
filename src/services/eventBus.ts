@@ -1,3 +1,19 @@
+/**
+ * @layer Services
+ * @summary TODO
+ *
+ * ## Purpose
+ *
+ * TODO
+ *
+ * ## Algorithm/Visual
+ *
+ * TODO
+ *
+ * @perfBudget TODO
+ * @loc_estimate TODO
+ */
+
 import mitt from 'mitt';
 import type { ParsedSnapshot } from '@/contracts/types';
 

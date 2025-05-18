@@ -1,4 +1,20 @@
 /**
+ * @layer UI Components
+ * @summary TODO
+ *
+ * ## Purpose
+ *
+ * TODO
+ *
+ * ## Algorithm/Visual
+ *
+ * TODO
+ *
+ * @perfBudget TODO
+ * @loc_estimate TODO
+ */
+
+/**
  * Numeric counter display for monotonic sum metrics.
  *
  * Renders a formatted counter value with optional unit and delta.

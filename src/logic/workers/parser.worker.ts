@@ -1,4 +1,20 @@
 /**
+ * @layer Parser Worker
+ * @summary TODO
+ *
+ * ## Purpose
+ *
+ * TODO
+ *
+ * ## Algorithm/Visual
+ *
+ * TODO
+ *
+ * @perfBudget TODO
+ * @loc_estimate TODO
+ */
+
+/**
  * Web Worker entry orchestrating `jsonSafeParse` and `otlpMapper`.
  *
  * @remarks
