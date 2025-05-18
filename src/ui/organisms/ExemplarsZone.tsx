@@ -1,8 +1,9 @@
-import React, { useState, useMemo } from 'react';
+import React from 'react';
 import { ExemplarData } from '@/contracts/types';
 import { formatters } from '@/utils/formatters';
 import { CopyButton } from '@/ui/atoms/CopyButton';
 import styles from './ExemplarsZone.module.css';
+import { useExemplarTimeline } from './useExemplarTimeline';
 
 /**
  * Timeline visualization of exemplars associated with a data point.
@@ -37,31 +38,13 @@ export const ExemplarsZone: React.FC<ExemplarsZoneProps> = ({
   exemplars,
   onExemplarClick
 }) => {
-  const [selectedExemplar, setSelectedExemplar] = useState<ExemplarData | null>(null);
-
-  const sortedExemplars = useMemo(() => {
-    return [...exemplars].sort((a, b) => a.timeUnixNano - b.timeUnixNano);
-  }, [exemplars]);
-
-  const timeRange = useMemo(() => {
-    if (sortedExemplars.length < 2) return null;
-
-    const minTime = sortedExemplars[0].timeUnixNano;
-    const maxTime = sortedExemplars[sortedExemplars.length - 1].timeUnixNano;
-    return { minTime, maxTime, span: maxTime - minTime };
-  }, [sortedExemplars]);
-
-  const handleExemplarSelect = (exemplar: ExemplarData) => {
-    setSelectedExemplar(exemplar);
-    if (onExemplarClick) {
-      onExemplarClick(exemplar);
-    }
-  };
-
-  const getPositionPercent = (timestamp: number) => {
-    if (!timeRange || timeRange.span === 0) return 0;
-    return ((timestamp - timeRange.minTime) / timeRange.span) * 100;
-  };
+  const {
+    selectedExemplar,
+    sortedExemplars,
+    timeRange,
+    handleSelect,
+    getPositionPercent
+  } = useExemplarTimeline(exemplars, onExemplarClick);
 
   return (
     <div className={styles.container}>
@@ -79,7 +62,7 @@ export const ExemplarsZone: React.FC<ExemplarsZoneProps> = ({
                   key={`${exemplar.timeUnixNano}-${index}`}
                   className={`${styles.dot} ${isSelected ? styles.selected : ''}`}
                   style={{ left: `${position}%` }}
-                  onClick={() => handleExemplarSelect(exemplar)}
+                  onClick={() => handleSelect(exemplar)}
                   title={`Value: ${exemplar.value}, Time: ${formatters.timestamp(exemplar.timeUnixNano)}`}
                 />
               );

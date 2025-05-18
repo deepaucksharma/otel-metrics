@@ -1,7 +1,8 @@
-import React, { useState, useCallback, useMemo } from 'react';
+import React from 'react';
 import { CopyButton } from '@/ui/atoms/CopyButton';
 import type { ParsedPoint, AttrMap } from '@/contracts/types';
 import styles from './RawJsonZone.module.css';
+import { useRawJson } from './useRawJson';
 
 /**
  * Collapsible JSON view of raw metric data with copy capabilities.
@@ -55,59 +56,20 @@ export const RawJsonZone: React.FC<RawJsonZoneProps> = ({
   metricAttrs,
   initialCollapsed = true,
 }) => {
-  const [isCollapsed, setIsCollapsed] = useState(initialCollapsed);
-  const [showFullContext, setShowFullContext] = useState(false);
-
-  const toggleCollapse = useCallback(() => {
-    setIsCollapsed((prev) => !prev);
-  }, []);
-
-  const toggleFullContext = useCallback(() => {
-    setShowFullContext((prev) => !prev);
-  }, []);
-
-  const pointJson = useMemo(() => {
-    const data = {
-      metricName,
-      point: {
-        ...point,
-        attributes: { ...metricAttrs },
-      },
-    };
-    return JSON.stringify(data, null, 2);
-  }, [metricName, point, metricAttrs]);
-
-  const fullJson = useMemo(() => {
-    const data = {
-      resource: { attributes: { ...resourceAttrs } },
-      scopeMetrics: [
-        {
-          scope: { name: 'unknown.scope', attributes: {} },
-          metrics: [
-            {
-              name: metricName,
-              type: (point as any).bucketCounts ? 'HISTOGRAM' : 'GAUGE',
-              dataPoints: [
-                {
-                  ...point,
-                  attributes: { ...metricAttrs },
-                },
-              ],
-            },
-          ],
-        },
-      ],
-    };
-    return JSON.stringify(data, null, 2);
-  }, [metricName, point, resourceAttrs, metricAttrs]);
-
-  const displayJson = showFullContext ? fullJson : pointJson;
-
-  const handleCopy = useCallback(() => {
-    return displayJson;
-  }, [displayJson]);
-
-  const getCopyValue = useCallback(() => handleCopy(), [handleCopy]);
+  const {
+    isCollapsed,
+    toggleCollapse,
+    showFullContext,
+    toggleFullContext,
+    displayJson,
+    getCopyValue,
+  } = useRawJson(
+    metricName,
+    point,
+    resourceAttrs,
+    metricAttrs,
+    initialCollapsed
+  );
 
   if (isCollapsed) {
     return (

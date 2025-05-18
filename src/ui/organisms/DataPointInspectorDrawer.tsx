@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useMemo, useEffect, useRef } from 'react';
+import React, { useMemo, useRef } from 'react';
 import type { InspectorProps } from '@/contracts/types';
 import { InspectorHeader } from './InspectorHeader';
 import { ValueZone } from './ValueZone';
@@ -7,6 +7,7 @@ import { AttributeZone } from './AttributeZone';
 import { ExemplarsZone } from './ExemplarsZone';
 import { RawJsonZone } from './RawJsonZone';
 import { useFocusTrap } from '@/hooks/useFocusTrap';
+import { useDrawerInteractions } from './useDrawerInteractions';
 import styles from './DataPointInspectorDrawer.module.css';
 
 /**
@@ -56,30 +57,13 @@ export const DataPointInspectorDrawer: React.FC<DataPointInspectorDrawerProps> =
   className,
   positionRight = true,
 }) => {
-  const [focusedAttrKey, setFocusedAttrKey] = useState<string | null>(null);
-  const [droppedKey, setDroppedKey] = useState<string | null>(null);
   const drawerRef = useRef<HTMLDivElement>(null);
-
-  const handleToggleDrop = useCallback(
-    (attrKey: string, nextState: boolean) => {
-      if (onSimulateDrop) {
-        onSimulateDrop(attrKey, nextState);
-      }
-      setDroppedKey(nextState ? attrKey : null);
-    },
-    [onSimulateDrop]
-  );
-
-  // Close on ESC key
-  useEffect(() => {
-    const handler = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        onClose();
-      }
-    };
-    document.addEventListener('keydown', handler);
-    return () => document.removeEventListener('keydown', handler);
-  }, [onClose]);
+  const {
+    focusedAttrKey,
+    setFocusedAttrKey,
+    droppedKey,
+    handleToggleDrop
+  } = useDrawerInteractions(onClose, onSimulateDrop);
 
   // Trap focus inside drawer while mounted
   useFocusTrap(drawerRef);
