@@ -16,6 +16,7 @@ pnpm i          # install deps
 pnpm dev        # Vite + HMR
 pnpm storybook  # component catalog
 pnpm test:unit  # Jest/Vitest
+pnpm typecheck  # TypeScript compile check
 pnpm lint
 pnpm generate:tokens  # update design-tokens.ts from tokens.css
 ```
