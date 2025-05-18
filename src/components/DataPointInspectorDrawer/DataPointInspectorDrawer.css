@@ -1,0 +1,355 @@
+/* DataPointInspectorDrawer.css */
+
+:root {
+  --ringGrey: #3A3A3A;
+  --ringAmber: #FFB703;
+  --ringRed: #F44336;
+  --rarityLo: #6BCB77;
+  --rarityMid: #FFB703;
+  --rarityHi: #F44336;
+  --metricBlue: #1B78FF;
+  --bgHover: rgba(255, 255, 255, 0.04);
+}
+
+.data-point-inspector-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100vh;
+  width: 660px;
+  background-color: #1E1E1E;
+  color: #FFFFFF;
+  box-shadow: -2px 0 10px rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+/* Animation for drawer entry */
+@keyframes slideIn {
+  from {
+    transform: translateX(660px);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.data-point-inspector-drawer {
+  animation: slideIn 0.3s ease-out;
+}
+
+/* Zones general styling */
+.drawer-zone {
+  padding: 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Header styling */
+.drawer-header {
+  display: flex;
+  align-items: center;
+  padding: 16px;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.drawer-header h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  flex-grow: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.drawer-header .unit {
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  background-color: rgba(255, 255, 255, 0.1);
+  margin-left: 8px;
+}
+
+.drawer-header .back-button {
+  margin-right: 8px;
+  cursor: pointer;
+  color: #CCCCCC;
+}
+
+.drawer-header .close-button {
+  margin-left: 8px;
+  cursor: pointer;
+  color: #CCCCCC;
+}
+
+.semantic-strip {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.semantic-pill {
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  background-color: rgba(27, 120, 255, 0.2);
+  color: var(--metricBlue);
+}
+
+/* Value Zone styling */
+.value-zone {
+  padding: 24px 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.radial-gauge {
+  position: relative;
+  width: 180px;
+  height: 180px;
+}
+
+.counter-card {
+  text-align: center;
+}
+
+.counter-card .value {
+  font-size: 48px;
+  font-family: monospace;
+  font-weight: 600;
+}
+
+.counter-card .label {
+  font-size: 12px;
+  color: #AAAAAA;
+  margin-top: 4px;
+}
+
+.mini-distribution {
+  width: 220px;
+  height: 60px;
+}
+
+/* Attribute Zone styling */
+.attribute-zone {
+  flex-grow: 1;
+  overflow-y: auto;
+}
+
+.attribute-list {
+  display: grid;
+  grid-template-columns: minmax(120px, 30%) 1fr;
+  gap: 4px;
+}
+
+.attribute-row {
+  display: contents;
+}
+
+.attribute-row:hover {
+  background-color: var(--bgHover);
+}
+
+.attribute-row.focused {
+  background-color: rgba(27, 120, 255, 0.1);
+}
+
+.attribute-key {
+  padding: 6px 12px;
+  color: #C0C0C0;
+  font-family: monospace;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.attribute-value {
+  padding: 6px 12px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.attribute-actions {
+  display: none;
+  gap: 8px;
+}
+
+.attribute-row:hover .attribute-actions {
+  display: flex;
+}
+
+.rarity-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.rarity-low {
+  background-color: var(--rarityLo);
+}
+
+.rarity-mid {
+  background-color: var(--rarityMid);
+}
+
+.rarity-high {
+  background-color: var(--rarityHi);
+}
+
+/* Cardinality Capsule styling */
+.cardinality-capsule {
+  padding: 16px;
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.c-ring-container {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.c-ring {
+  width: 40px;
+  height: 40px;
+}
+
+.series-math-chip {
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.series-math-term {
+  padding: 0 4px;
+  border-radius: 4px;
+}
+
+.series-math-term:hover {
+  background-color: rgba(27, 120, 255, 0.2);
+}
+
+.b-mini-bars {
+  margin-top: 12px;
+  padding: 0;
+  list-style: none;
+}
+
+.b-mini-bar-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.b-mini-bar-label {
+  width: 120px;
+  font-size: 12px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.b-mini-bar-track {
+  flex-grow: 1;
+  height: 8px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.b-mini-bar-fill {
+  height: 100%;
+  background-color: var(--metricBlue);
+  border-radius: 4px;
+}
+
+.simulate-drop {
+  margin-top: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Exemplars Zone styling */
+.exemplars-zone {
+  padding: 16px;
+}
+
+.exemplars-header {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.exemplars-timeline {
+  position: relative;
+  height: 60px;
+  background-color: rgba(255, 255, 255, 0.05);
+  border-radius: 4px;
+}
+
+.exemplar-dot {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: var(--metricBlue);
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+}
+
+/* Raw JSON Zone styling */
+.raw-json-zone {
+  padding: 0;
+}
+
+.raw-json-summary {
+  padding: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.raw-json-content {
+  padding: 16px;
+  font-family: monospace;
+  white-space: pre-wrap;
+  background-color: #121212;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.raw-json-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  padding: 8px 16px;
+  background-color: #121212;
+}
+
+/* Animations for simulation mode */
+@keyframes pulse {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.simulate-mode .c-ring circle {
+  animation: pulse 1.5s infinite;
+}
