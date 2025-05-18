@@ -30,15 +30,15 @@ export function registerEventListeners(): () => void {
   const uiActions = useUiSlice.getState();
 
   // Data events
-  eventBus.on('data.snapshot.parsed', (payload: EventMap['data.snapshot.parsed']) => {
+  eventBus.on('data.snapshot.loaded', (payload: EventMap['data.snapshot.loaded']) => {
     metricsActions.addSnapshot(payload.snapshot);
   });
 
-  eventBus.on('data.snapshot.error', (payload: EventMap['data.snapshot.error']) => {
-    metricsActions.registerError(payload.fileName, payload.error);
+  eventBus.on('data.error', (payload: EventMap['data.error']) => {
+    metricsActions.registerError(payload.message);
   });
 
-  eventBus.on('data.snapshot.load.start', (payload: EventMap['data.snapshot.load.start']) => {
+  eventBus.on('data.snapshot.loading', (payload: EventMap['data.snapshot.loading']) => {
     metricsActions.markLoading(payload.fileName);
   });
 
@@ -59,6 +59,14 @@ export function registerEventListeners(): () => void {
     uiActions.setActiveSnapshot(payload.snapshotId);
     uiActions.inspectMetric(payload.metricName);
   });
+
+  // Cardinality simulation toggle
+  eventBus.on(
+    'ui.cardinality.simulateDrop',
+    (payload: EventMap['ui.cardinality.simulateDrop']) => {
+      uiActions.toggleSimDrop(payload.key, payload.drop);
+    }
+  );
 
   // Return cleanup function to detach all listeners
   return () => {
