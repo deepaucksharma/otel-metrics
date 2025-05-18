@@ -1,4 +1,5 @@
 :root {
+  /* Background colors */
   --surfaceBg: #1e1e1e;
   --surfaceBgHover: #252525;
   --surfaceBgActive: #2d2d2d;
@@ -14,6 +15,7 @@
   --codeBg: #1a1a1a;
   --jsonBg: #161616;
 
+  /* Text colors */
   --textPrimary: #e0e0e0;
   --textSecondary: #b0b0b0;
   --textTertiary: #888888;
@@ -27,12 +29,14 @@
   --attrKeyColor: #9cdcfe;
   --attrValueColor: #e0e0e0;
 
+  /* Border colors */
   --borderColor: #333333;
   --borderColorLight: #444444;
   --borderColorFocus: #0078d4;
   --dividerColor: #333333;
   --sectionDivider: #3a3a3a;
 
+  /* Indicator colors */
   --statusSuccess: #2ecc71;
   --statusWarning: #f39c12;
   --statusError: #e74c3c;
@@ -46,12 +50,12 @@
   --buttonActive: #005a9e;
   --buttonDisabled: #333333;
 
+  /* Visualization */
   --chipBgColor: rgba(30, 30, 30, 0.7);
   --chipHoverBgColor: rgba(40, 40, 40, 0.8);
   --chipOperatorColor: #888888;
   --chipCountColor: #aaaaaa;
   --chipEqualsColor: #e0e0e0;
-  --gaugeDefaultColor: #0066CC;
   --exemplarDotDefault: #666666;
   --exemplarDotSelected: #f39c12;
   --exemplarAxisColor: #444444;
@@ -62,12 +66,7 @@
   --rarityHigh: #e74c3c;
   --simulationBg: rgba(0, 120, 212, 0.1);
 
-  --instrumentGaugeBg: #3498db;
-  --instrumentSumBg: #2ecc71;
-  --instrumentHistogramBg: #f39c12;
-  --instrumentSummaryBg: #9b59b6;
-  --instrumentUnknownBg: #666666;
-
+  /* Spacing */
   --spaceXS: 4px;
   --spaceS: 8px;
   --spaceM: 16px;
@@ -75,12 +74,7 @@
   --spaceXL: 32px;
   --space2XL: 48px;
 
-  --cardPadding: var(--spaceM);
-  --headerPadding: var(--spaceM);
-  --sectionGap: var(--spaceL);
-  --gridGap: var(--spaceXS);
-  --inputPadding: var(--spaceS);
-
+  /* Typography */
   --systemFont: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   --monoFont: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
   --fontXS: 11px;
@@ -97,6 +91,7 @@
   --fontWeightSemibold: 600;
   --fontWeightBold: 700;
 
+  /* Layout */
   --radiusXS: 2px;
   --radiusS: 4px;
   --radiusM: 6px;
@@ -119,6 +114,7 @@
   --buttonHeight: 32px;
   --iconSize: 18px;
 
+  /* Animation */
   --durationXS: 100ms;
   --durationS: 150ms;
   --durationM: 250ms;
@@ -131,37 +127,16 @@
   --transitionExpand: all var(--durationM) var(--easingDecelerate);
   --transitionFade: opacity var(--durationS) var(--easingStandard);
 
-  --inspectorHeaderBg: var(--headerBg);
-  --inspectorHeaderHeight: var(--headerHeight);
-  --inspectorHeaderTitleColor: var(--headingText);
-  --inspectorHeaderDescColor: var(--textSecondary);
-  --closeButtonColor: var(--textTertiary);
-  --closeButtonHoverColor: var(--textPrimary);
-  --closeButtonHoverBg: rgba(255, 255, 255, 0.1);
-
-  --attrZoneBg: var(--cardBg);
-  --attrZoneTitleColor: var(--textPrimary);
-  --attrZoneSectionTitleColor: var(--textSecondary);
+  /* Component specific */
   --attrRowBg: transparent;
   --attrRowHoverBg: var(--surfaceBgHover);
   --attrRowFocusBg: var(--highlightBg);
   --attrRowBorderFocus: rgba(255, 200, 0, 0.5);
-
-  --cardinalityCapsuleBg: var(--cardBg);
-  --cardinalityHeaderColor: var(--textPrimary);
-  --miniBarRowHoverBg: var(--surfaceBgHover);
-  --miniBarRowFocusBg: var(--focusHighlightBg);
-  --simulationSectionBg: var(--simulationBg);
-  --checkboxLabelColor: var(--textPrimary);
-  --focusedAttrColor: var(--statusSuccess);
-
-  --rawJsonHeaderBg: var(--headerBg);
-  --rawJsonContentBg: var(--codeBg);
-  --rawJsonSyntaxKeyColor: #9cdcfe;
-  --rawJsonSyntaxStringColor: #ce9178;
-  --rawJsonSyntaxNumberColor: #b5cea8;
-  --rawJsonSyntaxBooleanColor: #569cd6;
-  --rawJsonSyntaxNullColor: #569cd6;
-  --jsonExpandButtonColor: var(--textSecondary);
-  --jsonExpandButtonHoverColor: var(--textPrimary);
+  --hoverBg: var(--surfaceBgHover);
+  --focusBg: var(--focusHighlightBg);
+  --highlightBgColor: var(--highlightBg);
+  --highlightColor: var(--statusSuccess);
+  --iconGrey: var(--textTertiary);
+  --iconHover: var(--textPrimary);
+  --barTrack: var(--miniBarBg);
 }
