@@ -52,6 +52,10 @@
   --chipCountColor: #aaaaaa;
   --chipEqualsColor: #e0e0e0;
   --gaugeDefaultColor: #0066CC;
+  --histogramBarColor: #0078d4;
+  --histogramHighlightColor: #f39c12;
+  --referenceLineColor: #ffffff;
+  --axisLabelColor: var(--textSecondary);
   --exemplarDotDefault: #666666;
   --exemplarDotSelected: #f39c12;
   --exemplarAxisColor: #444444;
@@ -146,6 +150,13 @@
   --attrRowHoverBg: var(--surfaceBgHover);
   --attrRowFocusBg: var(--highlightBg);
   --attrRowBorderFocus: rgba(255, 200, 0, 0.5);
+  --hoverBg: var(--surfaceBgHover);
+  --focusBg: var(--focusHighlightBg);
+  --highlightBgColor: var(--highlightBg);
+  --highlightColor: var(--statusSuccess);
+  --iconGrey: var(--textTertiary);
+  --iconHover: var(--textPrimary);
+  --barTrack: var(--miniBarBg);
 
   --cardinalityCapsuleBg: var(--cardBg);
   --cardinalityHeaderColor: var(--textPrimary);
