@@ -1,0 +1,127 @@
+.container {
+  background-color: var(--cardBg);
+  border-radius: 6px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.ringContainer {
+  position: relative;
+  width: 36px;
+  height: 36px;
+}
+
+.seriesCount {
+  font-size: 14px;
+  color: var(--textSecondary);
+}
+
+.count {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--textPrimary);
+}
+
+.mathChip {
+  align-self: flex-start;
+}
+
+.contributorsSection {
+  margin-top: 8px;
+}
+
+.sectionTitle {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--textSecondary);
+  margin-bottom: 8px;
+  text-transform: uppercase;
+}
+
+.miniBars {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.miniBarRow {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  align-items: center;
+  padding: 4px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+}
+
+.miniBarRow:hover {
+  background-color: var(--hoverBg);
+}
+
+.focused {
+  background-color: var(--focusBg);
+}
+
+.attrName {
+  font-size: 13px;
+  color: var(--textPrimary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.barContainer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.barValue {
+  font-size: 13px;
+  color: var(--textSecondary);
+  min-width: 36px;
+  text-align: right;
+}
+
+.simulationSection {
+  margin-top: 8px;
+  padding: 12px;
+  background-color: var(--simulationBg);
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.checkboxLabel {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: var(--textPrimary);
+  cursor: pointer;
+}
+
+.checkbox {
+  height: 16px;
+  width: 16px;
+}
+
+.focusedAttr {
+  font-weight: 500;
+  color: var(--highlightColor);
+}
+
+.simulationResult {
+  font-size: 14px;
+  color: var(--textSecondary);
+  margin-left: 24px;
+}
