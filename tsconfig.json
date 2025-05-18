@@ -1,15 +1,20 @@
-{
-  "extends": "./tsconfig.base.json",
-  "compilerOptions": {
-    "jsx": "react-jsx",
-    "strict": true,
-    "noEmit": false,
-    "skipLibCheck": false,
-    "baseUrl": "./src",
-    "paths": {
-      "@/*": ["./*"]
-    }
-  },
-  "include": ["src", "tests"],
-  "exclude": ["node_modules", "dist"]
-}
+{  
+  "compilerOptions": {  
+    "target": "ESNext",  
+    "module": "ESNext",  
+    "jsx": "react-jsx",  
+    "strict": true,  
+    "moduleResolution": "Node",  
+    "esModuleInterop": true,  
+    "skipLibCheck": true,  
+    "forceConsistentCasingInFileNames": true,  
+    "noEmit": false,  
+    "baseUrl": "./src",  
+    "paths": {  
+      "@/*": ["./*"]  
+    },  
+    "types": ["node"]  
+  },  
+  "include": ["src", "tests", "vite.config.js"],  
+  "exclude": ["node_modules", "dist"]  
+} 
