@@ -70,6 +70,7 @@ export const visualizationSpecificColorsTokens = {
   chipOperatorColor: "#888888",
   chipCountColor: "#aaaaaa",
   chipEqualsColor: "#e0e0e0",
+  gaugeDefaultColor: "#0066CC",
   exemplarDotDefault: "#666666",
   exemplarDotSelected: "#f39c12",
   exemplarAxisColor: "#444444",
