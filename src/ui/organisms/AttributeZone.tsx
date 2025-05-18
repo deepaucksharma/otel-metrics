@@ -64,8 +64,22 @@ export const AttributeZone: React.FC<AttributeZoneProps> = ({
       const handleClick = () => {
         onFocusAttr(focusedAttrKey === key ? null : key);
       };
+      const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          handleClick();
+        }
+      };
       return (
-        <div ref={ref} key={key} style={style} onClick={handleClick}>
+        <div
+          ref={ref}
+          key={key}
+          style={style}
+          onClick={handleClick}
+          role="button"
+          tabIndex={0}
+          onKeyDown={handleKeyDown}
+        >
           <AttributeRow
             attrKey={key}
             attrValue={value}
