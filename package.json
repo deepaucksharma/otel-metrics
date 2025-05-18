@@ -15,7 +15,8 @@
     "test:e2e": "playwright test",
     "build:storybook": "storybook build",
     "docs:mkdocs": "mkdocs build",
-    "release": "semantic-release"
+    "release": "semantic-release",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "mitt": "^3.0.1",
