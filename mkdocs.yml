@@ -7,3 +7,4 @@ site_dir: site
 nav:
   - Overview: 00-Overview.md
   - Architecture Principles: 01-Architecture-Principles.md
+  - Code Comment Guide: 02-Code-Comment-Guide.md
