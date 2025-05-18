@@ -23,6 +23,10 @@ export interface MetricsSliceState {
   snapshots: Record<string, ParsedSnapshot>;
   /** Ordered list of snapshot ids in insertion order. */
   snapshotOrder: string[];
+  /** File names currently being loaded. */
+  loadingFiles: string[];
+  /** Errors encountered while loading snapshots. */
+  errors: { message: string; detail?: string }[];
 }
 
 /** Actions mutating {@link MetricsSliceState}. */
@@ -33,6 +37,10 @@ export interface MetricsSliceActions {
   removeSnapshot(id: string): void;
   /** Clear all snapshots. */
   clearSnapshots(): void;
+  /** Mark a file name as currently loading. */
+  markLoading(fileName: string): void;
+  /** Register a loading or parsing error. */
+  registerError(message: string, detail?: string): void;
 }
 
 /** Zustand store containing metrics data and actions. */
@@ -40,6 +48,8 @@ export const useMetricsSlice = create<MetricsSliceState & MetricsSliceActions>()
   immer((set) => ({
     snapshots: {},
     snapshotOrder: [],
+    loadingFiles: [],
+    errors: [],
 
     addSnapshot: (snap) =>
       set((state) => {
@@ -59,6 +69,21 @@ export const useMetricsSlice = create<MetricsSliceState & MetricsSliceActions>()
       set((state) => {
         state.snapshots = {};
         state.snapshotOrder = [];
+        state.loadingFiles = [];
+        state.errors = [];
+      }),
+
+    markLoading: (fileName) =>
+      set((state) => {
+        if (!state.loadingFiles.includes(fileName)) {
+          state.loadingFiles.push(fileName);
+        }
+      }),
+
+    registerError: (message, detail) =>
+      set((state) => {
+        state.errors.push({ message, detail });
+        state.loadingFiles = [];
       }),
   }))
 );

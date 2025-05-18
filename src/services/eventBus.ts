@@ -1,5 +1,5 @@
 import mitt from 'mitt';
-import type { ParsedSnapshot } from '@/contracts/types';
+import type { ParsedSnapshot, SeriesKey } from '@/contracts/types';
 
 /**
  * Map of all events that can be emitted on the global {@link bus} instance.
@@ -34,14 +34,23 @@ export type EventMap = {
   'data.snapshot.progress': { snapshotId: string; progress: number };
 
   /**
-   * A metric widget is requesting to inspect a specific metric.
+   * Request to open the inspector focused on a specific metric and data point.
    */
-  'ui.metric.inspectRequest': { metricName: string; snapshotId: string };
-
+  'ui.inspector.open': {
+    snapshotId: string;
+    metricName: string;
+    seriesKey: SeriesKey;
+    pointId: number;
+  };
+  'ui.inspector.close': void;
   /**
-   * Open the data point inspector drawer.
+   * Focus on the given metric in the active snapshot.
    */
-  'ui.inspector.openRequest': void;
+  'ui.metric.inspect': { snapshotId: string; metricName: string };
+  /**
+   * Toggle attribute drop simulation for cardinality analysis.
+   */
+  'ui.cardinality.simulateDrop': { key: string; drop: boolean };
 
   /**
    * Clear all application state.
