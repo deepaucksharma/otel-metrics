@@ -5,7 +5,6 @@
  * - Stores IDs for active/baseline/comparison snapshots
  * - Tracks metric, series and point currently inspected
  * - Controls inspector drawer visibility and dashboard filter
- * - Maintains drop simulation state for cardinality analysis
  *
  * @dependencies Zustand with immer middleware
  * @packageDocumentation
@@ -27,10 +26,6 @@ export interface UiSliceState {
 
   isInspectorOpen: boolean;
   dashboardFilter: string;
-  dropSimulation?: {
-    attributeKey: string | null;
-    isActive: boolean;
-  };
 }
 
 /** Actions to mutate UI slice state. */
@@ -46,7 +41,6 @@ export interface UiSliceActions {
   closeInspector(): void;
 
   setDashboardFilter(text: string): void;
-  toggleSimDrop(key: string, drop: boolean): void;
 
   resetUi(): void;
 }
@@ -64,7 +58,6 @@ export const useUiSlice = create<UiSliceState & UiSliceActions>()(
 
     isInspectorOpen: false,
     dashboardFilter: '',
-    dropSimulation: undefined,
 
     setActiveSnapshot: id => set(s => { s.activeSnapshotId = id; }),
     setSnapshotRoleA: id => set(s => { s.snapshotAId = id; }),
@@ -80,13 +73,6 @@ export const useUiSlice = create<UiSliceState & UiSliceActions>()(
     closeInspector: () => set(s => { s.isInspectorOpen = false; }),
 
     setDashboardFilter: text => set(s => { s.dashboardFilter = text; }),
-    toggleSimDrop: (key, drop) => set(s => {
-      if (drop) {
-        s.dropSimulation = { attributeKey: key, isActive: true };
-      } else if (s.dropSimulation?.attributeKey === key) {
-        s.dropSimulation = undefined;
-      }
-    }),
 
     resetUi: () => set(s => {
       s.activeSnapshotId = null;
@@ -97,7 +83,6 @@ export const useUiSlice = create<UiSliceState & UiSliceActions>()(
       s.inspectedPointId = null;
       s.isInspectorOpen = false;
       s.dashboardFilter = '';
-      s.dropSimulation = undefined;
     })
   }))
 );
@@ -115,8 +100,5 @@ export const selectCurrentInspectionContext = (state: UiSliceState) => ({
   seriesKey: state.inspectedSeriesKey,
   pointId: state.inspectedPointId
 });
-
-/** Selector for active drop simulation settings. */
-export const selectDropSimulation = (state: UiSliceState) => state.dropSimulation;
 
 export default useUiSlice;
