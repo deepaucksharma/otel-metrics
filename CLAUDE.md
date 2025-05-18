@@ -15,6 +15,7 @@ IntelliMetric Explorer / Data-Point Inspector Drawer is a specialized UI compone
 - Raw JSON access with copy functionality
 
 ## Development Commands
+Requires Node.js 18.17 or later. All examples use `pnpm`.
 
 ```bash
 # Install dependencies
