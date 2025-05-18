@@ -24,6 +24,7 @@
 | 7       | **Services (event bus)**  | `src/services` | Contracts                          | UI                                      |
 
 ESLint "no-restricted-paths" enforces these arrows.
+`logic/processing/*` modules may import from `logic/workers/utils/*` when those utilities are small, synchronous, and pure.
 
 ---
 
