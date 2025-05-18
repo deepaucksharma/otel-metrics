@@ -1,7 +1,8 @@
 import React from 'react';
 import clsx from 'clsx';
+import { Gauge, Sigma, BarChart2, List, HelpCircle } from 'lucide-react';
+import type { MetricDefinition } from '@intellimetric/contracts/types';
 import styles from './InstrumentBadge.module.css';
-import type { MetricDefinition } from '@/contracts/types';
 
 export interface InstrumentBadgeProps {
   type: MetricDefinition['instrumentType'];
@@ -9,13 +10,29 @@ export interface InstrumentBadgeProps {
   className?: string;
 }
 
+const icons: Record<MetricDefinition['instrumentType'], React.ElementType> = {
+  Gauge,
+  Sum: Sigma,
+  Histogram: BarChart2,
+  Summary: List,
+  Unknown: HelpCircle,
+};
+
 export const InstrumentBadge: React.FC<InstrumentBadgeProps> = ({
   type,
   size = 'large',
   className,
 }) => {
-  const sizeClass = size === 'small' ? styles.small : styles.large;
+  const Icon = icons[type] ?? HelpCircle;
+  const pixel = size === 'small' ? 16 : 24;
+
   return (
-    <span className={clsx(styles.badge, sizeClass, className)}>{type}</span>
+    <span
+      role="img"
+      aria-label={`${type} instrument`}
+      className={clsx(styles.badge, styles[size], className)}
+    >
+      <Icon size={pixel} strokeWidth={1.8} />
+    </span>
   );
 };

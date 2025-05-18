@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { ExemplarData } from '@/contracts/types';
-import { formatTimestamp, formatDuration } from '@/utils/formatters';
+import { formatters, formatTimestamp } from '@/utils/formatters';
 import { CopyButton } from '@/ui/atoms/CopyButton';
 import styles from './ExemplarsZone.module.css';
 
@@ -112,7 +112,7 @@ export const ExemplarsZone: React.FC<ExemplarsZoneProps> = ({
               {formatTimestamp(selectedExemplar.timeUnixNano, true)}
             </div>
             <div className={styles.value}>
-              value: {formatDuration(selectedExemplar.value)}
+              value: {formatters.int(selectedExemplar.value)}
             </div>
           </div>
 

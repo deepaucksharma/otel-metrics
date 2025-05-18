@@ -1,0 +1,63 @@
+{
+  "root": true,
+  "parserOptions": {
+    "ecmaVersion": "latest",
+    "sourceType": "module"
+  },
+  "rules": {
+    "semi": ["error", "always"]
+  },
+  "overrides": [
+    {
+      "files": ["src/contracts/**/*"],
+      "rules": {
+        "no-restricted-imports": ["error", { "patterns": ["@/*"] }]
+      }
+    },
+    {
+      "files": ["src/data/**/*"],
+      "rules": {
+        "no-restricted-imports": [
+          "error",
+          { "patterns": ["@/state/**", "@/ui/**", "@/logic/processing/**", "@/logic/workers/**", "@/hooks/**", "@/services/**"] }
+        ]
+      }
+    },
+    {
+      "files": ["src/logic/workers/**/*"],
+      "rules": {
+        "no-restricted-imports": ["error", { "patterns": ["@/state/**", "@/ui/**"] }]
+      }
+    },
+    {
+      "files": ["src/logic/processing/**/*"],
+      "rules": {
+        "no-restricted-imports": ["error", { "patterns": ["@/ui/**", "@/data/**", "@/logic/workers/!(utils)/**", "@/services/**"] }]
+      }
+    },
+    {
+      "files": ["src/state/**/*"],
+      "rules": {
+        "no-restricted-imports": ["error", { "patterns": ["@/ui/**"] }]
+      }
+    },
+    {
+      "files": ["src/hooks/**/*"],
+      "rules": {
+        "no-restricted-imports": ["error", { "patterns": ["@/data/**", "@/logic/workers/**"] }]
+      }
+    },
+    {
+      "files": ["src/ui/**/*"],
+      "rules": {
+        "no-restricted-imports": ["error", { "patterns": ["@/data/**", "@/logic/workers/**", "@/logic/processing/**"] }]
+      }
+    },
+    {
+      "files": ["src/services/**/*"],
+      "rules": {
+        "no-restricted-imports": ["error", { "patterns": ["@/ui/**"] }]
+      }
+    }
+  ]
+}

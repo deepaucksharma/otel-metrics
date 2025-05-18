@@ -1,5 +1,5 @@
 import mitt from 'mitt';
-import type { ParsedSnapshot } from '@/contracts/types';
+import type { ParsedSnapshot } from '@intellimetric/contracts/types';
 
 /**
  * Map of all events that can be emitted on the global {@link bus} instance.
@@ -66,4 +66,3 @@ export const bus = mitt<EventMap>();
  * The type of the exported {@link bus} instance.
  */
 export type EventBus = typeof bus;
-
