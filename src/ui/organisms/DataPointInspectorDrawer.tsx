@@ -51,7 +51,6 @@ export const DataPointInspectorDrawer: React.FC<DataPointInspectorDrawerProps> =
   cardinality,
   exemplars,
   onClose,
-  onAddGlobalFilter,
   onSimulateDrop,
   metricLatestNValues,
   className,
@@ -91,19 +90,15 @@ export const DataPointInspectorDrawer: React.FC<DataPointInspectorDrawerProps> =
         resourceAttrs={resourceAttrs}
         metricAttrs={metricAttrs}
         attrUniq={cardinality.attrUniq}
-        seriesCount={cardinality.seriesCount}
         focusedAttrKey={focusedAttrKey}
         onFocusAttr={setFocusedAttrKey}
-        onAddGlobalFilter={onAddGlobalFilter}
       />
     ),
     [
       resourceAttrs,
       metricAttrs,
       cardinality.attrUniq,
-      cardinality.seriesCount,
       focusedAttrKey,
-      onAddGlobalFilter,
     ]
   );
 
@@ -166,4 +161,3 @@ export const DataPointInspectorDrawer: React.FC<DataPointInspectorDrawerProps> =
     </div>
   );
 };
-

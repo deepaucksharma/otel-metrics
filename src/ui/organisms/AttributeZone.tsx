@@ -29,12 +29,6 @@ export interface AttributeZoneProps {
 
   /** Callback when attribute focus changes */
   onFocusAttr: (key: string | null) => void;
-
-  /**
-   * Optional callback to set global filter text from the selected
-   * attribute using `key=value` format.
-   */
-  onAddGlobalFilter?: (key: string, value: AttrValue) => void;
 }
 
 
@@ -46,8 +40,7 @@ export const AttributeZone: React.FC<AttributeZoneProps> = ({
   metricAttrs,
   attrUniq,
   focusedAttrKey,
-  onFocusAttr,
-  onAddGlobalFilter
+  onFocusAttr
 }) => {
 
   const renderRow = useCallback(
@@ -65,12 +58,11 @@ export const AttributeZone: React.FC<AttributeZoneProps> = ({
             attrValue={value}
             rarityPercent={rarityPercent}
             isFocused={focusedAttrKey === key}
-            onAddGlobalFilter={onAddGlobalFilter}
           />
         </div>
       );
     },
-    [attrUniq, focusedAttrKey, onAddGlobalFilter, onFocusAttr]
+    [attrUniq, focusedAttrKey, onFocusAttr]
   );
 
   const metricKeys = Object.keys(metricAttrs);
@@ -116,4 +108,3 @@ export const AttributeZone: React.FC<AttributeZoneProps> = ({
     </div>
   );
 };
-
