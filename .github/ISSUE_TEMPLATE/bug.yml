@@ -1,0 +1,19 @@
+name: "🐞 Bug Report"
+labels: ["type:bug", "needs-triage"]
+description: Report something that doesn't work
+body:
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: Clear steps to reproduce, expected vs actual result
+    validations: { required: true }
+  - type: input
+    id: repro-file
+    attributes:
+      label: Snapshot / repro file (link or attach)
+  - type: dropdown
+    id: layer
+    attributes:
+      label: Where does it happen?
+      options: [data, worker, processing, state, hook, ui]

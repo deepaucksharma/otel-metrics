@@ -1,21 +1,23 @@
-# OTEL Metrics
+# IntelliMetric Explorer — Nano-Module OTLP Inspector
 
-This repository documents the architecture and supporting materials for a React-based tool that visualizes OpenTelemetry metrics.
+This repo hosts **IntelliMetric Explorer**, a browser work-bench for
+microscopically analysing a single OTLP snapshot.
 
-## Running Tests
+* **Specs live next to code** (`src/**.md`) and are PR-reviewed.
+* **Nano-module architecture** → every file ≈ 50-150 LoC, single
+  responsibility.
+* **Inspector 1.1** is the current MVP target.
 
-Execute the test suite using npm:
-
-```bash
-npm test
-```
-
-## Building for Production
-
-Generate an optimized build with React Scripts:
+## Quick start
 
 ```bash
-npm run build
+pnpm i          # install deps
+pnpm dev        # Vite + HMR
+pnpm test:unit  # Jest/Vitest
+pnpm lint
 ```
 
-The compiled assets are output to the `build` directory by default.
+## Documentation
+
+The Markdown specs inside `src/` are automatically published to
+https://deepaucksharma.github.io/otel-metrics/ every push to `main`.

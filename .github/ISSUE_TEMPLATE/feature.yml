@@ -1,0 +1,14 @@
+name: "✨ Feature Request"
+labels: ["type:feature"]
+description: Suggest an idea or improvement
+body:
+  - type: textarea
+    id: story
+    attributes:
+      label: User story
+      description: "As an … I want … so that …"
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance criteria
+      description: Bullet-points that define done

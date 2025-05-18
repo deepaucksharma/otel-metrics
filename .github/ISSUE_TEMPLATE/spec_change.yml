@@ -1,0 +1,10 @@
+name: "📄 Spec Amendment"
+labels: ["type:spec"]
+body:
+  - type: textarea
+    attributes:
+      label: Which spec file?
+      placeholder: path/to/file.md + section
+  - type: textarea
+    attributes:
+      label: Proposed change & rationale

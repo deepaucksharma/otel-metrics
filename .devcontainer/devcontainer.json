@@ -1,0 +1,19 @@
+{
+  "name": "intelimetric",
+  "image": "mcr.microsoft.com/vscode/devcontainers/typescript-node:20",
+  "features": {
+    "ghcr.io/devcontainers/features/git-cli": "latest"
+  },
+  "postCreateCommand": "pnpm i && pnpm test:unit",
+  "forwardPorts": [5173],
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode",
+        "eamodio.gitlens",
+        "bierner.markdown-mermaid"
+      ]
+    }
+  }
+}

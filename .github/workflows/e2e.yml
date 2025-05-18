@@ -1,0 +1,16 @@
+name: E2E
+on:
+  schedule:
+    - cron: '0 2 * * *'   # nightly
+  workflow_dispatch:
+
+jobs:
+  playwright:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v2
+        with: { version: 8 }
+      - run: pnpm i --frozen-lockfile
+      - run: pnpm build
+      - run: pnpm test:e2e

@@ -1,0 +1,19 @@
+# Node
+node_modules
+pnpm-lock.yaml
+
+# Build / cache
+dist
+.storybook-static
+.vite
+coverage
+.playwright
+test-results
+
+# IDE
+.vscode
+.idea
+.DS_Store
+
+# Dev-container
+.devcontainer/**/.bash_history

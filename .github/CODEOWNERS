@@ -1,0 +1,11 @@
+# Contracts are sacred
+/src/contracts/                 @core-arch-team
+
+# Worker layer
+/src/logic/workers/             @backend-leads
+
+# UI
+/src/ui/                        @frontend-leads
+
+# CI / workflows
+/.github/workflows/             @devops-leads
