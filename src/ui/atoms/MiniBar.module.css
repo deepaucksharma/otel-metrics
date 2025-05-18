@@ -12,7 +12,7 @@
 }
 
 .label {
-  color: #fff;
+  color: var(--textPrimary);
   font-size: 0.7rem;
   line-height: 1;
   padding-left: 4px;

@@ -25,7 +25,7 @@
 
 .rowFocused {
   background-color: var(--focusHighlightBg);
-  outline: 1px solid var(--focusBorder);
+  outline: 1px solid var(--attrRowBorderFocus);
 }
 
 .actions {

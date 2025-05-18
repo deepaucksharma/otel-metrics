@@ -63,11 +63,11 @@
 }
 
 .miniBarRow:hover {
-  background-color: var(--hoverBg);
+  background-color: var(--miniBarRowHoverBg);
 }
 
 .focused {
-  background-color: var(--focusBg);
+  background-color: var(--miniBarRowFocusBg);
 }
 
 .attrName {
@@ -117,7 +117,7 @@
 
 .focusedAttr {
   font-weight: 500;
-  color: var(--highlightColor);
+  color: var(--focusedAttrColor);
 }
 
 .simulationResult {
