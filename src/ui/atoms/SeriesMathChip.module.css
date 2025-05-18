@@ -1,0 +1,93 @@
+.chip {
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  padding: 6px 10px;
+  border-radius: 16px;
+  background-color: var(--chipBgColor);
+  font-family: var(--monoFont);
+  font-size: 13px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+  transition: background-color 150ms ease;
+}
+
+.chip:hover {
+  background-color: var(--chipHoverBgColor);
+}
+
+.attrPair {
+  padding: 2px 4px;
+  border-radius: 3px;
+  transition: background-color 150ms ease;
+}
+
+.operator {
+  margin: 0 4px;
+  color: var(--chipOperatorColor);
+  user-select: none;
+}
+
+.equals {
+  margin-left: 6px;
+  font-weight: 500;
+  color: var(--chipEqualsColor);
+  user-select: none;
+}
+
+.highlight {
+  background-color: var(--highlightBgColor);
+  border-radius: 4px;
+  padding: 2px 4px;
+}
+
+.count {
+  color: var(--chipCountColor);
+  margin-left: 2px;
+  user-select: none;
+}
+
+.compact {
+  padding: 4px 8px;
+  font-size: 12px;
+  max-width: 200px;
+}
+
+.expanded {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 8px 12px;
+  white-space: normal;
+}
+
+.expanded .row {
+  display: flex;
+  align-items: center;
+  line-height: 1.6;
+  padding: 2px 0;
+  transition: background-color 150ms ease;
+}
+
+.expanded .attrKey {
+  margin-right: 4px;
+}
+
+.expanded .highlight {
+  width: 100%;
+}
+
+.expanded .operator {
+  width: 14px;
+  text-align: center;
+  margin-right: 6px;
+}
+
+.expanded .equals {
+  margin-top: 4px;
+  margin-left: 14px;
+  font-weight: 600;
+}
