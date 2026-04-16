@@ -1,212 +1,259 @@
 # Medusa Subscriptions + Authorize.Net Architecture
 
-This version is a code-driven big-picture view of how the project actually works today.
+This project is easier to understand as a small set of focused diagrams instead of one large one.
 
-The most important architectural ideas are:
+The big ideas are:
 
-- Medusa is the host platform and source of core commerce primitives.
-- Subscription tiers are modeled as Medusa `customer groups` with tier metadata.
-- Add-on credit packs are modeled as Medusa `products` with add-on metadata.
-- Custom business state lives in three domain modules: `subscription`, `credit`, and `billing`.
-- Authorize.Net is used as a direct payment adapter module, not as a Medusa payment provider.
-- Medusa workflows orchestrate writes, while subscribers and a scheduled job trigger lifecycle automation.
-- Credits are part of the entitlement model, and some credit mutations use row locking to avoid double-spend races.
+- Medusa provides the base commerce platform.
+- Subscription plans are stored as Medusa `customer groups`.
+- Add-on credit packs are stored as Medusa `products`.
+- Custom business logic lives in the `subscription`, `credit`, `billing`, and `authorizenet` modules.
+- Store/Admin routes call workflows and services.
+- Subscribers and a scheduled job automate lifecycle events.
 
 ---
 
-## Big Picture
+## 1. System Context
+
+This shows the outside view: who uses the system and which major parts they touch.
 
 ```mermaid
-graph TB
-    classDef client fill:#f8fafc,stroke:#64748b,color:#0f172a
-    classDef api fill:#e0f2fe,stroke:#0284c7,color:#0c4a6e
-    classDef orchestration fill:#ede9fe,stroke:#7c3aed,color:#4c1d95
-    classDef domain fill:#dcfce7,stroke:#16a34a,color:#14532d
-    classDef core fill:#fef3c7,stroke:#d97706,color:#78350f
-    classDef data fill:#e2e8f0,stroke:#475569,color:#0f172a
-    classDef external fill:#ffedd5,stroke:#ea580c,color:#7c2d12
+flowchart LR
+    CUSTOMER[Customer]
+    ADMIN[Admin]
+    STOREFRONT[Storefront]
+    ADMINUI[Admin Extension]
+    MEDUSA[Medusa App]
+    AUTHJS[Authorize.Net Accept.js]
+    AUTHNET[Authorize.Net Gateway]
 
-    subgraph Clients["Clients and Triggers"]
-        STOREFRONT["Storefront / customer app"]:::client
-        ADMINUI["Medusa admin extension"]:::client
-        ACCEPT["Authorize.Net Accept.js\n(card tokenization)"]:::external
-        EVENTS["Medusa domain events\ncustomer.created\norder.placed"]:::client
-        JOB["Scheduled job\nsubscription-maintenance"]:::client
+    CUSTOMER --> STOREFRONT
+    ADMIN --> ADMINUI
+
+    STOREFRONT --> MEDUSA
+    ADMINUI --> MEDUSA
+
+    STOREFRONT --> AUTHJS
+    AUTHJS --> STOREFRONT
+
+    MEDUSA --> AUTHNET
+```
+
+### Read It As
+
+- Customers use the storefront.
+- Admins use the Medusa admin extension.
+- Both ultimately talk to the Medusa app.
+- Card data is tokenized in the browser with Accept.js.
+- The backend talks directly to Authorize.Net for customer profiles and charges.
+
+---
+
+## 2. Main Building Blocks
+
+This shows how the backend is organized internally.
+
+```mermaid
+flowchart TB
+    subgraph EntryPoints[Entry Points]
+        STOREAPI[Store API Routes]
+        ADMINAPI[Admin API Routes]
+        SUBSCRIBERS[Event Subscribers]
+        JOB[Scheduled Job]
     end
 
-    subgraph Surface["HTTP Surface"]
-        STOREAPI["Store API routes\nsubscriptions\ncredits\nbilling\naddons\nperson access / saved"]:::api
-        ADMINAPI["Admin API routes\nsubscriptions\ncredit balances\nbilling transactions\ne2e helpers"]:::api
+    subgraph Orchestration[Orchestration]
+        WORKFLOWS[Medusa Workflows]
     end
 
-    subgraph Runtime["Application Runtime"]
-        subgraph Orchestration["Orchestration"]
-            WF_CREATE["create-subscription"]:::orchestration
-            WF_UPGRADE["upgrade-subscription"]:::orchestration
-            WF_DOWNGRADE["downgrade-subscription"]:::orchestration
-            WF_CANCEL["cancel-subscription"]:::orchestration
-            WF_REACTIVATE["reactivate-subscription"]:::orchestration
-            WF_PAYMENT["update-payment-method"]:::orchestration
-            WF_CONSUME["consume-credit"]:::orchestration
-            WF_GRANT["grant-addon-credits"]:::orchestration
-            SUB_CUSTOMER["Subscriber:\ncustomer.created"]:::orchestration
-            SUB_ORDER["Subscriber:\norder.placed"]:::orchestration
-        end
-
-        subgraph Domain["Custom Domain Modules"]
-            SUBS["Subscription module\nstatus, billing period,\npayment profile refs,\nretry + downgrade state"]:::domain
-            CREDIT["Credit module\nbalances, person access,\nsaved profiles,\nconcurrency-safe credit mutations"]:::domain
-            BILLING["Billing module\nimmutable transaction ledger"]:::domain
-            AUTHNET["Authorize.Net module\nCIM profiles + charge / void / refund"]:::domain
-        end
-
-        subgraph MedusaCore["Medusa Core Capabilities"]
-            CUSTOMER["Customer module"]:::core
-            GROUPS["Customer groups\nused as subscription tiers"]:::core
-            PRODUCT["Product module\nused for add-on packs"]:::core
-            ORDER["Order module"]:::core
-            QUERY["Query graph + remote links"]:::core
-        end
+    subgraph CustomModules[Custom Modules]
+        SUBS[Subscription Module]
+        CREDIT[Credit Module]
+        BILLING[Billing Module]
+        AUTH[Authorize.Net Module]
     end
 
-    subgraph Storage["Persistence"]
-        DB1[(subscription)]:::data
-        DB2[(credit_balance)]:::data
-        DB3[(person_access)]:::data
-        DB4[(saved_profile)]:::data
-        DB5[(billing_transaction)]:::data
-        DB6[(link tables\ncustomer<->subscription\ncustomer<->credit\ncustomer<->billing)]:::data
+    subgraph MedusaCore[Medusa Core]
+        CUSTOMER[Customer Module]
+        GROUPS[Customer Groups = Plans]
+        PRODUCT[Products = Add-ons]
+        ORDER[Orders]
+        QUERY[Query Graph + Remote Links]
     end
 
-    GATEWAY["Authorize.Net gateway"]:::external
+    subgraph Data[Data]
+        SUBSDB[(subscription)]
+        CREDITDB[(credit_balance\nperson_access\nsaved_profile)]
+        BILLINGDB[(billing_transaction)]
+    end
 
-    STOREFRONT -->|reads / mutates| STOREAPI
-    ADMINUI -->|reads / mutates| ADMINAPI
-    STOREFRONT -->|tokenizes card| ACCEPT
-    ACCEPT -->|opaque_data token| STOREFRONT
-
-    STOREAPI --> WF_CREATE
-    STOREAPI --> WF_UPGRADE
-    STOREAPI --> WF_DOWNGRADE
-    STOREAPI --> WF_CANCEL
-    STOREAPI --> WF_REACTIVATE
-    STOREAPI --> WF_PAYMENT
-    STOREAPI --> WF_CONSUME
-    STOREAPI -->|add-on purchase route can call modules directly| AUTHNET
-    STOREAPI -->|add-on purchase route can call modules directly| CREDIT
-    STOREAPI -->|add-on purchase route can call modules directly| BILLING
-    STOREAPI --> QUERY
-
-    ADMINAPI --> WF_CREATE
-    ADMINAPI --> WF_UPGRADE
-    ADMINAPI --> WF_DOWNGRADE
-    ADMINAPI --> QUERY
-
-    EVENTS --> SUB_CUSTOMER
-    EVENTS --> SUB_ORDER
-    SUB_CUSTOMER --> WF_CREATE
-    SUB_ORDER --> WF_GRANT
+    STOREAPI --> WORKFLOWS
+    ADMINAPI --> WORKFLOWS
+    SUBSCRIBERS --> WORKFLOWS
     JOB --> SUBS
     JOB --> CREDIT
     JOB --> BILLING
-    JOB --> AUTHNET
-    JOB --> QUERY
-    JOB --> GROUPS
+    JOB --> AUTH
 
-    WF_CREATE --> AUTHNET
-    WF_CREATE --> SUBS
-    WF_CREATE --> CREDIT
-    WF_CREATE --> BILLING
-    WF_CREATE --> GROUPS
-    WF_CREATE --> QUERY
+    WORKFLOWS --> SUBS
+    WORKFLOWS --> CREDIT
+    WORKFLOWS --> BILLING
+    WORKFLOWS --> AUTH
+    WORKFLOWS --> QUERY
 
-    WF_UPGRADE --> AUTHNET
-    WF_UPGRADE --> SUBS
-    WF_UPGRADE --> CREDIT
-    WF_UPGRADE --> BILLING
-    WF_UPGRADE --> GROUPS
-    WF_UPGRADE --> QUERY
+    QUERY --> CUSTOMER
+    QUERY --> GROUPS
+    QUERY --> PRODUCT
+    QUERY --> ORDER
 
-    WF_DOWNGRADE --> SUBS
-    WF_CANCEL --> SUBS
-    WF_REACTIVATE --> SUBS
-    WF_PAYMENT --> AUTHNET
-    WF_PAYMENT --> SUBS
-    WF_CONSUME --> CREDIT
-    WF_CONSUME --> QUERY
-    WF_GRANT --> CREDIT
-    WF_GRANT --> BILLING
-    WF_GRANT --> ORDER
-
-    SUBS --> DB1
-    CREDIT --> DB2
-    CREDIT --> DB3
-    CREDIT --> DB4
-    BILLING --> DB5
-    QUERY --> DB6
-
-    QUERY <--> CUSTOMER
-    QUERY <--> GROUPS
-    QUERY <--> PRODUCT
-    QUERY <--> ORDER
-
-    AUTHNET -->|server-to-server API calls| GATEWAY
+    SUBS --> SUBSDB
+    CREDIT --> CREDITDB
+    BILLING --> BILLINGDB
 ```
 
-### Read This Diagram As
+### Read It As
 
-- The storefront and admin extension both enter through custom Medusa API routes.
-- Write-heavy operations usually go through a Medusa workflow.
-- Two automations bypass the UI entirely:
-  - `customer.created` auto-provisions the free tier.
-  - `order.placed` grants add-on credits for qualifying orders.
-- Recurring billing, retry logic, credit resets, and scheduled downgrades are handled by the maintenance job.
-- Custom modules own the subscription/credit/billing state, but they still rely on Medusa core entities such as customers, groups, orders, and products.
+- Requests enter through routes, subscribers, or the maintenance job.
+- Workflows coordinate the main business operations.
+- Custom modules own subscription, credit, billing, and payment adapter logic.
+- Medusa core still owns customers, groups, products, and orders.
+- Remote links connect custom module records back to Medusa customers.
 
 ---
 
-## Lifecycle View
+## 3. Subscription Lifecycle
+
+This focuses only on subscription creation and plan changes.
 
 ```mermaid
-graph LR
-    classDef state fill:#eff6ff,stroke:#2563eb,color:#1e3a8a
-    classDef action fill:#f8fafc,stroke:#64748b,color:#111827
-    classDef pay fill:#ffedd5,stroke:#ea580c,color:#7c2d12
-    classDef data fill:#dcfce7,stroke:#16a34a,color:#14532d
+flowchart LR
+    A[Customer created] --> B[customer.created subscriber]
+    B --> C[Auto-create free subscription]
+    C --> D[Create credit balance]
+    D --> E[Assign free tier customer group]
 
-    A["1. Customer created"]:::action --> B["Auto-assign free tier\nvia customer.created subscriber"]:::action
-    B --> C["Create subscription + credit balance\nlink both to customer\nassign tier group"]:::data
+    F[Customer chooses paid plan] --> G[Store/Admin subscription route]
+    G --> H[create-subscription workflow]
+    H --> I[Create or reuse Authorize.Net profile]
+    I --> J[Charge if paid tier]
+    J --> K[Create subscription record]
+    K --> L[Initialize or reset credits]
+    L --> M[Assign customer group for selected tier]
+    M --> N[Record billing transaction]
 
-    C --> D["2. Customer upgrades or starts paid plan"]:::action
-    D --> E["Accept.js creates opaque token"]:::pay
-    E --> F["create-subscription / upgrade-subscription workflow"]:::action
-    F --> G["Create or reuse Authorize.Net customer profile\ncharge payment profile if needed"]:::pay
-    G --> H["Update subscription payment refs\nrecord billing transaction\nreset or initialize credits"]:::data
+    O[Customer upgrades] --> P[upgrade-subscription workflow]
+    P --> Q[Charge prorated amount if needed]
+    Q --> R[Switch tier group]
+    R --> S[Reset credits]
+    S --> T[Record upgrade billing]
 
-    H --> I["3. Customer consumes previews / reports"]:::action
-    I --> J["consume-credit workflow"]:::action
-    J --> K["Check prior access in billing period\nlock balance row\nconsume credit\nrecord person access"]:::data
+    U[Customer downgrades] --> V[downgrade-subscription workflow]
+    V --> W[Schedule downgrade for period end]
 
-    H --> L["4. Customer buys add-on report credits"]:::action
-    L --> M["Charge existing payment profile"]:::pay
-    M --> N["Grant addon credits\nrecord billing transaction\nvoid/refund on compensation path if needed"]:::data
+    X[Customer cancels] --> Y[cancel-subscription workflow]
+    Y --> Z[Mark subscription canceled / end-of-period access]
 
-    H --> O["5. Renewal window arrives"]:::action
-    O --> P["subscription-maintenance job"]:::action
-    P --> Q["Charge renewal or retry payment\nreset monthly credits\napply scheduled downgrade\ncancel after max retries"]:::data
-
-    Q --> R["6. Customer changes lifecycle state"]:::action
-    R --> S["cancel / reactivate / schedule downgrade / cancel downgrade"]:::action
+    AA[Customer reactivates] --> AB[reactivate-subscription workflow]
+    AB --> AC[Restore active status and billing period]
 ```
+
+### Read It As
+
+- New customers are automatically placed on the free tier.
+- Paid plan creation and upgrades go through workflows.
+- Customer group membership is the source of plan identity and plan limits.
+- Downgrades are scheduled, not applied immediately.
+- Cancel and reactivate are separate lifecycle operations.
 
 ---
 
-## Architectural Notes
+## 4. Credits and Add-Ons
 
-- `customer groups` are the plan catalog and entitlement source. Tier price, slug, and monthly credit limits live in group metadata.
-- `products` are reused for add-on credit packs. Metadata marks which products are add-ons and how many credits they grant.
-- The `subscription` record stores operational subscription state, including period boundaries, retry state, pending downgrade info, and saved Authorize.Net profile IDs.
-- The `credit` module is more than a balance table. It also tracks which people were accessed and which profiles were saved.
-- The add-on purchase route is intentionally more direct than the other write paths: it performs payment, credit mutation, and billing recording without wrapping the whole flow in a Medusa workflow.
-- The current implementation appears to be outbound-only with Authorize.Net. The app calls Authorize.Net directly; there is no inbound webhook route in this codebase.
-- Remote links are important because they connect custom module records back to Medusa `customer` entities without collapsing everything into one module.
+This isolates the entitlement side of the system.
+
+```mermaid
+flowchart LR
+    A[Customer accesses person/profile] --> B[Check existing access]
+    B --> C{Already unlocked?}
+    C -->|Yes| D[Allow access without consuming credit]
+    C -->|No| E[consume-credit workflow]
+    E --> F[Validate available credits]
+    F --> G[Lock credit balance row]
+    G --> H[Consume preview or full-report credit]
+    H --> I[Record person_access]
+    I --> J[Return updated balance]
+
+    K[Customer buys add-on pack] --> L[Add-on purchase route]
+    L --> M[Load add-on product metadata]
+    M --> N[Charge stored Authorize.Net payment profile]
+    N --> O[Grant add-on credits]
+    O --> P[Record billing transaction]
+    O --> Q{Grant failed?}
+    Q -->|Yes| R[Void or refund charge]
+```
+
+### Read It As
+
+- Credits are only consumed if the customer does not already have access.
+- Full reports can permanently unlock a person.
+- Credit consumption uses row locking to reduce double-spend races.
+- Add-on packs increase report credits after a successful charge.
+- The add-on path is more direct than the subscription path and includes compensation logic.
+
+---
+
+## 5. Billing and Automation
+
+This shows recurring billing, retries, and event-driven automation.
+
+```mermaid
+flowchart TB
+    subgraph Events[Event Driven]
+        E1[customer.created] --> E2[Create free subscription + credits]
+        E3[order.placed] --> E4[grant-addon-credits workflow]
+    end
+
+    subgraph Scheduled[Scheduled Maintenance Job]
+        J1[Find active subscriptions at period end]
+        J2[Charge renewal]
+        J3[Record renewal transaction]
+        J4[Reset monthly credits]
+        J5[Advance billing period]
+
+        J6[Find past_due subscriptions ready for retry]
+        J7[Retry payment]
+        J8{Retry success?}
+        J9[Reactivate subscription]
+        J10[Increment retry count]
+        J11{Max retries reached?}
+        J12[Cancel subscription]
+
+        J13[Apply scheduled downgrade if date reached]
+    end
+
+    J1 --> J2 --> J3 --> J4 --> J5
+    J6 --> J7 --> J8
+    J8 -->|Yes| J9
+    J8 -->|No| J10 --> J11
+    J11 -->|Yes| J12
+    J11 -->|No| J13
+    J9 --> J13
+    J5 --> J13
+```
+
+### Read It As
+
+- Two important automations come from events: free-tier provisioning and add-on credit granting.
+- The scheduled job handles renewals, retries, cancellations after repeated payment failure, credit resets, and scheduled downgrades.
+
+---
+
+## Key Modeling Choices
+
+- `customer groups` act as the subscription plan catalog.
+- `products` act as the add-on catalog.
+- `subscription` stores lifecycle state like status, billing period, retries, downgrade scheduling, and saved payment profile references.
+- `credit` stores balances plus access/saved-profile history.
+- `billing` is the transaction ledger.
+- `authorizenet` is a direct outbound integration module, not a standard Medusa payment provider.
+- There is no inbound Authorize.Net webhook flow in the current codebase.
